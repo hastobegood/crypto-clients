@@ -1,0 +1,46 @@
+{
+  "name": "@hastobegood/crypto-clients",
+  "version": "1.0.0",
+  "license": "MIT",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hastobegood/crypto-clients.git"
+  },
+  "engines": {
+    "node": "^14"
+  },
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "clean": "yarn workspaces run clean && rm -rf node_modules",
+    "build": "yarn workspaces run build",
+    "bundle": "yarn workspaces run bundle",
+    "lint": "yarn workspaces run lint",
+    "lint:fix": "yarn workspaces run lint:fix",
+    "lint:report": "yarn workspaces run lint:report",
+    "test": "yarn workspaces run test",
+    "test:coverage": "yarn workspaces run test:coverage",
+    "publish:binance": "yarn workspace @hastobegood/crypto-clients-binance publish"
+  },
+  "devDependencies": {
+    "@types/jest": "^27.0.3",
+    "@types/lodash": "^4.14.178",
+    "@types/node": "^14.18.2",
+    "@types/randomstring": "^1.1.8",
+    "@typescript-eslint/eslint-plugin": "^5.8.0",
+    "@typescript-eslint/parser": "^5.8.0",
+    "eslint": "^8.5.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "jest": "^27.4.5",
+    "jest-sonar-reporter": "^2.0.0",
+    "lodash": "^4.17.21",
+    "prettier": "^2.5.1",
+    "randomstring": "^1.2.1",
+    "ts-jest": "^27.1.2",
+    "ts-node": "^10.4.0",
+    "typescript": "^4.5.4"
+  }
+}

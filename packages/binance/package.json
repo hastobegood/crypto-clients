@@ -1,0 +1,63 @@
+{
+  "name": "@hastobegood/crypto-clients-binance",
+  "version": "0.1.0",
+  "license": "MIT",
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hastobegood/crypto-clients.git",
+    "directory": "packages/binance"
+  },
+  "engines": {
+    "node": "^14"
+  },
+  "type": "module",
+  "main": "lib/cjs/src/index.js",
+  "module": "lib/esm/src/index.js",
+  "exports": {
+    "./api": {
+      "require": "./lib/cjs/src/api/index.js",
+      "import": "./lib/esm/src/api/index.js"
+    },
+    "./exchange-info": {
+      "require": "./lib/cjs/src/exchange-info/index.js",
+      "import": "./lib/esm/src/exchange-info/index.js"
+    }
+  },
+  "types": "lib/esm/src/index.d.ts",
+  "typesVersions": {
+    "*": {
+      "api": [
+        "lib/esm/src/api/index.d.ts"
+      ],
+      "exchange-info": [
+        "lib/esm/src/exchange-info/index.d.ts"
+      ]
+    }
+  },
+  "scripts": {
+    "clean": "rm -rf out lib reports",
+    "build": "yarn build:esm && yarn build:cjs",
+    "build:esm": "yarn tsc",
+    "build:cjs": "yarn tsc -p tsconfig-cjs.json && echo '{\"type\": \"commonjs\"}' > lib/cjs/package.json",
+    "bundle": " ",
+    "test": "yarn jest",
+    "test:coverage": "yarn jest --collectCoverage",
+    "lint": "yarn eslint . --ext .ts",
+    "lint:fix": "yarn eslint . --ext .ts --fix",
+    "lint:report": "yarn eslint . --ext .ts --format json -o reports/eslint-report.json "
+  },
+  "dependencies": {
+    "axios": "^0.24.0"
+  },
+  "files": [
+    "lib/cjs/src",
+    "lib/cjs/package.json",
+    "lib/esm/src"
+  ],
+  "jestSonar": {
+    "reportPath": "reports"
+  }
+}
