@@ -1,16 +1,16 @@
-import { randomBoolean, randomNumber, randomString, randomSymbol } from '../random-test-builder';
-import { BinanceExchangeInfo, BinanceExchangeInfoRateLimit, BinanceExchangeInfoSymbol, BinanceExchangeInfoSymbolFilter } from '../../../src';
+import { randomBoolean, randomNumber, randomString, randomSymbol } from '../random-test-builder.js';
+import { GetExchangeInfoOutput, GetExchangeInfoOutputRateLimit, GetExchangeInfoOutputSymbol, GetExchangeInfoOutputSymbolFilter } from '../../../src/exchange-info/exchange-info.js';
 
-export const buildDefaultBinanceExchangeInfo = (): BinanceExchangeInfo => {
+export const buildDefaultGetExchangeInfoOutput = (): GetExchangeInfoOutput => {
   return {
     timezone: 'UTC',
     serverTime: new Date().valueOf(),
-    rateLimits: [buildDefaultBinanceExchangeInfoRateLimit(), buildDefaultBinanceExchangeInfoRateLimit()],
-    symbols: [buildDefaultBinanceExchangeInfoSymbol()],
+    rateLimits: [buildDefaultGetExchangeInfoOutputRateLimit(), buildDefaultGetExchangeInfoOutputRateLimit()],
+    symbols: [buildDefaultGetExchangeInfoOutputSymbol()],
   };
 };
 
-export const buildDefaultBinanceExchangeInfoRateLimit = (): BinanceExchangeInfoRateLimit => {
+export const buildDefaultGetExchangeInfoOutputRateLimit = (): GetExchangeInfoOutputRateLimit => {
   return {
     rateLimitType: randomString(5),
     interval: randomString(5),
@@ -19,7 +19,7 @@ export const buildDefaultBinanceExchangeInfoRateLimit = (): BinanceExchangeInfoR
   };
 };
 
-export const buildDefaultBinanceExchangeInfoSymbol = (): BinanceExchangeInfoSymbol => {
+export const buildDefaultGetExchangeInfoOutputSymbol = (): GetExchangeInfoOutputSymbol => {
   return {
     symbol: randomSymbol(),
     status: randomString(5),
@@ -35,12 +35,12 @@ export const buildDefaultBinanceExchangeInfoSymbol = (): BinanceExchangeInfoSymb
     quoteOrderQtyMarketAllowed: randomBoolean(),
     isSpotTradingAllowed: randomBoolean(),
     isMarginTradingAllowed: randomBoolean(),
-    filters: [buildDefaultBinanceExchangeInfoSymbolFilter(), buildDefaultBinanceExchangeInfoSymbolFilter()],
+    filters: [buildDefaultGetExchangeInfoOutputSymbolFilter(), buildDefaultGetExchangeInfoOutputSymbolFilter()],
     permissions: [randomString(5), randomString(5)],
   };
 };
 
-export const buildDefaultBinanceExchangeInfoSymbolFilter = (): BinanceExchangeInfoSymbolFilter => {
+export const buildDefaultGetExchangeInfoOutputSymbolFilter = (): GetExchangeInfoOutputSymbolFilter => {
   return {
     filterType: randomString(5),
     minPrice: randomNumber(1, 100).toString(),

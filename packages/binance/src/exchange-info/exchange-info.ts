@@ -1,18 +1,22 @@
-export interface BinanceExchangeInfo {
-  timezone: string;
-  serverTime: number;
-  rateLimits: BinanceExchangeInfoRateLimit[];
-  symbols: BinanceExchangeInfoSymbol[];
+export interface GetExchangeInfoInput {
+  symbol: string;
 }
 
-export interface BinanceExchangeInfoRateLimit {
+export interface GetExchangeInfoOutput {
+  timezone: string;
+  serverTime: number;
+  rateLimits: GetExchangeInfoOutputRateLimit[];
+  symbols: GetExchangeInfoOutputSymbol[];
+}
+
+export interface GetExchangeInfoOutputRateLimit {
   rateLimitType: string;
   interval: string;
   intervalNum: number;
   limit: number;
 }
 
-export interface BinanceExchangeInfoSymbol {
+export interface GetExchangeInfoOutputSymbol {
   symbol: string;
   status: string;
   baseAsset: string;
@@ -27,11 +31,11 @@ export interface BinanceExchangeInfoSymbol {
   quoteOrderQtyMarketAllowed: boolean;
   isSpotTradingAllowed: boolean;
   isMarginTradingAllowed: boolean;
-  filters: BinanceExchangeInfoSymbolFilter[];
+  filters: GetExchangeInfoOutputSymbolFilter[];
   permissions: string[];
 }
 
-export interface BinanceExchangeInfoSymbolFilter {
+export interface GetExchangeInfoOutputSymbolFilter {
   filterType: string;
   minPrice: string;
   maxPrice: string;

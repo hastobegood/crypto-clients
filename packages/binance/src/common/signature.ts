@@ -1,6 +1,6 @@
 import crypto from 'crypto';
 
-export class BinanceSignature {
+export class Signature {
   constructor(private apiKey: string, private secretKey: string) {}
 
   getApiKey(): string {

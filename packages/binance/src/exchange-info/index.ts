@@ -1,2 +1,3 @@
-export * from './binance-exchange-info.js';
-export * from './binance-exchange-info-client.js';
+export * from './exchange-info.js';
+export * from './exchange-info-client.js';
+export * from './exchange-info-command.js';
