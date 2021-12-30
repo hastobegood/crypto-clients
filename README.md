@@ -2,4 +2,4 @@
 
 Supported exchanges:
 
-- [Binance](https://www.binance.com/)
+* [Binance](packages/binance)
