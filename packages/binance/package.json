@@ -1,6 +1,6 @@
 {
   "name": "@hastobegood/crypto-clients-binance",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "license": "MIT",
   "publishConfig": {
     "registry": "https://npm.pkg.github.com/"
@@ -24,6 +24,10 @@
     "./exchange-info": {
       "require": "./lib/cjs/src/exchange-info/index.js",
       "import": "./lib/esm/src/exchange-info/index.js"
+    },
+    "./order": {
+      "require": "./lib/cjs/src/order/index.js",
+      "import": "./lib/esm/src/order/index.js"
     }
   },
   "types": "lib/esm/src/index.d.ts",

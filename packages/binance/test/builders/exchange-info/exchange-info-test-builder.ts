@@ -1,5 +1,11 @@
 import { randomBoolean, randomNumber, randomString, randomSymbol } from '../random-test-builder.js';
-import { GetExchangeInfoOutput, GetExchangeInfoOutputRateLimit, GetExchangeInfoOutputSymbol, GetExchangeInfoOutputSymbolFilter } from '../../../src/exchange-info/exchange-info.js';
+import { GetExchangeInfoInput, GetExchangeInfoOutput, GetExchangeInfoOutputRateLimit, GetExchangeInfoOutputSymbol, GetExchangeInfoOutputSymbolFilter } from '../../../src/exchange-info/exchange-info.js';
+
+export const buildDefaultGetExchangeInfoInput = (): GetExchangeInfoInput => {
+  return {
+    symbol: randomSymbol(),
+  };
+};
 
 export const buildDefaultGetExchangeInfoOutput = (): GetExchangeInfoOutput => {
   return {

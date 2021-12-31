@@ -35,7 +35,7 @@ export class CommandError extends Error {
   private output?: CommandOutput<{ code: number; msg: string }>;
 
   constructor(private cause: unknown) {
-    super('Error when executing command');
+    super(`Unable to execute command: ${cause}`);
 
     if (isAxiosError(cause) && cause.response) {
       this.output = {

@@ -37,6 +37,7 @@
     "jest": "^27.4.5",
     "jest-sonar-reporter": "^2.0.0",
     "lodash": "^4.17.21",
+    "mockdate": "^3.0.5",
     "prettier": "^2.5.1",
     "randomstring": "^1.2.1",
     "ts-jest": "^27.1.2",

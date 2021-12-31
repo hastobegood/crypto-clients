@@ -1,30 +1,30 @@
 import { mocked } from 'ts-jest/utils';
-import { axiosInstance } from '../../../src/common/axios-instance.js';
-import { CommandError } from '../../../src/common/command.js';
+import { axiosInstance, getQueryParameters } from '../../../src/common/axios-instance.js';
 import { ApiInfoProvider } from '../../../src/api/api-info-provider.js';
+import { CommandError } from '../../../src/common/command.js';
 import { GetExchangeInfoCommand, GetExchangeInfoCommandInput, GetExchangeInfoCommandOutput } from '../../../src/exchange-info/exchange-info-command.js';
-import { buildDefaultGetExchangeInfoOutput } from '../../builders/exchange-info/exchange-info-test-builder.js';
+import { buildDefaultCommandInput, buildDefaultCommandOutput } from '../../builders/common/command-test-builder.js';
+import { buildDefaultGetExchangeInfoInput, buildDefaultGetExchangeInfoOutput } from '../../builders/exchange-info/exchange-info-test-builder.js';
 
 const apiInfoProviderMock = mocked(jest.genMockFromModule<ApiInfoProvider>('../../../src/api/index.js'), true);
 const axiosInstanceMock = mocked(axiosInstance, true);
 
-beforeEach(() => {
-  apiInfoProviderMock.getApiUrl = jest.fn();
-  axiosInstanceMock.get = jest.fn();
-});
-
 describe('ExchangeInfoCommand', () => {
+  beforeEach(() => {
+    apiInfoProviderMock.getApiUrl = jest.fn();
+
+    axiosInstanceMock.get = jest.fn();
+  });
+
   describe('Given a GetExchangeInfoCommand to execute', () => {
     let input: GetExchangeInfoCommandInput;
+    let queryParameters: string;
 
     beforeEach(() => {
-      input = {
-        data: {
-          symbol: 'ABCDEF',
-        },
-      };
+      input = buildDefaultCommandInput(buildDefaultGetExchangeInfoInput());
+      queryParameters = getQueryParameters(input.data, false);
 
-      apiInfoProviderMock.getApiUrl.mockResolvedValueOnce('my-url');
+      apiInfoProviderMock.getApiUrl.mockResolvedValueOnce('api-url');
     });
 
     afterEach(() => {
@@ -33,9 +33,9 @@ describe('ExchangeInfoCommand', () => {
       expect(axiosInstanceMock.get).toHaveBeenCalledTimes(1);
       const getParams = axiosInstanceMock.get.mock.calls[0];
       expect(getParams.length).toEqual(2);
-      expect(getParams[0]).toEqual('/v3/exchangeInfo?symbol=ABCDEF');
+      expect(getParams[0]).toEqual(`/v3/exchangeInfo?${queryParameters}`);
       expect(getParams[1]).toEqual({
-        baseURL: 'my-url',
+        baseURL: 'api-url',
       });
     });
 
@@ -43,21 +43,9 @@ describe('ExchangeInfoCommand', () => {
       let output: GetExchangeInfoCommandOutput;
 
       beforeEach(() => {
-        output = {
-          status: 200,
-          headers: {
-            limit: '666',
-            time: '1',
-          },
-          data: buildDefaultGetExchangeInfoOutput(),
-        };
+        output = buildDefaultCommandOutput(buildDefaultGetExchangeInfoOutput());
 
-        axiosInstanceMock.get.mockResolvedValueOnce({
-          status: output.status,
-          headers: output.headers,
-          request: 'whatever',
-          data: output.data,
-        });
+        axiosInstanceMock.get.mockResolvedValueOnce(output);
       });
 
       it('Then execution result is returned', async () => {
@@ -77,7 +65,7 @@ describe('ExchangeInfoCommand', () => {
           fail();
         } catch (error) {
           expect(error).toBeDefined();
-          expect((error as CommandError).message).toEqual('Error when executing command');
+          expect((error as CommandError).message).toEqual('Unable to execute command: Error: Error!');
         }
       });
     });

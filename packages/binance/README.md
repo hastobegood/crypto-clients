@@ -6,6 +6,7 @@
 ## Clients
 
 * [Exchange information](#exchange-information)
+* [Order](#order)
 
 ### Exchange information
 
@@ -22,11 +23,7 @@ const exchangeInfoClient = new ExchangeInfoClient({
 Return current exchange trading rules and symbol information.
 
 ```typescript
-import {
-  GetExchangeInfoCommand,
-  GetExchangeInfoCommandInput,
-  GetExchangeInfoCommandOutput
-} from '@hastobegood/crypto-clients-binance';
+import { GetExchangeInfoCommand, GetExchangeInfoCommandInput, GetExchangeInfoCommandOutput } from "@hastobegood/crypto-clients-binance";
 
 const input: GetExchangeInfoCommandInput = {
   data: {
@@ -35,5 +32,37 @@ const input: GetExchangeInfoCommandInput = {
 };
 
 const output: GetExchangeInfoCommandOutput = await this.exchangeInfoClient.send(new GetExchangeInfoCommand(input));
+console.log(`Output data: ${output.data}`);
+```
+
+### Order
+
+```typescript
+import { OrderClient } from '@hastobegood/crypto-clients-binance/order';
+
+const orderClient = new OrderClient({
+  getApiUrl: async (): Promise<string> => 'binance-api-url',
+  getApiKey: async (): Promise<string> => 'binance-api-key',
+  getSecretKey: async (): Promise<string> => 'binance-secret-key',
+});
+```
+
+#### Send order command
+
+Send in a new order.
+
+```typescript
+import { SendOrderCommand, SendOrderCommandInput, SendOrderCommandOutput } from '@hastobegood/crypto-clients-binance';
+
+const input: SendOrderCommandInput = {
+  data: {
+    symbol: 'BTCUSDT',
+    side: 'BUY',
+    type: 'MARKET',
+    quoteOrderQty: 100,
+  },
+};
+
+const output: SendOrderCommandOutput = await this.exchangeInfoClient.send(new SendOrderCommand(input));
 console.log(`Output data: ${output.data}`);
 ```

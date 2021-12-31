@@ -1,16 +1,8 @@
 import crypto from 'crypto';
 
-export class Signature {
-  constructor(private apiKey: string, private secretKey: string) {}
+export const sign = (queryParameters: string, secretKey: string): string => {
+  const hmac = crypto.createHmac('sha256', secretKey);
+  const result = hmac.update(queryParameters);
 
-  getApiKey(): string {
-    return this.apiKey;
-  }
-
-  getSignature(queryParameters: string): string {
-    const hmac = crypto.createHmac('sha256', this.secretKey);
-    const result = hmac.update(queryParameters);
-
-    return result.digest('hex');
-  }
-}
+  return `signature=${result.digest('hex')}`;
+};
