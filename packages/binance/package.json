@@ -38,6 +38,9 @@
       ],
       "exchange-info": [
         "lib/esm/src/exchange-info/index.d.ts"
+      ],
+      "order": [
+        "lib/esm/src/order/index.d.ts"
       ]
     }
   },
