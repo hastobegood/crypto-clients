@@ -40,3 +40,30 @@ export interface SendOrderOutputFill {
   commissionAsset: string;
   tradeId: number;
 }
+
+export interface QueryOrderInput {
+  symbol: string;
+  orderId?: number;
+  origClientOrderId?: string;
+}
+
+export interface QueryOrderOutput {
+  symbol: string;
+  orderId: number;
+  orderListId: number;
+  clientOrderId: string;
+  price: string;
+  origQty: string;
+  executedQty: string;
+  cummulativeQuoteQty: string;
+  status: OrderStatus;
+  timeInForce: OrderTimeInForce;
+  type: OrderType;
+  side: OrderSide;
+  stopPrice: string;
+  icebergQty: string;
+  time: number;
+  updateTime: number;
+  isWorking: boolean;
+  origQuoteOrderQty: string;
+}

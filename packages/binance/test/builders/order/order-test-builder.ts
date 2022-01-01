@@ -1,5 +1,5 @@
 import { randomFromList, randomNumber, randomString, randomSymbol } from '../random-test-builder.js';
-import { SendOrderInput } from '../../../src/order/order.js';
+import { QueryOrderInput, SendOrderInput } from '../../../src/order/order.js';
 
 export const buildDefaultSendOrderInput = (): SendOrderInput => {
   return {
@@ -13,5 +13,12 @@ export const buildDefaultSendOrderInput = (): SendOrderInput => {
     newClientOrderId: randomString(),
     stopPrice: randomNumber(0.01, 1_000),
     icebergQty: randomNumber(1, 100_000),
+  };
+};
+
+export const buildDefaultQueryOrderInput = (): QueryOrderInput => {
+  return {
+    symbol: randomSymbol(),
+    orderId: randomNumber(),
   };
 };
