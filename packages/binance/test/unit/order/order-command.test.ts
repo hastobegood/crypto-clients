@@ -4,10 +4,20 @@ import { axiosInstance, getQueryParameters } from '../../../src/common/axios-ins
 import { sign } from '../../../src/common/signature.js';
 import { SecuredApiInfoProvider } from '../../../src/api/api-info-provider.js';
 import { CommandError } from '../../../src/common/command.js';
-import { QueryOrderCommand, QueryOrderCommandInput, QueryOrderCommandOutput, SendOrderCommand, SendOrderCommandInput, SendOrderCommandOutput } from '../../../src/order/order-command.js';
-import { QueryOrderOutput, SendOrderOutput } from '../../../src/order/order.js';
+import {
+  CancelOrderCommand,
+  CancelOrderCommandInput,
+  CancelOrderCommandOutput,
+  QueryOrderCommand,
+  QueryOrderCommandInput,
+  QueryOrderCommandOutput,
+  SendOrderCommand,
+  SendOrderCommandInput,
+  SendOrderCommandOutput,
+} from '../../../src/order/order-command.js';
+import { CancelOrderOutput, QueryOrderOutput, SendOrderOutput } from '../../../src/order/order.js';
 import { buildDefaultCommandInput, buildDefaultCommandOutput } from '../../builders/common/command-test-builder.js';
-import { buildDefaultQueryOrderInput, buildDefaultSendOrderInput } from '../../builders/order/order-test-builder.js';
+import { buildDefaultCancelOrderInput, buildDefaultQueryOrderInput, buildDefaultSendOrderInput } from '../../builders/order/order-test-builder.js';
 
 const apiInfoProviderMock = mocked(jest.genMockFromModule<SecuredApiInfoProvider>('../../../src/api/index.js'), true);
 const axiosInstanceMock = mocked(axiosInstance, true);
@@ -154,6 +164,82 @@ describe('QueryOrderCommand', () => {
       it('Then error is thrown', async () => {
         try {
           await new QueryOrderCommand(input).execute(apiInfoProviderMock);
+          fail();
+        } catch (error) {
+          expect(error).toBeDefined();
+          expect((error as CommandError).message).toEqual('Unable to execute command: Error: Error!');
+        }
+      });
+    });
+  });
+});
+
+describe('CancelOrderCommand', () => {
+  let date: Date;
+
+  beforeEach(() => {
+    date = new Date();
+    MockDate.set(date);
+
+    apiInfoProviderMock.getApiUrl = jest.fn();
+    apiInfoProviderMock.getApiKey = jest.fn();
+    apiInfoProviderMock.getSecretKey = jest.fn();
+
+    axiosInstanceMock.delete = jest.fn();
+  });
+
+  describe('Given a CancelOrderCommand to execute', () => {
+    let input: CancelOrderCommandInput;
+    let queryParameters: string;
+
+    beforeEach(() => {
+      input = buildDefaultCommandInput(buildDefaultCancelOrderInput());
+      queryParameters = `${getQueryParameters(input.data, true)}`;
+      queryParameters = `${queryParameters}&${sign(queryParameters, 'secret-key')}`;
+
+      apiInfoProviderMock.getApiUrl.mockResolvedValueOnce('api-url');
+      apiInfoProviderMock.getApiKey.mockResolvedValueOnce('api-key');
+      apiInfoProviderMock.getSecretKey.mockResolvedValueOnce('secret-key');
+    });
+
+    afterEach(() => {
+      expect(apiInfoProviderMock.getApiUrl).toHaveBeenCalledTimes(1);
+      expect(apiInfoProviderMock.getApiKey).toHaveBeenCalledTimes(1);
+      expect(apiInfoProviderMock.getSecretKey).toHaveBeenCalledTimes(1);
+
+      expect(axiosInstanceMock.delete).toHaveBeenCalledTimes(1);
+      const deleteParams = axiosInstanceMock.delete.mock.calls[0];
+      expect(deleteParams.length).toEqual(2);
+      expect(deleteParams[0]).toEqual(`/v3/order?${queryParameters}`);
+      expect(deleteParams[1]).toEqual({
+        baseURL: 'api-url',
+        headers: { 'X-MBX-APIKEY': 'api-key' },
+      });
+    });
+
+    describe('When success', () => {
+      let output: CancelOrderCommandOutput;
+
+      beforeEach(() => {
+        output = buildDefaultCommandOutput({} as CancelOrderOutput);
+
+        axiosInstanceMock.delete.mockResolvedValueOnce(output);
+      });
+
+      it('Then execution result is returned', async () => {
+        const result = await new CancelOrderCommand(input).execute(apiInfoProviderMock);
+        expect(result).toEqual(output);
+      });
+    });
+
+    describe('When error', () => {
+      beforeEach(() => {
+        axiosInstanceMock.delete.mockRejectedValueOnce(new Error('Error!'));
+      });
+
+      it('Then error is thrown', async () => {
+        try {
+          await new CancelOrderCommand(input).execute(apiInfoProviderMock);
           fail();
         } catch (error) {
           expect(error).toBeDefined();

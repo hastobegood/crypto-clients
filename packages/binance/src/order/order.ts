@@ -67,3 +67,26 @@ export interface QueryOrderOutput {
   isWorking: boolean;
   origQuoteOrderQty: string;
 }
+
+export interface CancelOrderInput {
+  symbol: string;
+  orderId?: number;
+  origClientOrderId?: string;
+  newClientOrderId?: string;
+}
+
+export interface CancelOrderOutput {
+  symbol: string;
+  origClientOrderId: string;
+  orderId: number;
+  orderListId: number;
+  clientOrderId: string;
+  price: string;
+  origQty: string;
+  executedQty: string;
+  cummulativeQuoteQty: string;
+  status: OrderStatus;
+  timeInForce: OrderTimeInForce;
+  type: OrderType;
+  side: OrderSide;
+}

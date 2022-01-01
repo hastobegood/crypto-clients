@@ -77,12 +77,28 @@ import { QueryOrderCommand, QueryOrderCommandInput, QueryOrderCommandOutput } fr
 const input: QueryOrderCommandInput = {
   data: {
     symbol: 'BTCUSDT',
-    side: 'BUY',
-    type: 'MARKET',
-    quoteOrderQty: 100,
+    orderId: 123456789,
   },
 };
 
 const output: QueryOrderCommandOutput = await this.orderClient.send(new QueryOrderCommand(input));
+console.log(`Output data: ${output.data}`);
+```
+
+#### Cancel order command
+
+Cancel an active order.
+
+```typescript
+import { CancelOrderCommand, CancelOrderCommandInput, CancelOrderCommandOutput } from '@hastobegood/crypto-clients-binance/order';
+
+const input: CancelOrderCommandInput = {
+  data: {
+    symbol: 'BTCUSDT',
+    orderId: 123456789,
+  },
+};
+
+const output: CancelOrderCommandOutput = await this.orderClient.send(new CancelOrderCommand(input));
 console.log(`Output data: ${output.data}`);
 ```
