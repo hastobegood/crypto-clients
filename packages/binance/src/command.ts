@@ -1,6 +1,6 @@
 import { AxiosResponse } from 'axios';
-import { isAxiosError } from './axios-instance.js';
-import { ApiInfoProvider } from '../api/api-info-provider.js';
+import { isAxiosError } from './common/axios-instance.js';
+import { ApiInfoProvider } from './client.js';
 
 export interface CommandInput<D> {
   data: D;

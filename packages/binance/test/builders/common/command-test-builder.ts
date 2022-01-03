@@ -1,6 +1,6 @@
 import { randomNumber, randomString } from '../random-test-builder.js';
-import { ApiInfoProvider } from '../../../src/api/api-info-provider.js';
-import { Command, CommandInput, CommandOutput } from '../../../src/common/command.js';
+import { ApiInfoProvider } from '../../../src/client.js';
+import { Command, CommandInput, CommandOutput } from '../../../src/command.js';
 
 export const buildDefaultCommandInput = <D>(data: D): CommandInput<D> => {
   return {

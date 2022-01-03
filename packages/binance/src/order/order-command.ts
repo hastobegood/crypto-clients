@@ -1,7 +1,7 @@
 import { axiosInstance, getQueryConfig, getQueryParameters } from '../common/axios-instance.js';
+import { SecuredApiInfoProvider } from '../client.js';
 import { sign } from '../common/signature.js';
-import { Command, CommandInput, CommandOutput } from '../common/command.js';
-import { SecuredApiInfoProvider } from '../api/api-info-provider.js';
+import { Command, CommandInput, CommandOutput } from '../command.js';
 import { CancelOrderInput, CancelOrderOutput, QueryOrderInput, QueryOrderOutput, SendOrderInput, SendOrderOutput } from './order.js';
 
 export type SendOrderCommandInput = CommandInput<SendOrderInput>;

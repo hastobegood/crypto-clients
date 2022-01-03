@@ -2,8 +2,8 @@ import { mocked } from 'ts-jest/utils';
 import MockDate from 'mockdate';
 import { axiosInstance, getQueryParameters } from '../../../src/common/axios-instance.js';
 import { sign } from '../../../src/common/signature.js';
-import { SecuredApiInfoProvider } from '../../../src/api/api-info-provider.js';
-import { CommandError } from '../../../src/common/command.js';
+import { SecuredApiInfoProvider } from '../../../src/client.js';
+import { CommandError } from '../../../src/command.js';
 import {
   CancelOrderCommand,
   CancelOrderCommandInput,
@@ -19,7 +19,7 @@ import { CancelOrderOutput, QueryOrderOutput, SendOrderOutput } from '../../../s
 import { buildDefaultCommandInput, buildDefaultCommandOutput } from '../../builders/common/command-test-builder.js';
 import { buildDefaultCancelOrderInput, buildDefaultQueryOrderInput, buildDefaultSendOrderInput } from '../../builders/order/order-test-builder.js';
 
-const apiInfoProviderMock = mocked(jest.genMockFromModule<SecuredApiInfoProvider>('../../../src/api/index.js'), true);
+const apiInfoProviderMock = mocked(jest.genMockFromModule<SecuredApiInfoProvider>('../../../src/client.js'), true);
 const axiosInstanceMock = mocked(axiosInstance, true);
 
 describe('SendOrderCommand', () => {

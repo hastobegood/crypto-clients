@@ -1,6 +1,6 @@
 import { axiosInstance, getQueryConfig, getQueryParameters } from '../common/axios-instance.js';
-import { Command, CommandInput, CommandOutput } from '../common/command.js';
-import { ApiInfoProvider } from '../api/api-info-provider.js';
+import { ApiInfoProvider } from '../client.js';
+import { Command, CommandInput, CommandOutput } from '../command.js';
 import { GetExchangeInfoInput, GetExchangeInfoOutput } from './exchange-info.js';
 
 export type GetExchangeInfoCommandInput = CommandInput<GetExchangeInfoInput>;
