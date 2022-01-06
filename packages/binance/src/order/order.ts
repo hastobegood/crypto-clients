@@ -41,13 +41,13 @@ export interface SendOrderOutputFill {
   tradeId: number;
 }
 
-export interface QueryOrderInput {
+export interface GetOrderInput {
   symbol: string;
   orderId?: number;
   origClientOrderId?: string;
 }
 
-export interface QueryOrderOutput {
+export interface GetOrderOutput {
   symbol: string;
   orderId: number;
   orderListId: number;

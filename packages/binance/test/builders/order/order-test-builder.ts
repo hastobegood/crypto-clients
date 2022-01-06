@@ -1,5 +1,5 @@
 import { randomFromList, randomNumber, randomString, randomSymbol } from '../random-test-builder.js';
-import { CancelOrderInput, QueryOrderInput, SendOrderInput } from '../../../src/order/order.js';
+import { CancelOrderInput, GetOrderInput, SendOrderInput } from '../../../src/order/order.js';
 
 export const buildDefaultSendOrderInput = (): SendOrderInput => {
   return {
@@ -16,7 +16,7 @@ export const buildDefaultSendOrderInput = (): SendOrderInput => {
   };
 };
 
-export const buildDefaultQueryOrderInput = (): QueryOrderInput => {
+export const buildDefaultGetOrderInput = (): GetOrderInput => {
   return {
     symbol: randomSymbol(),
     orderId: randomNumber(),

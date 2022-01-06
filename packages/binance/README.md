@@ -125,21 +125,21 @@ const input: SendOrderCommandInput = {
 const output: SendOrderCommandOutput = await client.send(new SendOrderCommand(input));
 ```
 
-#### Query order command
+#### Get order command
 
 Check an order's status.
 
 ```typescript
-import { QueryOrderCommand, QueryOrderCommandInput, QueryOrderCommandOutput } from '@hastobegood/crypto-clients-binance';
+import { GetOrderCommand, GetOrderCommandInput, GetOrderCommandOutput } from '@hastobegood/crypto-clients-binance';
 
-const input: QueryOrderCommandInput = {
+const input: GetOrderCommandInput = {
   data: {
     symbol: 'BTCUSDT',
     orderId: 123456789,
   },
 };
 
-const output: QueryOrderCommandOutput = await client.send(new QueryOrderCommand(input));
+const output: GetOrderCommandOutput = await client.send(new GetOrderCommand(input));
 ```
 
 #### Cancel order command

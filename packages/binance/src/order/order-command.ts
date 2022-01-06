@@ -2,7 +2,7 @@ import { axiosInstance, getQueryConfig, getQueryParameters } from '../common/axi
 import { SecuredApiInfoProvider } from '../client.js';
 import { sign } from '../common/signature.js';
 import { Command, CommandOutput } from '../command.js';
-import { CancelOrderInput, CancelOrderOutput, QueryOrderInput, QueryOrderOutput, SendOrderInput, SendOrderOutput } from './order.js';
+import { CancelOrderInput, CancelOrderOutput, GetOrderInput, GetOrderOutput, SendOrderInput, SendOrderOutput } from './order.js';
 
 export type SendOrderCommandOutput = CommandOutput<SendOrderOutput>;
 
@@ -23,14 +23,14 @@ export class SendOrderCommand extends Command<SendOrderCommandOutput> {
   }
 }
 
-export type QueryOrderCommandOutput = CommandOutput<QueryOrderOutput>;
+export type GetOrderCommandOutput = CommandOutput<GetOrderOutput>;
 
-export class QueryOrderCommand extends Command<QueryOrderCommandOutput> {
-  constructor(readonly input: QueryOrderInput) {
+export class GetOrderCommand extends Command<GetOrderCommandOutput> {
+  constructor(readonly input: GetOrderInput) {
     super();
   }
 
-  async execute(apiInfoProvider: SecuredApiInfoProvider): Promise<QueryOrderCommandOutput> {
+  async execute(apiInfoProvider: SecuredApiInfoProvider): Promise<GetOrderCommandOutput> {
     const [apiUrl, apiKey, secretKey] = await Promise.all([apiInfoProvider.getApiUrl(), apiInfoProvider.getApiKey(), apiInfoProvider.getSecretKey()]);
 
     const queryParameters = `${getQueryParameters(this.input, true)}`;
@@ -38,7 +38,7 @@ export class QueryOrderCommand extends Command<QueryOrderCommandOutput> {
     const queryUrl = `/v3/order?${queryParameters}&${querySignature}`;
     const queryConfig = getQueryConfig(apiUrl, apiKey);
 
-    return this.handle(() => axiosInstance.get<QueryOrderOutput>(queryUrl, queryConfig));
+    return this.handle(() => axiosInstance.get<GetOrderOutput>(queryUrl, queryConfig));
   }
 }
 

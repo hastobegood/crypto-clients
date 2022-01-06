@@ -4,10 +4,10 @@ import { axiosInstance, getQueryParameters } from '../../../src/common/axios-ins
 import { sign } from '../../../src/common/signature.js';
 import { SecuredApiInfoProvider } from '../../../src/client.js';
 import { CommandError } from '../../../src/command.js';
-import { CancelOrderCommand, CancelOrderCommandOutput, QueryOrderCommand, QueryOrderCommandOutput, SendOrderCommand, SendOrderCommandOutput } from '../../../src/order/order-command.js';
-import { CancelOrderInput, CancelOrderOutput, QueryOrderInput, QueryOrderOutput, SendOrderInput, SendOrderOutput } from '../../../src/order/order.js';
+import { CancelOrderCommand, CancelOrderCommandOutput, GetOrderCommand, GetOrderCommandOutput, SendOrderCommand, SendOrderCommandOutput } from '../../../src/order/order-command.js';
+import { CancelOrderInput, CancelOrderOutput, GetOrderInput, GetOrderOutput, SendOrderInput, SendOrderOutput } from '../../../src/order/order.js';
 import { buildDefaultCommandOutput } from '../../builders/common/command-test-builder.js';
-import { buildDefaultCancelOrderInput, buildDefaultQueryOrderInput, buildDefaultSendOrderInput } from '../../builders/order/order-test-builder.js';
+import { buildDefaultCancelOrderInput, buildDefaultGetOrderInput, buildDefaultSendOrderInput } from '../../builders/order/order-test-builder.js';
 
 const apiInfoProviderMock = mocked(jest.genMockFromModule<SecuredApiInfoProvider>('../../../src/client.js'), true);
 const axiosInstanceMock = mocked(axiosInstance, true);
@@ -90,12 +90,12 @@ describe('OrderCommand', () => {
     });
   });
 
-  describe('Given a QueryOrderCommand to execute', () => {
-    let input: QueryOrderInput;
+  describe('Given a GetOrderCommand to execute', () => {
+    let input: GetOrderInput;
     let queryParameters: string;
 
     beforeEach(() => {
-      input = buildDefaultQueryOrderInput();
+      input = buildDefaultGetOrderInput();
       queryParameters = `${getQueryParameters(input, true)}`;
       queryParameters = `${queryParameters}&${sign(queryParameters, 'secret-key')}`;
 
@@ -120,17 +120,17 @@ describe('OrderCommand', () => {
     });
 
     describe('When success', () => {
-      let output: QueryOrderCommandOutput;
+      let output: GetOrderCommandOutput;
 
       beforeEach(() => {
         // FIXME
-        output = buildDefaultCommandOutput({} as QueryOrderOutput);
+        output = buildDefaultCommandOutput({} as GetOrderOutput);
 
         axiosInstanceMock.get.mockResolvedValueOnce(output);
       });
 
       it('Then execution result is returned', async () => {
-        const result = await new QueryOrderCommand(input).execute(apiInfoProviderMock);
+        const result = await new GetOrderCommand(input).execute(apiInfoProviderMock);
         expect(result).toEqual(output);
       });
     });
@@ -142,7 +142,7 @@ describe('OrderCommand', () => {
 
       it('Then error is thrown', async () => {
         try {
-          await new QueryOrderCommand(input).execute(apiInfoProviderMock);
+          await new GetOrderCommand(input).execute(apiInfoProviderMock);
           fail();
         } catch (error) {
           expect(error).toBeDefined();
