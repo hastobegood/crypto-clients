@@ -3,15 +3,19 @@
 * [Exchange website](https://www.binance.com/)
 * [API documentation](https://github.com/binance/binance-spot-api-docs/blob/master/rest-api.md)
 
-## Clients
+## Client
 
-* [Account](#account)
-* [Candlestick](#candlestick)
-* [Exchange](#exchange)
-* [Order](#order)
-* [Trade](#trade)
+### Unsecured endpoints
 
-### Account
+```typescript
+import { Client } from '@hastobegood/crypto-clients-binance';
+
+const client = new Client({
+  getApiUrl: async (): Promise<string> => 'binance-api-url',
+});
+```
+
+### Secured endpoints
 
 ```typescript
 import { Client } from '@hastobegood/crypto-clients-binance';
@@ -23,28 +27,27 @@ const client = new Client({
 });
 ```
 
+## Commands
+
+* [Account](#account)
+* [Candlestick](#candlestick)
+* [General](#general)
+* [Order](#order)
+* [Trade](#trade)
+
+### Account
+
 #### Get account information command
 
 Get current account information.
 
 ```typescript
-import { GetAccountInfoCommand, GetAccountInfoCommandInput, GetAccountInfoCommandOutput } from '@hastobegood/crypto-clients-binance';
+import { GetAccountInfoCommand, GetAccountInfoCommandOutput } from '@hastobegood/crypto-clients-binance';
 
-const input: GetAccountInfoCommandInput = {};
-
-const output: GetAccountInfoCommandOutput = await client.send(new GetAccountInfoCommand(input));
-console.log(`Output data: ${output.data}`);
+const output: GetAccountInfoCommandOutput = await client.send(new GetAccountInfoCommand());
 ```
 
 ### Candlestick
-
-```typescript
-import { Client } from '@hastobegood/crypto-clients-binance';
-
-const client = new Client({
-  getApiUrl: async (): Promise<string> => 'binance-api-url',
-});
-```
 
 #### Get candlestick list command
 
@@ -61,17 +64,28 @@ const input: GetCandlestickListCommandInput = {
 };
 
 const output: GetCandlestickListCommandOutput = await client.send(new GetCandlestickListCommand(input));
-console.log(`Output data: ${output.data}`);
 ```
 
-### Exchange
+### General
+
+#### Test connectivity command
+
+Test connectivity to the Rest API.
 
 ```typescript
-import { Client } from '@hastobegood/crypto-clients-binance';
+import { TestConnectivityCommand, EmptyCommandOutput } from '@hastobegood/crypto-clients-binance';
 
-const client = new Client({
-  getApiUrl: async (): Promise<string> => 'binance-api-url',
-});
+const output: EmptyCommandOutput = await client.send(new TestConnectivityCommand());
+```
+
+#### Get server time command
+
+Test connectivity to the Rest API and get the current server time.
+
+```typescript
+import { GetServerTimeCommand, GetServerTimeCommandOutput } from '@hastobegood/crypto-clients-binance';
+
+const output: GetServerTimeCommandOutput = await client.send(new GetServerTimeCommand());
 ```
 
 #### Get exchange information command
@@ -88,20 +102,9 @@ const input: GetExchangeInfoCommandInput = {
 };
 
 const output: GetExchangeInfoCommandOutput = await client.send(new GetExchangeInfoCommand(input));
-console.log(`Output data: ${output.data}`);
 ```
 
 ### Order
-
-```typescript
-import { Client } from '@hastobegood/crypto-clients-binance';
-
-const client = new Client({
-  getApiUrl: async (): Promise<string> => 'binance-api-url',
-  getApiKey: async (): Promise<string> => 'binance-api-key',
-  getSecretKey: async (): Promise<string> => 'binance-secret-key',
-});
-```
 
 #### Send order command
 
@@ -120,7 +123,6 @@ const input: SendOrderCommandInput = {
 };
 
 const output: SendOrderCommandOutput = await client.send(new SendOrderCommand(input));
-console.log(`Output data: ${output.data}`);
 ```
 
 #### Query order command
@@ -138,7 +140,6 @@ const input: QueryOrderCommandInput = {
 };
 
 const output: QueryOrderCommandOutput = await client.send(new QueryOrderCommand(input));
-console.log(`Output data: ${output.data}`);
 ```
 
 #### Cancel order command
@@ -156,20 +157,9 @@ const input: CancelOrderCommandInput = {
 };
 
 const output: CancelOrderCommandOutput = await client.send(new CancelOrderCommand(input));
-console.log(`Output data: ${output.data}`);
 ```
 
 ### Trade
-
-```typescript
-import { Client } from '@hastobegood/crypto-clients-binance';
-
-const client = new Client({
-  getApiUrl: async (): Promise<string> => 'binance-api-url',
-  getApiKey: async (): Promise<string> => 'binance-api-key',
-  getSecretKey: async (): Promise<string> => 'binance-secret-key',
-});
-```
 
 #### Get trade list command
 
@@ -185,5 +175,4 @@ const input: GetTradeListCommandInput = {
 };
 
 const output: GetTradeListCommandOutput = await client.send(new GetTradeListCommand(input));
-console.log(`Output data: ${output.data}`);
 ```

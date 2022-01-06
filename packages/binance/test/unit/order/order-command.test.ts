@@ -4,19 +4,9 @@ import { axiosInstance, getQueryParameters } from '../../../src/common/axios-ins
 import { sign } from '../../../src/common/signature.js';
 import { SecuredApiInfoProvider } from '../../../src/client.js';
 import { CommandError } from '../../../src/command.js';
-import {
-  CancelOrderCommand,
-  CancelOrderCommandInput,
-  CancelOrderCommandOutput,
-  QueryOrderCommand,
-  QueryOrderCommandInput,
-  QueryOrderCommandOutput,
-  SendOrderCommand,
-  SendOrderCommandInput,
-  SendOrderCommandOutput,
-} from '../../../src/order/order-command.js';
-import { CancelOrderOutput, QueryOrderOutput, SendOrderOutput } from '../../../src/order/order.js';
-import { buildDefaultCommandInput, buildDefaultCommandOutput } from '../../builders/common/command-test-builder.js';
+import { CancelOrderCommand, CancelOrderCommandOutput, QueryOrderCommand, QueryOrderCommandOutput, SendOrderCommand, SendOrderCommandOutput } from '../../../src/order/order-command.js';
+import { CancelOrderInput, CancelOrderOutput, QueryOrderInput, QueryOrderOutput, SendOrderInput, SendOrderOutput } from '../../../src/order/order.js';
+import { buildDefaultCommandOutput } from '../../builders/common/command-test-builder.js';
 import { buildDefaultCancelOrderInput, buildDefaultQueryOrderInput, buildDefaultSendOrderInput } from '../../builders/order/order-test-builder.js';
 
 const apiInfoProviderMock = mocked(jest.genMockFromModule<SecuredApiInfoProvider>('../../../src/client.js'), true);
@@ -39,12 +29,12 @@ describe('OrderCommand', () => {
   });
 
   describe('Given a SendOrderCommand to execute', () => {
-    let input: SendOrderCommandInput;
+    let input: SendOrderInput;
     let queryParameters: string;
 
     beforeEach(() => {
-      input = buildDefaultCommandInput(buildDefaultSendOrderInput());
-      queryParameters = `newOrderRespType=FULL&${getQueryParameters(input.data, true)}`;
+      input = buildDefaultSendOrderInput();
+      queryParameters = `newOrderRespType=FULL&${getQueryParameters(input, true)}`;
       queryParameters = `${queryParameters}&${sign(queryParameters, 'secret-key')}`;
 
       apiInfoProviderMock.getApiUrl.mockResolvedValueOnce('api-url');
@@ -71,6 +61,7 @@ describe('OrderCommand', () => {
       let output: SendOrderCommandOutput;
 
       beforeEach(() => {
+        // FIXME
         output = buildDefaultCommandOutput({} as SendOrderOutput);
 
         axiosInstanceMock.post.mockResolvedValueOnce(output);
@@ -100,12 +91,12 @@ describe('OrderCommand', () => {
   });
 
   describe('Given a QueryOrderCommand to execute', () => {
-    let input: QueryOrderCommandInput;
+    let input: QueryOrderInput;
     let queryParameters: string;
 
     beforeEach(() => {
-      input = buildDefaultCommandInput(buildDefaultQueryOrderInput());
-      queryParameters = `${getQueryParameters(input.data, true)}`;
+      input = buildDefaultQueryOrderInput();
+      queryParameters = `${getQueryParameters(input, true)}`;
       queryParameters = `${queryParameters}&${sign(queryParameters, 'secret-key')}`;
 
       apiInfoProviderMock.getApiUrl.mockResolvedValueOnce('api-url');
@@ -132,6 +123,7 @@ describe('OrderCommand', () => {
       let output: QueryOrderCommandOutput;
 
       beforeEach(() => {
+        // FIXME
         output = buildDefaultCommandOutput({} as QueryOrderOutput);
 
         axiosInstanceMock.get.mockResolvedValueOnce(output);
@@ -161,12 +153,12 @@ describe('OrderCommand', () => {
   });
 
   describe('Given a CancelOrderCommand to execute', () => {
-    let input: CancelOrderCommandInput;
+    let input: CancelOrderInput;
     let queryParameters: string;
 
     beforeEach(() => {
-      input = buildDefaultCommandInput(buildDefaultCancelOrderInput());
-      queryParameters = `${getQueryParameters(input.data, true)}`;
+      input = buildDefaultCancelOrderInput();
+      queryParameters = `${getQueryParameters(input, true)}`;
       queryParameters = `${queryParameters}&${sign(queryParameters, 'secret-key')}`;
 
       apiInfoProviderMock.getApiUrl.mockResolvedValueOnce('api-url');
@@ -193,6 +185,7 @@ describe('OrderCommand', () => {
       let output: CancelOrderCommandOutput;
 
       beforeEach(() => {
+        // FIXME
         output = buildDefaultCommandOutput({} as CancelOrderOutput);
 
         axiosInstanceMock.delete.mockResolvedValueOnce(output);

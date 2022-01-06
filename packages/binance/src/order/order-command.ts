@@ -1,21 +1,20 @@
 import { axiosInstance, getQueryConfig, getQueryParameters } from '../common/axios-instance.js';
 import { SecuredApiInfoProvider } from '../client.js';
 import { sign } from '../common/signature.js';
-import { Command, CommandInput, CommandOutput } from '../command.js';
+import { Command, CommandOutput } from '../command.js';
 import { CancelOrderInput, CancelOrderOutput, QueryOrderInput, QueryOrderOutput, SendOrderInput, SendOrderOutput } from './order.js';
 
-export type SendOrderCommandInput = CommandInput<SendOrderInput>;
 export type SendOrderCommandOutput = CommandOutput<SendOrderOutput>;
 
-export class SendOrderCommand extends Command<SendOrderCommandInput, SendOrderCommandOutput> {
-  constructor(readonly input: SendOrderCommandInput) {
+export class SendOrderCommand extends Command<SendOrderCommandOutput> {
+  constructor(readonly input: SendOrderInput) {
     super();
   }
 
   async execute(apiInfoProvider: SecuredApiInfoProvider): Promise<SendOrderCommandOutput> {
     const [apiUrl, apiKey, secretKey] = await Promise.all([apiInfoProvider.getApiUrl(), apiInfoProvider.getApiKey(), apiInfoProvider.getSecretKey()]);
 
-    const queryParameters = `newOrderRespType=FULL&${getQueryParameters(this.input.data, true)}`;
+    const queryParameters = `newOrderRespType=FULL&${getQueryParameters(this.input, true)}`;
     const querySignature = sign(queryParameters, secretKey);
     const queryUrl = `/v3/order?${queryParameters}&${querySignature}`;
     const queryConfig = getQueryConfig(apiUrl, apiKey);
@@ -24,18 +23,17 @@ export class SendOrderCommand extends Command<SendOrderCommandInput, SendOrderCo
   }
 }
 
-export type QueryOrderCommandInput = CommandInput<QueryOrderInput>;
 export type QueryOrderCommandOutput = CommandOutput<QueryOrderOutput>;
 
-export class QueryOrderCommand extends Command<QueryOrderCommandInput, QueryOrderCommandOutput> {
-  constructor(readonly input: QueryOrderCommandInput) {
+export class QueryOrderCommand extends Command<QueryOrderCommandOutput> {
+  constructor(readonly input: QueryOrderInput) {
     super();
   }
 
   async execute(apiInfoProvider: SecuredApiInfoProvider): Promise<QueryOrderCommandOutput> {
     const [apiUrl, apiKey, secretKey] = await Promise.all([apiInfoProvider.getApiUrl(), apiInfoProvider.getApiKey(), apiInfoProvider.getSecretKey()]);
 
-    const queryParameters = `${getQueryParameters(this.input.data, true)}`;
+    const queryParameters = `${getQueryParameters(this.input, true)}`;
     const querySignature = sign(queryParameters, secretKey);
     const queryUrl = `/v3/order?${queryParameters}&${querySignature}`;
     const queryConfig = getQueryConfig(apiUrl, apiKey);
@@ -44,18 +42,17 @@ export class QueryOrderCommand extends Command<QueryOrderCommandInput, QueryOrde
   }
 }
 
-export type CancelOrderCommandInput = CommandInput<CancelOrderInput>;
 export type CancelOrderCommandOutput = CommandOutput<CancelOrderOutput>;
 
-export class CancelOrderCommand extends Command<CancelOrderCommandInput, CancelOrderCommandOutput> {
-  constructor(readonly input: CancelOrderCommandInput) {
+export class CancelOrderCommand extends Command<CancelOrderCommandOutput> {
+  constructor(readonly input: CancelOrderInput) {
     super();
   }
 
   async execute(apiInfoProvider: SecuredApiInfoProvider): Promise<CancelOrderCommandOutput> {
     const [apiUrl, apiKey, secretKey] = await Promise.all([apiInfoProvider.getApiUrl(), apiInfoProvider.getApiKey(), apiInfoProvider.getSecretKey()]);
 
-    const queryParameters = `${getQueryParameters(this.input.data, true)}`;
+    const queryParameters = `${getQueryParameters(this.input, true)}`;
     const querySignature = sign(queryParameters, secretKey);
     const queryUrl = `/v3/order?${queryParameters}&${querySignature}`;
     const queryConfig = getQueryConfig(apiUrl, apiKey);

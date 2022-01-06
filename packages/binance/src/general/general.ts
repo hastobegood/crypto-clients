@@ -1,3 +1,7 @@
+export interface GetServerTimeOutput {
+  serverTime: number;
+}
+
 export interface GetExchangeInfoInput {
   symbol: string;
 }

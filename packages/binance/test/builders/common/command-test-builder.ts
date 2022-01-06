@@ -1,10 +1,14 @@
-import { randomNumber, randomString } from '../random-test-builder.js';
+import { randomNumber } from '../random-test-builder.js';
 import { ApiInfoProvider } from '../../../src/client.js';
-import { Command, CommandInput, CommandOutput } from '../../../src/command.js';
+import { Command, CommandOutput } from '../../../src/command.js';
 
-export const buildDefaultCommandInput = <D>(data: D): CommandInput<D> => {
+export const buildEmptyCommandOutput = (): Omit<CommandOutput<never>, 'data'> => {
   return {
-    data: data,
+    status: 200,
+    headers: {
+      time: new Date().valueOf().toString(),
+      limit: randomNumber(1, 1_000_000).toString(),
+    },
   };
 };
 
@@ -20,14 +24,10 @@ export const buildDefaultCommandOutput = <D>(data: D): CommandOutput<D> => {
 };
 
 export const buildDefaultTestCommand = () => {
-  return new TestCommand(randomString());
+  return new TestCommand();
 };
 
-class TestCommand extends Command<string, string> {
-  constructor(readonly input: string) {
-    super();
-  }
-
+class TestCommand extends Command<string> {
   async execute(apiInfoProvider: ApiInfoProvider): Promise<string> {
     return 'output';
   }

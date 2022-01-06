@@ -13,7 +13,7 @@ export interface SecuredApiInfoProvider extends ApiInfoProvider {
 export class Client {
   constructor(private readonly apiInfoProvider: ApiInfoProvider) {}
 
-  async send<I, O>(command: Command<I, O>): Promise<O> {
+  async send<O>(command: Command<O>): Promise<O> {
     return command.execute(this.apiInfoProvider);
   }
 }

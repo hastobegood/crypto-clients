@@ -1,5 +1,3 @@
-export interface GetAccountInfoInput {}
-
 export interface GetAccountInfoOutput {
   makerCommission: number;
   takerCommission: number;

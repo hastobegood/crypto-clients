@@ -1,5 +1,11 @@
 import { randomBoolean, randomNumber, randomString, randomSymbol } from '../random-test-builder.js';
-import { GetExchangeInfoInput, GetExchangeInfoOutput, GetExchangeInfoOutputRateLimit, GetExchangeInfoOutputSymbol, GetExchangeInfoOutputSymbolFilter } from '../../../src/exchange/exchange.js';
+import { GetExchangeInfoInput, GetExchangeInfoOutput, GetExchangeInfoOutputRateLimit, GetExchangeInfoOutputSymbol, GetExchangeInfoOutputSymbolFilter, GetServerTimeOutput } from '../../../src/general/general.js';
+
+export const buildDefaultGetServerTimeOutput = (): GetServerTimeOutput => {
+  return {
+    serverTime: new Date().valueOf(),
+  };
+};
 
 export const buildDefaultGetExchangeInfoInput = (): GetExchangeInfoInput => {
   return {

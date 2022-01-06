@@ -2,9 +2,7 @@ import { AxiosResponse } from 'axios';
 import { isAxiosError } from './common/axios-instance.js';
 import { ApiInfoProvider } from './client.js';
 
-export interface CommandInput<D> {
-  data: D;
-}
+export type EmptyCommandOutput = Omit<CommandOutput<never>, 'data'>;
 
 export interface CommandOutput<D> {
   status: number;
@@ -12,9 +10,7 @@ export interface CommandOutput<D> {
   data: D;
 }
 
-export abstract class Command<I, O> {
-  protected abstract readonly input: I;
-
+export abstract class Command<O> {
   abstract execute(apiInfoProvider: ApiInfoProvider): Promise<O>;
 
   protected async handle<D>(request: () => Promise<AxiosResponse<D>>): Promise<CommandOutput<D>> {

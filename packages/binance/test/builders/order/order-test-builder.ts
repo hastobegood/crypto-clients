@@ -27,5 +27,7 @@ export const buildDefaultCancelOrderInput = (): CancelOrderInput => {
   return {
     symbol: randomSymbol(),
     orderId: randomNumber(),
+    origClientOrderId: randomString(),
+    newClientOrderId: randomString(),
   };
 };

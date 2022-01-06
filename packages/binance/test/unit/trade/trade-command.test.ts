@@ -4,9 +4,9 @@ import { axiosInstance, getQueryParameters } from '../../../src/common/axios-ins
 import { sign } from '../../../src/common/signature.js';
 import { SecuredApiInfoProvider } from '../../../src/client.js';
 import { CommandError } from '../../../src/command.js';
-import { GetTradeListCommand, GetTradeListCommandInput, GetTradeListCommandOutput } from '../../../src/trade/trade-command.js';
-import { GetTradeListOutput } from '../../../src/trade/trade.js';
-import { buildDefaultCommandInput, buildDefaultCommandOutput } from '../../builders/common/command-test-builder.js';
+import { GetTradeListCommand, GetTradeListCommandOutput } from '../../../src/trade/trade-command.js';
+import { GetTradeListInput, GetTradeListOutput } from '../../../src/trade/trade.js';
+import { buildDefaultCommandOutput } from '../../builders/common/command-test-builder.js';
 import { buildDefaultGetTradeListInput } from '../../builders/trade/trade-test-builder.js';
 
 const apiInfoProviderMock = mocked(jest.genMockFromModule<SecuredApiInfoProvider>('../../../src/client.js'), true);
@@ -27,12 +27,12 @@ describe('TradeCommand', () => {
   });
 
   describe('Given a GetTradeListCommand to execute', () => {
-    let input: GetTradeListCommandInput;
+    let input: GetTradeListInput;
     let queryParameters: string;
 
     beforeEach(() => {
-      input = buildDefaultCommandInput(buildDefaultGetTradeListInput());
-      queryParameters = `${getQueryParameters(input.data, true)}`;
+      input = buildDefaultGetTradeListInput();
+      queryParameters = `${getQueryParameters(input, true)}`;
       queryParameters = `${queryParameters}&${sign(queryParameters, 'secret-key')}`;
 
       apiInfoProviderMock.getApiUrl.mockResolvedValueOnce('api-url');
@@ -59,6 +59,7 @@ describe('TradeCommand', () => {
       let output: GetTradeListCommandOutput;
 
       beforeEach(() => {
+        // FIXME
         output = buildDefaultCommandOutput({} as GetTradeListOutput);
 
         axiosInstanceMock.get.mockResolvedValueOnce(output);

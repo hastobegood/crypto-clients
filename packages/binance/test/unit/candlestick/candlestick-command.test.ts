@@ -2,8 +2,9 @@ import { mocked } from 'ts-jest/utils';
 import { axiosInstance, getQueryParameters } from '../../../src/common/axios-instance.js';
 import { ApiInfoProvider } from '../../../src/client.js';
 import { CommandError } from '../../../src/command.js';
-import { GetCandlestickListCommand, GetCandlestickListCommandInput, GetCandlestickListCommandOutput } from '../../../src/candlestick/candlestick-command.js';
-import { buildDefaultCommandInput, buildDefaultCommandOutput } from '../../builders/common/command-test-builder.js';
+import { GetCandlestickListCommand, GetCandlestickListCommandOutput } from '../../../src/candlestick/candlestick-command.js';
+import { GetCandlestickListInput } from '../../../src/candlestick/candlestick.js';
+import { buildDefaultCommandOutput } from '../../builders/common/command-test-builder.js';
 import { buildDefaultGetCandlestickListInput, buildDefaultGetCandlestickListOutput } from '../../builders/candlestick/candlestick-test-builder.js';
 
 const apiInfoProviderMock = mocked(jest.genMockFromModule<ApiInfoProvider>('../../../src/client.js'), true);
@@ -17,12 +18,12 @@ describe('CandlestickCommand', () => {
   });
 
   describe('Given a GetCandlestickListCommand to execute', () => {
-    let input: GetCandlestickListCommandInput;
+    let input: GetCandlestickListInput;
     let queryParameters: string;
 
     beforeEach(() => {
-      input = buildDefaultCommandInput(buildDefaultGetCandlestickListInput());
-      queryParameters = getQueryParameters(input.data, false);
+      input = buildDefaultGetCandlestickListInput();
+      queryParameters = getQueryParameters(input, false);
 
       apiInfoProviderMock.getApiUrl.mockResolvedValueOnce('api-url');
     });
