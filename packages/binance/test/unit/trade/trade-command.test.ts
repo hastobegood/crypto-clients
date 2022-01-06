@@ -12,7 +12,7 @@ import { buildDefaultGetTradeListInput } from '../../builders/trade/trade-test-b
 const apiInfoProviderMock = mocked(jest.genMockFromModule<SecuredApiInfoProvider>('../../../src/client.js'), true);
 const axiosInstanceMock = mocked(axiosInstance, true);
 
-describe('GetTradeListCommand', () => {
+describe('TradeCommand', () => {
   let date: Date;
 
   beforeEach(() => {

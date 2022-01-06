@@ -22,7 +22,7 @@ import { buildDefaultCancelOrderInput, buildDefaultQueryOrderInput, buildDefault
 const apiInfoProviderMock = mocked(jest.genMockFromModule<SecuredApiInfoProvider>('../../../src/client.js'), true);
 const axiosInstanceMock = mocked(axiosInstance, true);
 
-describe('SendOrderCommand', () => {
+describe('OrderCommand', () => {
   let date: Date;
 
   beforeEach(() => {
@@ -34,6 +34,8 @@ describe('SendOrderCommand', () => {
     apiInfoProviderMock.getSecretKey = jest.fn();
 
     axiosInstanceMock.post = jest.fn();
+    axiosInstanceMock.get = jest.fn();
+    axiosInstanceMock.delete = jest.fn();
   });
 
   describe('Given a SendOrderCommand to execute', () => {
@@ -96,21 +98,6 @@ describe('SendOrderCommand', () => {
       });
     });
   });
-});
-
-describe('QueryOrderCommand', () => {
-  let date: Date;
-
-  beforeEach(() => {
-    date = new Date();
-    MockDate.set(date);
-
-    apiInfoProviderMock.getApiUrl = jest.fn();
-    apiInfoProviderMock.getApiKey = jest.fn();
-    apiInfoProviderMock.getSecretKey = jest.fn();
-
-    axiosInstanceMock.get = jest.fn();
-  });
 
   describe('Given a QueryOrderCommand to execute', () => {
     let input: QueryOrderCommandInput;
@@ -171,21 +158,6 @@ describe('QueryOrderCommand', () => {
         }
       });
     });
-  });
-});
-
-describe('CancelOrderCommand', () => {
-  let date: Date;
-
-  beforeEach(() => {
-    date = new Date();
-    MockDate.set(date);
-
-    apiInfoProviderMock.getApiUrl = jest.fn();
-    apiInfoProviderMock.getApiKey = jest.fn();
-    apiInfoProviderMock.getSecretKey = jest.fn();
-
-    axiosInstanceMock.delete = jest.fn();
   });
 
   describe('Given a CancelOrderCommand to execute', () => {

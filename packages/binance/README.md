@@ -6,6 +6,7 @@
 ## Clients
 
 * [Account](#account)
+* [Candlestick](#candlestick)
 * [Exchange](#exchange)
 * [Order](#order)
 * [Trade](#trade)
@@ -32,6 +33,34 @@ import { GetAccountInfoCommand, GetAccountInfoCommandInput, GetAccountInfoComman
 const input: GetAccountInfoCommandInput = {};
 
 const output: GetAccountInfoCommandOutput = await client.send(new GetAccountInfoCommand(input));
+console.log(`Output data: ${output.data}`);
+```
+
+### Candlestick
+
+```typescript
+import { Client } from '@hastobegood/crypto-clients-binance';
+
+const client = new Client({
+  getApiUrl: async (): Promise<string> => 'binance-api-url',
+});
+```
+
+#### Get candlestick list command
+
+Kline/candlestick bars for a symbol. Klines are uniquely identified by their open time.
+
+```typescript
+import { GetCandlestickListCommand, GetCandlestickListCommandInput, GetCandlestickListCommandOutput } from '@hastobegood/crypto-clients-binance';
+
+const input: GetCandlestickListCommandInput = {
+  data: {
+    symbol: 'BTCUSDT',
+    interval: '1m',
+  },
+};
+
+const output: GetCandlestickListCommandOutput = await client.send(new GetCandlestickListCommand(input));
 console.log(`Output data: ${output.data}`);
 ```
 

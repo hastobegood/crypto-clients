@@ -1,2 +1,2 @@
-export * from './account';
-export * from './account-command';
+export * from './account.js';
+export * from './account-command.js';

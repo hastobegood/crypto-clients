@@ -14,7 +14,7 @@
     "packages/*"
   ],
   "scripts": {
-    "clean": "yarn workspaces run clean && rm -rf node_modules",
+    "clean": "yarn workspaces run clean",
     "build": "yarn workspaces run build",
     "bundle": "yarn workspaces run bundle",
     "lint": "yarn workspaces run lint",
