@@ -5,15 +5,41 @@
 
 ## Clients
 
-* [Exchange information](#exchange-information)
+* [Account](#account)
+* [Exchange](#exchange)
 * [Order](#order)
 
-### Exchange information
+### Account
 
 ```typescript
-import { ExchangeInfoClient } from '@hastobegood/crypto-clients-binance/exchange-info';
+import { Client } from '@hastobegood/crypto-clients-binance';
 
-const exchangeInfoClient = new ExchangeInfoClient({
+const client = new Client({
+  getApiUrl: async (): Promise<string> => 'binance-api-url',
+  getApiKey: async (): Promise<string> => 'binance-api-key',
+  getSecretKey: async (): Promise<string> => 'binance-secret-key',
+});
+```
+
+#### Get account information command
+
+Get current account information.
+
+```typescript
+import { GetAccountInfoCommand, GetAccountInfoCommandInput, GetAccountInfoCommandOutput } from '@hastobegood/crypto-clients-binance';
+
+const input: GetAccountInfoCommandInput = {};
+
+const output: GetAccountInfoCommandOutput = await client.send(new GetAccountInfoCommand(input));
+console.log(`Output data: ${output.data}`);
+```
+
+### Exchange
+
+```typescript
+import { Client } from '@hastobegood/crypto-clients-binance';
+
+const client = new Client({
   getApiUrl: async (): Promise<string> => 'binance-api-url',
 });
 ```
@@ -23,7 +49,7 @@ const exchangeInfoClient = new ExchangeInfoClient({
 Return current exchange trading rules and symbol information.
 
 ```typescript
-import { GetExchangeInfoCommand, GetExchangeInfoCommandInput, GetExchangeInfoCommandOutput } from "@hastobegood/crypto-clients-binance/exchange-info";
+import { GetExchangeInfoCommand, GetExchangeInfoCommandInput, GetExchangeInfoCommandOutput } from '@hastobegood/crypto-clients-binance';
 
 const input: GetExchangeInfoCommandInput = {
   data: {
@@ -31,16 +57,16 @@ const input: GetExchangeInfoCommandInput = {
   },
 };
 
-const output: GetExchangeInfoCommandOutput = await this.exchangeInfoClient.send(new GetExchangeInfoCommand(input));
+const output: GetExchangeInfoCommandOutput = await client.send(new GetExchangeInfoCommand(input));
 console.log(`Output data: ${output.data}`);
 ```
 
 ### Order
 
 ```typescript
-import { OrderClient } from '@hastobegood/crypto-clients-binance/order';
+import { Client } from '@hastobegood/crypto-clients-binance';
 
-const orderClient = new OrderClient({
+const client = new Client({
   getApiUrl: async (): Promise<string> => 'binance-api-url',
   getApiKey: async (): Promise<string> => 'binance-api-key',
   getSecretKey: async (): Promise<string> => 'binance-secret-key',
@@ -52,7 +78,7 @@ const orderClient = new OrderClient({
 Send in a new order.
 
 ```typescript
-import { SendOrderCommand, SendOrderCommandInput, SendOrderCommandOutput } from '@hastobegood/crypto-clients-binance/order';
+import { SendOrderCommand, SendOrderCommandInput, SendOrderCommandOutput } from '@hastobegood/crypto-clients-binance';
 
 const input: SendOrderCommandInput = {
   data: {
@@ -63,7 +89,7 @@ const input: SendOrderCommandInput = {
   },
 };
 
-const output: SendOrderCommandOutput = await this.orderClient.send(new SendOrderCommand(input));
+const output: SendOrderCommandOutput = await client.send(new SendOrderCommand(input));
 console.log(`Output data: ${output.data}`);
 ```
 
@@ -72,7 +98,7 @@ console.log(`Output data: ${output.data}`);
 Check an order's status.
 
 ```typescript
-import { QueryOrderCommand, QueryOrderCommandInput, QueryOrderCommandOutput } from '@hastobegood/crypto-clients-binance/order';
+import { QueryOrderCommand, QueryOrderCommandInput, QueryOrderCommandOutput } from '@hastobegood/crypto-clients-binance';
 
 const input: QueryOrderCommandInput = {
   data: {
@@ -81,7 +107,7 @@ const input: QueryOrderCommandInput = {
   },
 };
 
-const output: QueryOrderCommandOutput = await this.orderClient.send(new QueryOrderCommand(input));
+const output: QueryOrderCommandOutput = await client.send(new QueryOrderCommand(input));
 console.log(`Output data: ${output.data}`);
 ```
 
@@ -90,7 +116,7 @@ console.log(`Output data: ${output.data}`);
 Cancel an active order.
 
 ```typescript
-import { CancelOrderCommand, CancelOrderCommandInput, CancelOrderCommandOutput } from '@hastobegood/crypto-clients-binance/order';
+import { CancelOrderCommand, CancelOrderCommandInput, CancelOrderCommandOutput } from '@hastobegood/crypto-clients-binance';
 
 const input: CancelOrderCommandInput = {
   data: {
@@ -99,6 +125,6 @@ const input: CancelOrderCommandInput = {
   },
 };
 
-const output: CancelOrderCommandOutput = await this.orderClient.send(new CancelOrderCommand(input));
+const output: CancelOrderCommandOutput = await client.send(new CancelOrderCommand(input));
 console.log(`Output data: ${output.data}`);
 ```

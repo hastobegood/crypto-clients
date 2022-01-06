@@ -2,14 +2,14 @@ import { mocked } from 'ts-jest/utils';
 import { axiosInstance, getQueryParameters } from '../../../src/common/axios-instance.js';
 import { ApiInfoProvider } from '../../../src/client.js';
 import { CommandError } from '../../../src/command.js';
-import { GetExchangeInfoCommand, GetExchangeInfoCommandInput, GetExchangeInfoCommandOutput } from '../../../src/exchange-info/exchange-info-command.js';
+import { GetExchangeInfoCommand, GetExchangeInfoCommandInput, GetExchangeInfoCommandOutput } from '../../../src/exchange/exchange-command.js';
 import { buildDefaultCommandInput, buildDefaultCommandOutput } from '../../builders/common/command-test-builder.js';
-import { buildDefaultGetExchangeInfoInput, buildDefaultGetExchangeInfoOutput } from '../../builders/exchange-info/exchange-info-test-builder.js';
+import { buildDefaultGetExchangeInfoInput, buildDefaultGetExchangeInfoOutput } from '../../builders/exchange/exchange-test-builder.js';
 
 const apiInfoProviderMock = mocked(jest.genMockFromModule<ApiInfoProvider>('../../../src/client.js'), true);
 const axiosInstanceMock = mocked(axiosInstance, true);
 
-describe('ExchangeInfoCommand', () => {
+describe('ExchangeCommand', () => {
   beforeEach(() => {
     apiInfoProviderMock.getApiUrl = jest.fn();
 

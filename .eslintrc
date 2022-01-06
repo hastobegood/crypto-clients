@@ -17,7 +17,8 @@
   "rules": {
     "no-console": "error",
     "prettier/prettier": "error",
-    "@typescript-eslint/no-non-null-assertion": "off"
+    "@typescript-eslint/no-non-null-assertion": "off",
+    "@typescript-eslint/no-empty-interface": "off"
   },
   "ignorePatterns": [
     "node_modules",
