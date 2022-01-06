@@ -4,10 +4,10 @@ import { axiosInstance, getQueryParameters } from '../../../src/common/axios-ins
 import { sign } from '../../../src/common/signature.js';
 import { SecuredApiInfoProvider } from '../../../src/client.js';
 import { CommandError } from '../../../src/command.js';
-import { GetTradeListCommand, GetTradeListCommandOutput } from '../../../src/trade/trade-command.js';
-import { GetTradeListInput, GetTradeListOutput } from '../../../src/trade/trade.js';
+import { GetAccountTradeListCommand, GetAccountTradeListCommandOutput } from '../../../src/trade/trade-command.js';
+import { GetAccountTradeListInput, GetAccountTradeListOutput } from '../../../src/trade/trade.js';
 import { buildDefaultCommandOutput } from '../../builders/common/command-test-builder.js';
-import { buildDefaultGetTradeListInput } from '../../builders/trade/trade-test-builder.js';
+import { buildDefaultGetAccountTradeListInput } from '../../builders/trade/trade-test-builder.js';
 
 const apiInfoProviderMock = mocked(jest.genMockFromModule<SecuredApiInfoProvider>('../../../src/client.js'), true);
 const axiosInstanceMock = mocked(axiosInstance, true);
@@ -26,12 +26,12 @@ describe('TradeCommand', () => {
     axiosInstanceMock.get = jest.fn();
   });
 
-  describe('Given a GetTradeListCommand to execute', () => {
-    let input: GetTradeListInput;
+  describe('Given a GetAccountTradeListCommand to execute', () => {
+    let input: GetAccountTradeListInput;
     let queryParameters: string;
 
     beforeEach(() => {
-      input = buildDefaultGetTradeListInput();
+      input = buildDefaultGetAccountTradeListInput();
       queryParameters = `${getQueryParameters(input, true)}`;
       queryParameters = `${queryParameters}&${sign(queryParameters, 'secret-key')}`;
 
@@ -56,17 +56,17 @@ describe('TradeCommand', () => {
     });
 
     describe('When success', () => {
-      let output: GetTradeListCommandOutput;
+      let output: GetAccountTradeListCommandOutput;
 
       beforeEach(() => {
         // FIXME
-        output = buildDefaultCommandOutput({} as GetTradeListOutput);
+        output = buildDefaultCommandOutput({} as GetAccountTradeListOutput);
 
         axiosInstanceMock.get.mockResolvedValueOnce(output);
       });
 
       it('Then execution result is returned', async () => {
-        const result = await new GetTradeListCommand(input).execute(apiInfoProviderMock);
+        const result = await new GetAccountTradeListCommand(input).execute(apiInfoProviderMock);
         expect(result).toEqual(output);
       });
     });
@@ -78,7 +78,7 @@ describe('TradeCommand', () => {
 
       it('Then error is thrown', async () => {
         try {
-          await new GetTradeListCommand(input).execute(apiInfoProviderMock);
+          await new GetAccountTradeListCommand(input).execute(apiInfoProviderMock);
           fail();
         } catch (error) {
           expect(error).toBeDefined();

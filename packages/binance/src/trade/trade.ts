@@ -1,4 +1,4 @@
-export interface GetTradeListInput {
+export interface GetAccountTradeListInput {
   symbol: string;
   orderId?: number;
   startTime?: number;
@@ -7,7 +7,7 @@ export interface GetTradeListInput {
   limit?: number;
 }
 
-export interface GetTradeListOutput {
+export interface GetAccountTradeListOutput {
   symbol: string;
   orderId: number;
   orderListId: number;

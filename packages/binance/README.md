@@ -161,18 +161,18 @@ const output: CancelOrderCommandOutput = await client.send(new CancelOrderComman
 
 ### Trade
 
-#### Get trade list command
+#### Get account trade list command
 
 Get trades for a specific account and symbol.
 
 ```typescript
-import { GetTradeListCommand, GetTradeListCommandInput, GetTradeListCommandOutput } from '@hastobegood/crypto-clients-binance';
+import { GetAccountTradeListCommand, GetAccountTradeListCommandInput, GetAccountTradeListCommandOutput } from '@hastobegood/crypto-clients-binance';
 
-const input: GetTradeListCommandInput = {
+const input: GetAccountTradeListCommandInput = {
   data: {
     symbol: 'BTCUSDT',
   },
 };
 
-const output: GetTradeListCommandOutput = await client.send(new GetTradeListCommand(input));
+const output: GetAccountTradeListCommandOutput = await client.send(new GetAccountTradeListCommand(input));
 ```

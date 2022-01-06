@@ -2,16 +2,16 @@ import { axiosInstance, getQueryConfig, getQueryParameters } from '../common/axi
 import { SecuredApiInfoProvider } from '../client.js';
 import { sign } from '../common/signature.js';
 import { Command, CommandOutput } from '../command.js';
-import { GetTradeListInput, GetTradeListOutput } from './trade.js';
+import { GetAccountTradeListInput, GetAccountTradeListOutput } from './trade.js';
 
-export type GetTradeListCommandOutput = CommandOutput<GetTradeListOutput>;
+export type GetAccountTradeListCommandOutput = CommandOutput<GetAccountTradeListOutput>;
 
-export class GetTradeListCommand extends Command<GetTradeListCommandOutput> {
-  constructor(readonly input: GetTradeListInput) {
+export class GetAccountTradeListCommand extends Command<GetAccountTradeListCommandOutput> {
+  constructor(readonly input: GetAccountTradeListInput) {
     super();
   }
 
-  async execute(apiInfoProvider: SecuredApiInfoProvider): Promise<GetTradeListCommandOutput> {
+  async execute(apiInfoProvider: SecuredApiInfoProvider): Promise<GetAccountTradeListCommandOutput> {
     const [apiUrl, apiKey, secretKey] = await Promise.all([apiInfoProvider.getApiUrl(), apiInfoProvider.getApiKey(), apiInfoProvider.getSecretKey()]);
 
     const queryParameters = `${getQueryParameters(this.input, true)}`;
@@ -19,6 +19,6 @@ export class GetTradeListCommand extends Command<GetTradeListCommandOutput> {
     const queryUrl = `/v3/myTrades?${queryParameters}&${querySignature}`;
     const queryConfig = getQueryConfig(apiUrl, apiKey);
 
-    return this.handle(() => axiosInstance.get<GetTradeListOutput>(queryUrl, queryConfig));
+    return this.handle(() => axiosInstance.get<GetAccountTradeListOutput>(queryUrl, queryConfig));
   }
 }

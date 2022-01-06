@@ -1,7 +1,7 @@
 import { randomNumber, randomSymbol } from '../random-test-builder.js';
-import { GetTradeListInput } from '../../../src/trade/trade.js';
+import { GetAccountTradeListInput } from '../../../src/trade/trade.js';
 
-export const buildDefaultGetTradeListInput = (): GetTradeListInput => {
+export const buildDefaultGetAccountTradeListInput = (): GetAccountTradeListInput => {
   return {
     symbol: randomSymbol(),
     orderId: randomNumber(),
