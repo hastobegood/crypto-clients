@@ -8,6 +8,7 @@
 * [Account](#account)
 * [Exchange](#exchange)
 * [Order](#order)
+* [Trade](#trade)
 
 ### Account
 
@@ -126,5 +127,34 @@ const input: CancelOrderCommandInput = {
 };
 
 const output: CancelOrderCommandOutput = await client.send(new CancelOrderCommand(input));
+console.log(`Output data: ${output.data}`);
+```
+
+### Trade
+
+```typescript
+import { Client } from '@hastobegood/crypto-clients-binance';
+
+const client = new Client({
+  getApiUrl: async (): Promise<string> => 'binance-api-url',
+  getApiKey: async (): Promise<string> => 'binance-api-key',
+  getSecretKey: async (): Promise<string> => 'binance-secret-key',
+});
+```
+
+#### Get trade list command
+
+Get trades for a specific account and symbol.
+
+```typescript
+import { GetTradeListCommand, GetTradeListCommandInput, GetTradeListCommandOutput } from '@hastobegood/crypto-clients-binance';
+
+const input: GetTradeListCommandInput = {
+  data: {
+    symbol: 'BTCUSDT',
+  },
+};
+
+const output: GetTradeListCommandOutput = await client.send(new GetTradeListCommand(input));
 console.log(`Output data: ${output.data}`);
 ```
