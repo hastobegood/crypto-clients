@@ -183,14 +183,52 @@ const output: CancelOrderCommandOutput = await client.send(new CancelOrderComman
 
 ### Trade
 
-#### Get account trade list
+#### Get account trades list
 
 ```typescript
-import { GetAccountTradeListCommand, GetAccountTradeListCommandInput, GetAccountTradeListCommandOutput } from '@hastobegood/crypto-clients-binance';
+import { GetAccountTradesListCommand, GetAccountTradesListCommandInput, GetAccountTradesListCommandOutput } from '@hastobegood/crypto-clients-binance';
 
-const input: GetAccountTradeListCommandInput = {
+const input: GetAccountTradesListCommandInput = {
   symbol: 'BTCUSDT',
 };
 
-const output: GetAccountTradeListCommandOutput = await client.send(new GetAccountTradeListCommand(input));
+const output: GetAccountTradesListCommandOutput = await client.send(new GetAccountTradesListCommand(input));
+```
+
+#### Get recent trades list
+
+```typescript
+import { GetRecentTradesListCommand, GetRecentTradesListCommandInput, GetRecentTradesListCommandOutput } from '@hastobegood/crypto-clients-binance';
+
+const input: GetRecentTradesListCommandInput = {
+  symbol: 'BTCUSDT',
+};
+
+const output: GetRecentTradesListCommandOutput = await client.send(new GetRecentTradesListCommand(input));
+```
+
+
+#### Get old trades list
+
+```typescript
+import { GetOldTradesListCommand, GetOldTradesListCommandInput, GetOldTradesListCommandOutput } from '@hastobegood/crypto-clients-binance';
+
+const input: GetOldTradesListCommandInput = {
+  symbol: 'BTCUSDT',
+};
+
+const output: GetOldTradesListCommandOutput = await client.send(new GetOldTradesListCommand(input));
+```
+
+
+#### Get aggregate trades list
+
+```typescript
+import { GetAggregateTradesListCommand, GetAggregateTradesListCommandInput, GetAggregateTradesListCommandOutput } from '@hastobegood/crypto-clients-binance';
+
+const input: GetAggregateTradesListCommandInput = {
+  symbol: 'BTCUSDT',
+};
+
+const output: GetAggregateTradesListCommandOutput = await client.send(new GetAggregateTradesListCommand(input));
 ```

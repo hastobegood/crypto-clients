@@ -96,7 +96,7 @@ describe('OrderCommand', () => {
 
     beforeEach(() => {
       input = buildDefaultGetOrderInput();
-      queryParameters = `${getQueryParameters(input, true)}`;
+      queryParameters = getQueryParameters(input, true);
       queryParameters = `${queryParameters}&${sign(queryParameters, 'secret-key')}`;
 
       apiInfoProviderMock.getApiUrl.mockResolvedValueOnce('api-url');
@@ -158,7 +158,7 @@ describe('OrderCommand', () => {
 
     beforeEach(() => {
       input = buildDefaultCancelOrderInput();
-      queryParameters = `${getQueryParameters(input, true)}`;
+      queryParameters = getQueryParameters(input, true);
       queryParameters = `${queryParameters}&${sign(queryParameters, 'secret-key')}`;
 
       apiInfoProviderMock.getApiUrl.mockResolvedValueOnce('api-url');

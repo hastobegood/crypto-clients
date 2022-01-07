@@ -1,4 +1,4 @@
-export interface GetAccountTradeListInput {
+export interface GetAccountTradesListInput {
   symbol: string;
   orderId?: number;
   startTime?: number;
@@ -7,9 +7,9 @@ export interface GetAccountTradeListInput {
   limit?: number;
 }
 
-export interface GetAccountTradeListOutput extends Array<GetAccountTradeListOutputSymbol> {}
+export interface GetAccountTradesListOutput extends Array<GetAccountTradesListOutputSymbol> {}
 
-export interface GetAccountTradeListOutputSymbol {
+export interface GetAccountTradesListOutputSymbol {
   symbol: string;
   orderId: number;
   orderListId: number;
@@ -22,4 +22,60 @@ export interface GetAccountTradeListOutputSymbol {
   isBuyer: boolean;
   isMaker: boolean;
   isBestMatch: boolean;
+}
+
+export interface GetRecentTradesListInput {
+  symbol: string;
+  limit?: number;
+}
+
+export interface GetRecentTradesListOutput extends Array<GetRecentTradesListOutputSymbol> {}
+
+export interface GetRecentTradesListOutputSymbol {
+  id: string;
+  price: string;
+  qty: string;
+  quoteQty: string;
+  time: number;
+  isBuyerMaker: boolean;
+  isBestMatch: boolean;
+}
+
+export interface GetOldTradesListInput {
+  symbol: string;
+  limit?: number;
+  fromId?: number;
+}
+
+export interface GetOldTradesListOutput extends Array<GetOldTradesListOutputSymbol> {}
+
+export interface GetOldTradesListOutputSymbol {
+  id: string;
+  price: string;
+  qty: string;
+  quoteQty: string;
+  time: number;
+  isBuyerMaker: boolean;
+  isBestMatch: boolean;
+}
+
+export interface GetAggregateTradesListInput {
+  symbol: string;
+  fromId?: number;
+  startTime?: number;
+  endTime?: number;
+  limit?: number;
+}
+
+export interface GetAggregateTradesListOutput extends Array<GetAggregateTradesListOutputSymbol> {}
+
+export interface GetAggregateTradesListOutputSymbol {
+  a: number;
+  p: string;
+  q: string;
+  f: number;
+  l: number;
+  T: number;
+  m: number;
+  M: number;
 }
