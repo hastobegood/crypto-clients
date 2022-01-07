@@ -5,28 +5,22 @@ import { CommandError } from '../../../src/command.js';
 import {
   GetAveragePriceCommand,
   GetAveragePriceCommandOutput,
-  GetCandlestickListCommand,
-  GetCandlestickListCommandOutput,
+  GetCandlestickDataCommand,
+  GetCandlestickDataCommandOutput,
   GetCurrentPriceCommand,
   GetCurrentPriceCommandOutput,
-  GetCurrentPriceListCommand,
-  GetCurrentPriceListCommandOutput,
   GetOrderBookPriceCommand,
   GetOrderBookPriceCommandOutput,
-  GetOrderBookPriceListCommand,
-  GetOrderBookPriceListCommandOutput,
   GetPriceChangeCommand,
   GetPriceChangeCommandOutput,
-  GetPriceChangeListCommand,
-  GetPriceChangeListCommandOutput,
 } from '../../../src/market/market-command.js';
-import { GetAveragePriceInput, GetCandlestickListInput, GetCurrentPriceInput, GetOrderBookPriceInput, GetPriceChangeInput } from '../../../src/market/market.js';
+import { GetAveragePriceInput, GetCandlestickDataInput, GetCurrentPriceInput, GetOrderBookPriceInput, GetPriceChangeInput } from '../../../src/market/market.js';
 import { buildDefaultCommandOutput } from '../../builders/common/command-test-builder.js';
 import {
   buildDefaultGetAveragePriceInput,
   buildDefaultGetAveragePriceOutput,
-  buildDefaultGetCandlestickListInput,
-  buildDefaultGetCandlestickListOutput,
+  buildDefaultGetCandlestickDataInput,
+  buildDefaultGetCandlestickDataOutput,
   buildDefaultGetCurrentPriceInput,
   buildDefaultGetCurrentPriceOutput,
   buildDefaultGetOrderBookPriceInput,
@@ -38,19 +32,19 @@ import {
 const apiInfoProviderMock = mocked(jest.genMockFromModule<ApiInfoProvider>('../../../src/client.js'), true);
 const axiosInstanceMock = mocked(axiosInstance, true);
 
-describe('CandlestickCommand', () => {
+describe('MarketCommand', () => {
   beforeEach(() => {
     apiInfoProviderMock.getApiUrl = jest.fn();
 
     axiosInstanceMock.get = jest.fn();
   });
 
-  describe('Given a GetCandlestickListCommand to execute', () => {
-    let input: GetCandlestickListInput;
+  describe('Given a GetCandlestickDataCommand to execute', () => {
+    let input: GetCandlestickDataInput;
     let queryParameters: string;
 
     beforeEach(() => {
-      input = buildDefaultGetCandlestickListInput();
+      input = buildDefaultGetCandlestickDataInput();
       queryParameters = getQueryParameters(input, false);
 
       apiInfoProviderMock.getApiUrl.mockResolvedValueOnce('api-url');
@@ -69,16 +63,16 @@ describe('CandlestickCommand', () => {
     });
 
     describe('When success', () => {
-      let output: GetCandlestickListCommandOutput;
+      let output: GetCandlestickDataCommandOutput;
 
       beforeEach(() => {
-        output = buildDefaultCommandOutput(buildDefaultGetCandlestickListOutput());
+        output = buildDefaultCommandOutput(buildDefaultGetCandlestickDataOutput());
 
         axiosInstanceMock.get.mockResolvedValueOnce(output);
       });
 
       it('Then execution result is returned', async () => {
-        const result = await new GetCandlestickListCommand(input).execute(apiInfoProviderMock);
+        const result = await new GetCandlestickDataCommand(input).execute(apiInfoProviderMock);
         expect(result).toEqual(output);
       });
     });
@@ -90,7 +84,7 @@ describe('CandlestickCommand', () => {
 
       it('Then error is thrown', async () => {
         try {
-          await new GetCandlestickListCommand(input).execute(apiInfoProviderMock);
+          await new GetCandlestickDataCommand(input).execute(apiInfoProviderMock);
           fail();
         } catch (error) {
           expect(error).toBeDefined();
@@ -155,7 +149,7 @@ describe('CandlestickCommand', () => {
     });
   });
 
-  describe('Given a GetPriceChangeCommand to execute', () => {
+  describe('Given a GetPriceChangeCommand with symbol to execute', () => {
     let input: GetPriceChangeInput;
     let queryParameters: string;
 
@@ -210,7 +204,7 @@ describe('CandlestickCommand', () => {
     });
   });
 
-  describe('Given a GetPriceChangeListCommand to execute', () => {
+  describe('Given a GetPriceChangeCommand without symbol to execute', () => {
     beforeEach(() => {
       apiInfoProviderMock.getApiUrl.mockResolvedValueOnce('api-url');
     });
@@ -228,7 +222,7 @@ describe('CandlestickCommand', () => {
     });
 
     describe('When success', () => {
-      let output: GetPriceChangeListCommandOutput;
+      let output: GetPriceChangeCommandOutput;
 
       beforeEach(() => {
         output = buildDefaultCommandOutput([buildDefaultGetPriceChangeOutput(), buildDefaultGetPriceChangeOutput()]);
@@ -237,7 +231,7 @@ describe('CandlestickCommand', () => {
       });
 
       it('Then execution result is returned', async () => {
-        const result = await new GetPriceChangeListCommand().execute(apiInfoProviderMock);
+        const result = await new GetPriceChangeCommand().execute(apiInfoProviderMock);
         expect(result).toEqual(output);
       });
     });
@@ -249,7 +243,7 @@ describe('CandlestickCommand', () => {
 
       it('Then error is thrown', async () => {
         try {
-          await new GetPriceChangeListCommand().execute(apiInfoProviderMock);
+          await new GetPriceChangeCommand().execute(apiInfoProviderMock);
           fail();
         } catch (error) {
           expect(error).toBeDefined();
@@ -259,7 +253,7 @@ describe('CandlestickCommand', () => {
     });
   });
 
-  describe('Given a GetCurrentPriceCommand to execute', () => {
+  describe('Given a GetCurrentPriceCommand with symbol to execute', () => {
     let input: GetCurrentPriceInput;
     let queryParameters: string;
 
@@ -314,7 +308,7 @@ describe('CandlestickCommand', () => {
     });
   });
 
-  describe('Given a GetCurrentPriceListCommand to execute', () => {
+  describe('Given a GetCurrentPriceCommand without symbol to execute', () => {
     beforeEach(() => {
       apiInfoProviderMock.getApiUrl.mockResolvedValueOnce('api-url');
     });
@@ -332,7 +326,7 @@ describe('CandlestickCommand', () => {
     });
 
     describe('When success', () => {
-      let output: GetCurrentPriceListCommandOutput;
+      let output: GetCurrentPriceCommandOutput;
 
       beforeEach(() => {
         output = buildDefaultCommandOutput([buildDefaultGetCurrentPriceOutput(), buildDefaultGetCurrentPriceOutput()]);
@@ -341,7 +335,7 @@ describe('CandlestickCommand', () => {
       });
 
       it('Then execution result is returned', async () => {
-        const result = await new GetCurrentPriceListCommand().execute(apiInfoProviderMock);
+        const result = await new GetCurrentPriceCommand().execute(apiInfoProviderMock);
         expect(result).toEqual(output);
       });
     });
@@ -353,7 +347,7 @@ describe('CandlestickCommand', () => {
 
       it('Then error is thrown', async () => {
         try {
-          await new GetCurrentPriceListCommand().execute(apiInfoProviderMock);
+          await new GetCurrentPriceCommand().execute(apiInfoProviderMock);
           fail();
         } catch (error) {
           expect(error).toBeDefined();
@@ -363,7 +357,7 @@ describe('CandlestickCommand', () => {
     });
   });
 
-  describe('Given a GetOrderBookPriceCommand to execute', () => {
+  describe('Given a GetOrderBookPriceCommand with symbol to execute', () => {
     let input: GetOrderBookPriceInput;
     let queryParameters: string;
 
@@ -418,7 +412,7 @@ describe('CandlestickCommand', () => {
     });
   });
 
-  describe('Given a GetOrderBookPriceListCommand to execute', () => {
+  describe('Given a GetOrderBookPriceCommand without symbol to execute', () => {
     beforeEach(() => {
       apiInfoProviderMock.getApiUrl.mockResolvedValueOnce('api-url');
     });
@@ -436,7 +430,7 @@ describe('CandlestickCommand', () => {
     });
 
     describe('When success', () => {
-      let output: GetOrderBookPriceListCommandOutput;
+      let output: GetOrderBookPriceCommandOutput;
 
       beforeEach(() => {
         output = buildDefaultCommandOutput([buildDefaultGetOrderBookPriceOutput(), buildDefaultGetOrderBookPriceOutput()]);
@@ -445,7 +439,7 @@ describe('CandlestickCommand', () => {
       });
 
       it('Then execution result is returned', async () => {
-        const result = await new GetOrderBookPriceListCommand().execute(apiInfoProviderMock);
+        const result = await new GetOrderBookPriceCommand().execute(apiInfoProviderMock);
         expect(result).toEqual(output);
       });
     });
@@ -457,7 +451,7 @@ describe('CandlestickCommand', () => {
 
       it('Then error is thrown', async () => {
         try {
-          await new GetOrderBookPriceListCommand().execute(apiInfoProviderMock);
+          await new GetOrderBookPriceCommand().execute(apiInfoProviderMock);
           fail();
         } catch (error) {
           expect(error).toBeDefined();

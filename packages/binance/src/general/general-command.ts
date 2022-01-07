@@ -26,7 +26,7 @@ export class GetServerTimeCommand extends Command<GetServerTimeCommandOutput> {
 export type GetExchangeInfoCommandOutput = CommandOutput<GetExchangeInfoOutput>;
 
 export class GetExchangeInfoCommand extends Command<GetExchangeInfoCommandOutput> {
-  constructor(readonly input: GetExchangeInfoInput) {
+  constructor(readonly input?: GetExchangeInfoInput) {
     super();
   }
 

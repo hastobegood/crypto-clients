@@ -4,8 +4,8 @@ import { Command, CommandOutput } from '../command.js';
 import {
   GetAveragePriceInput,
   GetAveragePriceOutput,
-  GetCandlestickListInput,
-  GetCandlestickListOutput,
+  GetCandlestickDataInput,
+  GetCandlestickDataOutput,
   GetCurrentPriceInput,
   GetCurrentPriceOutput,
   GetOrderBookPriceInput,
@@ -14,19 +14,19 @@ import {
   GetPriceChangeOutput,
 } from './market.js';
 
-export type GetCandlestickListCommandOutput = CommandOutput<GetCandlestickListOutput>;
+export type GetCandlestickDataCommandOutput = CommandOutput<GetCandlestickDataOutput>;
 
-export class GetCandlestickListCommand extends Command<GetCandlestickListCommandOutput> {
-  constructor(readonly input: GetCandlestickListInput) {
+export class GetCandlestickDataCommand extends Command<GetCandlestickDataCommandOutput> {
+  constructor(readonly input: GetCandlestickDataInput) {
     super();
   }
 
-  async execute(apiInfoProvider: ApiInfoProvider): Promise<GetCandlestickListCommandOutput> {
+  async execute(apiInfoProvider: ApiInfoProvider): Promise<GetCandlestickDataCommandOutput> {
     const queryParameters = getQueryParameters(this.input, false);
     const queryUrl = `/v3/klines?${queryParameters}`;
     const queryConfig = getQueryConfig(await apiInfoProvider.getApiUrl());
 
-    return this.handle(() => axiosInstance.get<GetCandlestickListOutput>(queryUrl, queryConfig));
+    return this.handle(() => axiosInstance.get<GetCandlestickDataOutput>(queryUrl, queryConfig));
   }
 }
 
@@ -46,83 +46,71 @@ export class GetAveragePriceCommand extends Command<GetAveragePriceCommandOutput
   }
 }
 
-export type GetPriceChangeCommandOutput = CommandOutput<GetPriceChangeOutput>;
+export type GetPriceChangeCommandOutput = CommandOutput<GetPriceChangeOutput | GetPriceChangeOutput[]>;
 
 export class GetPriceChangeCommand extends Command<GetPriceChangeCommandOutput> {
-  constructor(readonly input: GetPriceChangeInput) {
+  constructor(readonly input?: GetPriceChangeInput) {
     super();
   }
 
   async execute(apiInfoProvider: ApiInfoProvider): Promise<GetPriceChangeCommandOutput> {
-    const queryParameters = getQueryParameters(this.input, false);
-    const queryUrl = `/v3/ticker/24hr?${queryParameters}`;
     const queryConfig = getQueryConfig(await apiInfoProvider.getApiUrl());
 
-    return this.handle(() => axiosInstance.get<GetPriceChangeOutput>(queryUrl, queryConfig));
+    if (this.input?.symbol) {
+      const queryParameters = getQueryParameters(this.input, false);
+      const queryUrl = `/v3/ticker/24hr?${queryParameters}`;
+
+      return this.handle(() => axiosInstance.get<GetPriceChangeOutput>(queryUrl, queryConfig));
+    } else {
+      const queryUrl = '/v3/ticker/24hr';
+
+      return this.handle(() => axiosInstance.get<GetPriceChangeOutput[]>(queryUrl, queryConfig));
+    }
   }
 }
 
-export type GetPriceChangeListCommandOutput = CommandOutput<GetPriceChangeOutput[]>;
-
-export class GetPriceChangeListCommand extends Command<GetPriceChangeListCommandOutput> {
-  async execute(apiInfoProvider: ApiInfoProvider): Promise<GetPriceChangeListCommandOutput> {
-    const queryUrl = '/v3/ticker/24hr';
-    const queryConfig = getQueryConfig(await apiInfoProvider.getApiUrl());
-
-    return this.handle(() => axiosInstance.get<GetPriceChangeOutput[]>(queryUrl, queryConfig));
-  }
-}
-
-export type GetCurrentPriceCommandOutput = CommandOutput<GetCurrentPriceOutput>;
+export type GetCurrentPriceCommandOutput = CommandOutput<GetCurrentPriceOutput | GetCurrentPriceOutput[]>;
 
 export class GetCurrentPriceCommand extends Command<GetCurrentPriceCommandOutput> {
-  constructor(readonly input: GetCurrentPriceInput) {
+  constructor(readonly input?: GetCurrentPriceInput) {
     super();
   }
 
   async execute(apiInfoProvider: ApiInfoProvider): Promise<GetCurrentPriceCommandOutput> {
-    const queryParameters = getQueryParameters(this.input, false);
-    const queryUrl = `/v3/ticker/price?${queryParameters}`;
     const queryConfig = getQueryConfig(await apiInfoProvider.getApiUrl());
 
-    return this.handle(() => axiosInstance.get<GetCurrentPriceOutput>(queryUrl, queryConfig));
+    if (this.input?.symbol) {
+      const queryParameters = getQueryParameters(this.input, false);
+      const queryUrl = `/v3/ticker/price?${queryParameters}`;
+
+      return this.handle(() => axiosInstance.get<GetCurrentPriceOutput>(queryUrl, queryConfig));
+    } else {
+      const queryUrl = '/v3/ticker/price';
+
+      return this.handle(() => axiosInstance.get<GetCurrentPriceOutput[]>(queryUrl, queryConfig));
+    }
   }
 }
 
-export type GetCurrentPriceListCommandOutput = CommandOutput<GetCurrentPriceOutput[]>;
-
-export class GetCurrentPriceListCommand extends Command<GetCurrentPriceListCommandOutput> {
-  async execute(apiInfoProvider: ApiInfoProvider): Promise<GetCurrentPriceListCommandOutput> {
-    const queryUrl = '/v3/ticker/price';
-    const queryConfig = getQueryConfig(await apiInfoProvider.getApiUrl());
-
-    return this.handle(() => axiosInstance.get<GetCurrentPriceOutput[]>(queryUrl, queryConfig));
-  }
-}
-
-export type GetOrderBookPriceCommandOutput = CommandOutput<GetOrderBookPriceOutput>;
+export type GetOrderBookPriceCommandOutput = CommandOutput<GetOrderBookPriceOutput | GetOrderBookPriceOutput[]>;
 
 export class GetOrderBookPriceCommand extends Command<GetOrderBookPriceCommandOutput> {
-  constructor(readonly input: GetOrderBookPriceInput) {
+  constructor(readonly input?: GetOrderBookPriceInput) {
     super();
   }
 
   async execute(apiInfoProvider: ApiInfoProvider): Promise<GetOrderBookPriceCommandOutput> {
-    const queryParameters = getQueryParameters(this.input, false);
-    const queryUrl = `/v3/ticker/bookTicker?${queryParameters}`;
     const queryConfig = getQueryConfig(await apiInfoProvider.getApiUrl());
 
-    return this.handle(() => axiosInstance.get<GetOrderBookPriceOutput>(queryUrl, queryConfig));
-  }
-}
+    if (this.input?.symbol) {
+      const queryParameters = getQueryParameters(this.input, false);
+      const queryUrl = `/v3/ticker/bookTicker?${queryParameters}`;
 
-export type GetOrderBookPriceListCommandOutput = CommandOutput<GetOrderBookPriceOutput[]>;
+      return this.handle(() => axiosInstance.get<GetOrderBookPriceOutput>(queryUrl, queryConfig));
+    } else {
+      const queryUrl = '/v3/ticker/bookTicker';
 
-export class GetOrderBookPriceListCommand extends Command<GetOrderBookPriceListCommandOutput> {
-  async execute(apiInfoProvider: ApiInfoProvider): Promise<GetOrderBookPriceListCommandOutput> {
-    const queryUrl = '/v3/ticker/bookTicker';
-    const queryConfig = getQueryConfig(await apiInfoProvider.getApiUrl());
-
-    return this.handle(() => axiosInstance.get<GetOrderBookPriceOutput[]>(queryUrl, queryConfig));
+      return this.handle(() => axiosInstance.get<GetOrderBookPriceOutput[]>(queryUrl, queryConfig));
+    }
   }
 }

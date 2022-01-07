@@ -17,12 +17,14 @@ export const getQueryConfig = (apiUrl: string, apiKey?: string): AxiosRequestCon
 export const getQueryParameters = (data: any, timestamp: boolean): string => {
   const parameters = new URLSearchParams();
 
-  Object.keys(data).forEach((key) => {
-    const value = data[key];
-    if (value !== undefined && value !== null) {
-      parameters.append(key, value);
-    }
-  });
+  if (data) {
+    Object.keys(data).forEach((key) => {
+      const value = data[key];
+      if (value !== undefined && value !== null) {
+        parameters.append(key, value);
+      }
+    });
+  }
 
   if (timestamp) {
     parameters.append('timestamp', new Date().valueOf().toString());

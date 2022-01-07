@@ -77,17 +77,17 @@ const output: GetExchangeInfoCommandOutput = await client.send(new GetExchangeIn
 
 ### Market
 
-#### Get candlestick list
+#### Get candlestick data
 
 ```typescript
-import { GetCandlestickListCommand, GetCandlestickListCommandInput, GetCandlestickListCommandOutput } from '@hastobegood/crypto-clients-binance';
+import { GetCandlestickDataCommand, GetCandlestickDataCommandInput, GetCandlestickDataCommandOutput } from '@hastobegood/crypto-clients-binance';
 
-const input: GetCandlestickListCommandInput = {
+const input: GetCandlestickDataCommandInput = {
   symbol: 'BTCUSDT',
   interval: '1m',
 };
 
-const output: GetCandlestickListCommandOutput = await client.send(new GetCandlestickListCommand(input));
+const output: GetCandlestickDataCommandOutput = await client.send(new GetCandlestickDataCommand(input));
 ```
 
 #### Get average price
@@ -114,14 +114,6 @@ const input: GetPriceChangeCommandInput = {
 const output: GetPriceChangeCommandOutput = await client.send(new GetPriceChangeCommand(input));
 ```
 
-#### Get price change list
-
-```typescript
-import { GetPriceChangeListCommand, GetPriceChangeCommandOutput } from '@hastobegood/crypto-clients-binance';
-
-const output: GetPriceChangeCommandOutput = await client.send(new GetPriceChangeListCommand(input));
-```
-
 #### Get current price
 
 ```typescript
@@ -134,14 +126,6 @@ const input: GetCurrentPriceCommandInput = {
 const output: GetCurrentPriceCommandOutput = await client.send(new GetCurrentPriceCommand(input));
 ```
 
-#### Get current price list
-
-```typescript
-import { GetCurrentPriceListCommand, GetCurrentPriceCommandOutput } from '@hastobegood/crypto-clients-binance';
-
-const output: GetCurrentPriceCommandOutput = await client.send(new GetCurrentPriceListCommand(input));
-```
-
 #### Get order book price
 
 ```typescript
@@ -152,14 +136,6 @@ const input: GetOrderBookPriceCommandInput = {
 };
 
 const output: GetOrderBookPriceCommandOutput = await client.send(new GetOrderBookPriceCommand(input));
-```
-
-#### Get order book price list
-
-```typescript
-import { GetOrderBookPriceListCommand, GetOrderBookPriceCommandOutput } from '@hastobegood/crypto-clients-binance';
-
-const output: GetOrderBookPriceCommandOutput = await client.send(new GetOrderBookPriceListCommand(input));
 ```
 
 ### Order

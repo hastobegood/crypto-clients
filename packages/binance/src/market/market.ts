@@ -1,6 +1,6 @@
 export type CandlestickInterval = '1m' | '3m' | '5m' | '15m' | '30m' | '1h' | '2h' | '4h' | '6h' | '8h' | '12h' | '1d' | '3d' | '1w' | '1M';
 
-export interface GetCandlestickListInput {
+export interface GetCandlestickDataInput {
   symbol: string;
   interval: CandlestickInterval;
   startTime?: number;
@@ -8,7 +8,7 @@ export interface GetCandlestickListInput {
   limit?: number;
 }
 
-export interface GetCandlestickListOutput extends Array<[number, string, string, string, string, string, number, string, number, string, string, string]> {}
+export interface GetCandlestickDataOutput extends Array<[number, string, string, string, string, string, number, string, number, string, string, string]> {}
 
 export interface GetAveragePriceInput {
   symbol: string;

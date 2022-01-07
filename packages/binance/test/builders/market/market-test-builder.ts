@@ -2,8 +2,8 @@ import { randomFromList, randomNumber, randomPercentage, randomSymbol } from '..
 import {
   GetAveragePriceInput,
   GetAveragePriceOutput,
-  GetCandlestickListInput,
-  GetCandlestickListOutput,
+  GetCandlestickDataInput,
+  GetCandlestickDataOutput,
   GetCurrentPriceInput,
   GetCurrentPriceOutput,
   GetOrderBookPriceInput,
@@ -12,7 +12,7 @@ import {
   GetPriceChangeOutput,
 } from '../../../src/market/market.js';
 
-export const buildDefaultGetCandlestickListInput = (): GetCandlestickListInput => {
+export const buildDefaultGetCandlestickDataInput = (): GetCandlestickDataInput => {
   return {
     symbol: randomSymbol(),
     interval: randomFromList(['1m', '3m', '5m', '15m', '30m', '1h', '2h', '4h', '6h', '8h', '12h', '1d', '3d', '1w', '1M']),
@@ -22,7 +22,7 @@ export const buildDefaultGetCandlestickListInput = (): GetCandlestickListInput =
   };
 };
 
-export const buildDefaultGetCandlestickListOutput = (): GetCandlestickListOutput => {
+export const buildDefaultGetCandlestickDataOutput = (): GetCandlestickDataOutput => {
   return [1, 2, 3, 4, 5].map(() => [
     new Date().valueOf(),
     randomNumber().toString(),

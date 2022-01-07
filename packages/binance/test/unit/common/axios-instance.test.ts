@@ -2,11 +2,23 @@ import { getQueryParameters } from '../../../src/common/axios-instance.js';
 
 describe('AxiosInstance', () => {
   describe('Given a query parameters to generate', () => {
-    describe('When empty data', () => {
+    describe('When data is undefined', () => {
       it('Then empty query parameters is returned', async () => {
-        const data = {};
+        const result = getQueryParameters(undefined, false);
+        expect(result).toEqual('');
+      });
+    });
 
-        const result = getQueryParameters(data, false);
+    describe('When data is null', () => {
+      it('Then empty query parameters is returned', async () => {
+        const result = getQueryParameters(undefined, false);
+        expect(result).toEqual('');
+      });
+    });
+
+    describe('When data is empty', () => {
+      it('Then empty query parameters is returned', async () => {
+        const result = getQueryParameters({}, false);
         expect(result).toEqual('');
       });
     });
