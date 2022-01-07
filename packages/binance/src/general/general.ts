@@ -3,7 +3,7 @@ export interface GetServerTimeOutput {
 }
 
 export interface GetExchangeInfoInput {
-  symbol: string;
+  symbol?: string;
 }
 
 export interface GetExchangeInfoOutput {

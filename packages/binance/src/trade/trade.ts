@@ -7,7 +7,9 @@ export interface GetAccountTradeListInput {
   limit?: number;
 }
 
-export interface GetAccountTradeListOutput {
+export interface GetAccountTradeListOutput extends Array<GetAccountTradeListOutputSymbol> {}
+
+export interface GetAccountTradeListOutputSymbol {
   symbol: string;
   orderId: number;
   orderListId: number;

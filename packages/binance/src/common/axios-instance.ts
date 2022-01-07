@@ -19,7 +19,7 @@ export const getQueryParameters = (data: any, timestamp: boolean): string => {
 
   Object.keys(data).forEach((key) => {
     const value = data[key];
-    if (value !== undefined) {
+    if (value !== undefined && value !== null) {
       parameters.append(key, value);
     }
   });
