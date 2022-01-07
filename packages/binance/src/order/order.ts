@@ -90,3 +90,13 @@ export interface CancelOrderOutput {
   type: OrderType;
   side: OrderSide;
 }
+
+export interface GetOrderCountUsageOutput extends Array<GetOrderCountUsageOutputInterval> {}
+
+export interface GetOrderCountUsageOutputInterval {
+  rateLimitType: string;
+  interval: string;
+  intervalNum: number;
+  limit: number;
+  count: number;
+}

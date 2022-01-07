@@ -181,6 +181,14 @@ const input: CancelOrderCommandInput = {
 const output: CancelOrderCommandOutput = await client.send(new CancelOrderCommand(input));
 ```
 
+#### Get order count usage
+
+```typescript
+import { GetOrderCountUsageCommand, GetOrderCountUsageCommandOutput } from '@hastobegood/crypto-clients-binance';
+
+const output: GetOrderCountUsageCommandOutput = await client.send(new GetOrderCountUsageCommand());
+```
+
 ### Trade
 
 #### Get account trades list

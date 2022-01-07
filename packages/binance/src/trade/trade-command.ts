@@ -14,7 +14,7 @@ export class GetAccountTradesListCommand extends Command<GetAccountTradesListCom
   async execute(apiInfoProvider: SecuredApiInfoProvider): Promise<GetAccountTradesListCommandOutput> {
     const [apiUrl, apiKey, secretKey] = await Promise.all([apiInfoProvider.getApiUrl(), apiInfoProvider.getApiKey(), apiInfoProvider.getSecretKey()]);
 
-    const queryParameters = `${getQueryParameters(this.input, true)}`;
+    const queryParameters = getQueryParameters(this.input, true);
     const querySignature = sign(queryParameters, secretKey);
     const queryUrl = `/v3/myTrades?${queryParameters}&${querySignature}`;
     const queryConfig = getQueryConfig(apiUrl, apiKey);

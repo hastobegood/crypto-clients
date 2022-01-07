@@ -4,8 +4,8 @@ import { axiosInstance, getQueryParameters } from '../../../src/common/axios-ins
 import { sign } from '../../../src/common/signature.js';
 import { SecuredApiInfoProvider } from '../../../src/client.js';
 import { CommandError } from '../../../src/command.js';
-import { CancelOrderCommand, CancelOrderCommandOutput, GetOrderCommand, GetOrderCommandOutput, SendOrderCommand, SendOrderCommandOutput } from '../../../src/order/order-command.js';
-import { CancelOrderInput, CancelOrderOutput, GetOrderInput, GetOrderOutput, SendOrderInput, SendOrderOutput } from '../../../src/order/order.js';
+import { CancelOrderCommand, CancelOrderCommandOutput, GetOrderCommand, GetOrderCommandOutput, GetOrderCountUsageCommand, GetOrderCountUsageCommandOutput, SendOrderCommand, SendOrderCommandOutput } from '../../../src/order/order-command.js';
+import { CancelOrderInput, CancelOrderOutput, GetOrderCountUsageOutput, GetOrderInput, GetOrderOutput, SendOrderInput, SendOrderOutput } from '../../../src/order/order.js';
 import { buildDefaultCommandOutput } from '../../builders/common/command-test-builder.js';
 import { buildDefaultCancelOrderInput, buildDefaultGetOrderInput, buildDefaultSendOrderInput } from '../../builders/order/order-test-builder.js';
 
@@ -205,6 +205,66 @@ describe('OrderCommand', () => {
       it('Then error is thrown', async () => {
         try {
           await new CancelOrderCommand(input).execute(apiInfoProviderMock);
+          fail();
+        } catch (error) {
+          expect(error).toBeDefined();
+          expect((error as CommandError).message).toEqual('Unable to execute command: Error: Error!');
+        }
+      });
+    });
+  });
+
+  describe('Given a GetOrderCountUsageCommand to execute', () => {
+    let queryParameters: string;
+
+    beforeEach(() => {
+      queryParameters = getQueryParameters(null, true);
+      queryParameters = `${queryParameters}&${sign(queryParameters, 'secret-key')}`;
+
+      apiInfoProviderMock.getApiUrl.mockResolvedValueOnce('api-url');
+      apiInfoProviderMock.getApiKey.mockResolvedValueOnce('api-key');
+      apiInfoProviderMock.getSecretKey.mockResolvedValueOnce('secret-key');
+    });
+
+    afterEach(() => {
+      expect(apiInfoProviderMock.getApiUrl).toHaveBeenCalledTimes(1);
+      expect(apiInfoProviderMock.getApiKey).toHaveBeenCalledTimes(1);
+      expect(apiInfoProviderMock.getSecretKey).toHaveBeenCalledTimes(1);
+
+      expect(axiosInstanceMock.get).toHaveBeenCalledTimes(1);
+      const getParams = axiosInstanceMock.get.mock.calls[0];
+      expect(getParams.length).toEqual(2);
+      expect(getParams[0]).toEqual(`/v3/rateLimit/order?${queryParameters}`);
+      expect(getParams[1]).toEqual({
+        baseURL: 'api-url',
+        headers: { 'X-MBX-APIKEY': 'api-key' },
+      });
+    });
+
+    describe('When success', () => {
+      let output: GetOrderCountUsageCommandOutput;
+
+      beforeEach(() => {
+        // FIXME
+        output = buildDefaultCommandOutput({} as GetOrderCountUsageOutput);
+
+        axiosInstanceMock.get.mockResolvedValueOnce(output);
+      });
+
+      it('Then execution result is returned', async () => {
+        const result = await new GetOrderCountUsageCommand().execute(apiInfoProviderMock);
+        expect(result).toEqual(output);
+      });
+    });
+
+    describe('When error', () => {
+      beforeEach(() => {
+        axiosInstanceMock.get.mockRejectedValueOnce(new Error('Error!'));
+      });
+
+      it('Then error is thrown', async () => {
+        try {
+          await new GetOrderCountUsageCommand().execute(apiInfoProviderMock);
           fail();
         } catch (error) {
           expect(error).toBeDefined();
