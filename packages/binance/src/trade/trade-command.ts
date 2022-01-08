@@ -1,5 +1,5 @@
 import { axiosInstance, getQueryConfig, getQueryParameters } from '../common/axios-instance.js';
-import { SecuredApiInfoProvider } from '../client.js';
+import { ApiInfoProvider } from '../client.js';
 import { sign } from '../common/signature.js';
 import { Command, CommandOutput } from '../command.js';
 import { GetAccountTradesListInput, GetAccountTradesListOutput, GetAggregateTradesListInput, GetAggregateTradesListOutput, GetOldTradesListInput, GetOldTradesListOutput, GetRecentTradesListInput, GetRecentTradesListOutput } from './trade.js';
@@ -11,7 +11,7 @@ export class GetAccountTradesListCommand extends Command<GetAccountTradesListCom
     super();
   }
 
-  async execute(apiInfoProvider: SecuredApiInfoProvider): Promise<GetAccountTradesListCommandOutput> {
+  async execute(apiInfoProvider: ApiInfoProvider): Promise<GetAccountTradesListCommandOutput> {
     const [apiUrl, apiKey, secretKey] = await Promise.all([apiInfoProvider.getApiUrl(), apiInfoProvider.getApiKey(), apiInfoProvider.getSecretKey()]);
 
     const queryParameters = getQueryParameters(this.input, true);
@@ -30,7 +30,7 @@ export class GetRecentTradesListCommand extends Command<GetRecentTradesListComma
     super();
   }
 
-  async execute(apiInfoProvider: SecuredApiInfoProvider): Promise<GetRecentTradesListCommandOutput> {
+  async execute(apiInfoProvider: ApiInfoProvider): Promise<GetRecentTradesListCommandOutput> {
     const queryParameters = getQueryParameters(this.input, false);
     const queryUrl = `/v3/trades?${queryParameters}`;
     const queryConfig = getQueryConfig(await apiInfoProvider.getApiUrl());
@@ -46,7 +46,7 @@ export class GetOldTradesListCommand extends Command<GetOldTradesListCommandOutp
     super();
   }
 
-  async execute(apiInfoProvider: SecuredApiInfoProvider): Promise<GetOldTradesListCommandOutput> {
+  async execute(apiInfoProvider: ApiInfoProvider): Promise<GetOldTradesListCommandOutput> {
     const queryParameters = getQueryParameters(this.input, false);
     const queryUrl = `/v3/historicalTrades?${queryParameters}`;
     const queryConfig = getQueryConfig(await apiInfoProvider.getApiUrl());
@@ -62,7 +62,7 @@ export class GetAggregateTradesListCommand extends Command<GetAggregateTradesLis
     super();
   }
 
-  async execute(apiInfoProvider: SecuredApiInfoProvider): Promise<GetAggregateTradesListCommandOutput> {
+  async execute(apiInfoProvider: ApiInfoProvider): Promise<GetAggregateTradesListCommandOutput> {
     const queryParameters = getQueryParameters(this.input, false);
     const queryUrl = `/v3/aggTrades?${queryParameters}`;
     const queryConfig = getQueryConfig(await apiInfoProvider.getApiUrl());

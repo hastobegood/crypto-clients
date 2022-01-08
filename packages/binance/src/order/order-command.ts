@@ -1,5 +1,5 @@
 import { axiosInstance, getQueryConfig, getQueryParameters } from '../common/axios-instance.js';
-import { SecuredApiInfoProvider } from '../client.js';
+import { ApiInfoProvider } from '../client.js';
 import { sign } from '../common/signature.js';
 import { Command, CommandOutput } from '../command.js';
 import {
@@ -23,7 +23,7 @@ export class SendOrderCommand extends Command<SendOrderCommandOutput> {
     super();
   }
 
-  async execute(apiInfoProvider: SecuredApiInfoProvider): Promise<SendOrderCommandOutput> {
+  async execute(apiInfoProvider: ApiInfoProvider): Promise<SendOrderCommandOutput> {
     const [apiUrl, apiKey, secretKey] = await Promise.all([apiInfoProvider.getApiUrl(), apiInfoProvider.getApiKey(), apiInfoProvider.getSecretKey()]);
 
     const queryParameters = `newOrderRespType=FULL&${getQueryParameters(this.input, true)}`;
@@ -42,7 +42,7 @@ export class GetOrderCommand extends Command<GetOrderCommandOutput> {
     super();
   }
 
-  async execute(apiInfoProvider: SecuredApiInfoProvider): Promise<GetOrderCommandOutput> {
+  async execute(apiInfoProvider: ApiInfoProvider): Promise<GetOrderCommandOutput> {
     const [apiUrl, apiKey, secretKey] = await Promise.all([apiInfoProvider.getApiUrl(), apiInfoProvider.getApiKey(), apiInfoProvider.getSecretKey()]);
 
     const queryParameters = getQueryParameters(this.input, true);
@@ -61,7 +61,7 @@ export class GetOpenOrdersListCommand extends Command<GetOpenOrdersListCommandOu
     super();
   }
 
-  async execute(apiInfoProvider: SecuredApiInfoProvider): Promise<GetOpenOrdersListCommandOutput> {
+  async execute(apiInfoProvider: ApiInfoProvider): Promise<GetOpenOrdersListCommandOutput> {
     const [apiUrl, apiKey, secretKey] = await Promise.all([apiInfoProvider.getApiUrl(), apiInfoProvider.getApiKey(), apiInfoProvider.getSecretKey()]);
 
     const queryParameters = getQueryParameters(this.input, true);
@@ -80,7 +80,7 @@ export class GetAllOrdersListCommand extends Command<GetAllOrdersListCommandOutp
     super();
   }
 
-  async execute(apiInfoProvider: SecuredApiInfoProvider): Promise<GetAllOrdersListCommandOutput> {
+  async execute(apiInfoProvider: ApiInfoProvider): Promise<GetAllOrdersListCommandOutput> {
     const [apiUrl, apiKey, secretKey] = await Promise.all([apiInfoProvider.getApiUrl(), apiInfoProvider.getApiKey(), apiInfoProvider.getSecretKey()]);
 
     const queryParameters = getQueryParameters(this.input, true);
@@ -99,7 +99,7 @@ export class CancelOrderCommand extends Command<CancelOrderCommandOutput> {
     super();
   }
 
-  async execute(apiInfoProvider: SecuredApiInfoProvider): Promise<CancelOrderCommandOutput> {
+  async execute(apiInfoProvider: ApiInfoProvider): Promise<CancelOrderCommandOutput> {
     const [apiUrl, apiKey, secretKey] = await Promise.all([apiInfoProvider.getApiUrl(), apiInfoProvider.getApiKey(), apiInfoProvider.getSecretKey()]);
 
     const queryParameters = getQueryParameters(this.input, true);
@@ -114,7 +114,7 @@ export class CancelOrderCommand extends Command<CancelOrderCommandOutput> {
 export type GetOrderCountUsageCommandOutput = CommandOutput<GetOrderCountUsageOutput>;
 
 export class GetOrderCountUsageCommand extends Command<GetOrderCountUsageCommandOutput> {
-  async execute(apiInfoProvider: SecuredApiInfoProvider): Promise<GetOrderCountUsageCommandOutput> {
+  async execute(apiInfoProvider: ApiInfoProvider): Promise<GetOrderCountUsageCommandOutput> {
     const [apiUrl, apiKey, secretKey] = await Promise.all([apiInfoProvider.getApiUrl(), apiInfoProvider.getApiKey(), apiInfoProvider.getSecretKey()]);
 
     const queryParameters = getQueryParameters(null, true);

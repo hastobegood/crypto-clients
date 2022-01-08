@@ -5,18 +5,6 @@
 
 ## Client
 
-### Unsecured endpoints
-
-```typescript
-import { Client } from '@hastobegood/crypto-clients-binance';
-
-const client = new Client({
-  getApiUrl: async (): Promise<string> => 'binance-api-url',
-});
-```
-
-### Secured endpoints
-
 ```typescript
 import { Client } from '@hastobegood/crypto-clients-binance';
 

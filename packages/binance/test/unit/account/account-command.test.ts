@@ -2,13 +2,13 @@ import { mocked } from 'ts-jest/utils';
 import MockDate from 'mockdate';
 import { axiosInstance, getQueryParameters } from '../../../src/common/axios-instance.js';
 import { sign } from '../../../src/common/signature.js';
-import { SecuredApiInfoProvider } from '../../../src/client.js';
+import { ApiInfoProvider } from '../../../src/client.js';
 import { CommandError } from '../../../src/command.js';
 import { GetAccountInfoCommand, GetAccountInfoCommandOutput } from '../../../src/account/account-command.js';
 import { buildDefaultCommandOutput } from '../../builders/common/command-test-builder.js';
 import { buildDefaultGetAccountInfoOutput } from '../../builders/account/account-test-builder.js';
 
-const apiInfoProviderMock = mocked(jest.genMockFromModule<SecuredApiInfoProvider>('../../../src/client.js'), true);
+const apiInfoProviderMock = mocked(jest.genMockFromModule<ApiInfoProvider>('../../../src/client.js'), true);
 const axiosInstanceMock = mocked(axiosInstance, true);
 
 describe('AccountCommand', () => {

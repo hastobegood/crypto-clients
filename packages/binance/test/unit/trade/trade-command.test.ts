@@ -2,7 +2,7 @@ import { mocked } from 'ts-jest/utils';
 import MockDate from 'mockdate';
 import { axiosInstance, getQueryParameters } from '../../../src/common/axios-instance.js';
 import { sign } from '../../../src/common/signature.js';
-import { SecuredApiInfoProvider } from '../../../src/client.js';
+import { ApiInfoProvider } from '../../../src/client.js';
 import { CommandError } from '../../../src/command.js';
 import {
   GetAccountTradesListCommand,
@@ -27,7 +27,7 @@ import {
   buildDefaultGetRecentTradesListOutput,
 } from '../../builders/trade/trade-test-builder.js';
 
-const apiInfoProviderMock = mocked(jest.genMockFromModule<SecuredApiInfoProvider>('../../../src/client.js'), true);
+const apiInfoProviderMock = mocked(jest.genMockFromModule<ApiInfoProvider>('../../../src/client.js'), true);
 const axiosInstanceMock = mocked(axiosInstance, true);
 
 describe('TradeCommand', () => {
