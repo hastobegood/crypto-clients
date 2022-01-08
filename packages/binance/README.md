@@ -168,6 +168,30 @@ const input: GetOrderCommandInput = {
 const output: GetOrderCommandOutput = await client.send(new GetOrderCommand(input));
 ```
 
+#### Get open orders list
+
+```typescript
+import { GetOpenOrdersListCommand, GetOpenOrdersListCommandInput, GetOpenOrdersListCommandOutput } from '@hastobegood/crypto-clients-binance';
+
+const input: GetOpenOrdersListCommandInput = {
+  symbol: 'BTCUSDT',
+};
+
+const output: GetOpenOrdersListCommandOutput = await client.send(new GetOpenOrdersListCommand(input));
+```
+
+#### Get all orders list
+
+```typescript
+import { GetAllOrdersListCommand, GetAllOrdersListCommandInput, GetAllOrdersListCommandOutput } from '@hastobegood/crypto-clients-binance';
+
+const input: GetAllOrdersListCommandInput = {
+  symbol: 'BTCUSDT',
+};
+
+const output: GetAllOrdersListCommandOutput = await client.send(new GetAllOrdersListCommand(input));
+```
+
 #### Cancel order
 
 ```typescript

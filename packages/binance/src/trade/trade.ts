@@ -11,6 +11,7 @@ export interface GetAccountTradesListOutput extends Array<GetAccountTradesListOu
 
 export interface GetAccountTradesListOutputSymbol {
   symbol: string;
+  id: number;
   orderId: number;
   orderListId: number;
   price: string;
@@ -32,7 +33,7 @@ export interface GetRecentTradesListInput {
 export interface GetRecentTradesListOutput extends Array<GetRecentTradesListOutputSymbol> {}
 
 export interface GetRecentTradesListOutputSymbol {
-  id: string;
+  id: number;
   price: string;
   qty: string;
   quoteQty: string;
@@ -50,7 +51,7 @@ export interface GetOldTradesListInput {
 export interface GetOldTradesListOutput extends Array<GetOldTradesListOutputSymbol> {}
 
 export interface GetOldTradesListOutputSymbol {
-  id: string;
+  id: number;
   price: string;
   qty: string;
   quoteQty: string;

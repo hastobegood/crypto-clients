@@ -225,7 +225,7 @@ describe('MarketCommand', () => {
       let output: GetPriceChangeCommandOutput;
 
       beforeEach(() => {
-        output = buildDefaultCommandOutput([buildDefaultGetPriceChangeOutput(), buildDefaultGetPriceChangeOutput()]);
+        output = buildDefaultCommandOutput(buildDefaultGetPriceChangeOutput());
 
         axiosInstanceMock.get.mockResolvedValueOnce(output);
       });
@@ -329,7 +329,7 @@ describe('MarketCommand', () => {
       let output: GetCurrentPriceCommandOutput;
 
       beforeEach(() => {
-        output = buildDefaultCommandOutput([buildDefaultGetCurrentPriceOutput(), buildDefaultGetCurrentPriceOutput()]);
+        output = buildDefaultCommandOutput(buildDefaultGetCurrentPriceOutput());
 
         axiosInstanceMock.get.mockResolvedValueOnce(output);
       });
@@ -433,7 +433,7 @@ describe('MarketCommand', () => {
       let output: GetOrderBookPriceCommandOutput;
 
       beforeEach(() => {
-        output = buildDefaultCommandOutput([buildDefaultGetOrderBookPriceOutput(), buildDefaultGetOrderBookPriceOutput()]);
+        output = buildDefaultCommandOutput(buildDefaultGetOrderBookPriceOutput());
 
         axiosInstanceMock.get.mockResolvedValueOnce(output);
       });

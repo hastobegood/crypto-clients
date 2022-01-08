@@ -1,3 +1,5 @@
+export type AccountInfoSymbolPermission = 'SPOT' | 'MARGIN' | 'LEVERAGED' | 'TRD_GRP_002';
+
 export interface GetAccountInfoOutput {
   makerCommission: number;
   takerCommission: number;
@@ -9,7 +11,7 @@ export interface GetAccountInfoOutput {
   updateTime: number;
   accountType: string;
   balances: GetAccountInfoOutputBalance[];
-  permissions: string[];
+  permissions: AccountInfoSymbolPermission[];
 }
 
 export interface GetAccountInfoOutputBalance {

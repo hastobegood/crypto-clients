@@ -1,4 +1,4 @@
-import { randomBoolean, randomNumber, randomString } from '../random-test-builder.js';
+import { randomBoolean, randomFromList, randomNumber, randomString } from '../random-test-builder.js';
 import { GetAccountInfoOutput, GetAccountInfoOutputBalance } from '../../../src/account/account.js';
 
 export const buildDefaultGetAccountInfoOutput = (): GetAccountInfoOutput => {
@@ -13,7 +13,7 @@ export const buildDefaultGetAccountInfoOutput = (): GetAccountInfoOutput => {
     updateTime: new Date().valueOf(),
     accountType: randomString(5),
     balances: [buildDefaultGetAccountInfoOutputBalance(), buildDefaultGetAccountInfoOutputBalance()],
-    permissions: [randomString(5), randomString(5)],
+    permissions: [randomFromList(['SPOT', 'MARGIN']), randomFromList(['LEVERAGED', 'TRD_GRP_002'])],
   };
 };
 

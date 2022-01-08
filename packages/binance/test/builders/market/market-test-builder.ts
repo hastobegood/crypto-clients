@@ -6,10 +6,13 @@ import {
   GetCandlestickDataOutput,
   GetCurrentPriceInput,
   GetCurrentPriceOutput,
+  GetCurrentPriceOutputSymbol,
   GetOrderBookPriceInput,
   GetOrderBookPriceOutput,
+  GetOrderBookPriceOutputSymbol,
   GetPriceChangeInput,
   GetPriceChangeOutput,
+  GetPriceChangeOutputSymbol,
 } from '../../../src/market/market.js';
 
 export const buildDefaultGetCandlestickDataInput = (): GetCandlestickDataInput => {
@@ -59,6 +62,10 @@ export const buildDefaultGetPriceChangeInput = (): GetPriceChangeInput => {
 };
 
 export const buildDefaultGetPriceChangeOutput = (): GetPriceChangeOutput => {
+  return [buildDefaultGetPriceChangeOutputSymbol(), buildDefaultGetPriceChangeOutputSymbol()];
+};
+
+export const buildDefaultGetPriceChangeOutputSymbol = (): GetPriceChangeOutputSymbol => {
   return {
     symbol: randomSymbol(),
     priceChange: randomPercentage().toString(),
@@ -91,6 +98,10 @@ export const buildDefaultGetCurrentPriceInput = (): GetCurrentPriceInput => {
 };
 
 export const buildDefaultGetCurrentPriceOutput = (): GetCurrentPriceOutput => {
+  return [buildDefaultGetCurrentPriceOutputSymbol(), buildDefaultGetCurrentPriceOutputSymbol()];
+};
+
+export const buildDefaultGetCurrentPriceOutputSymbol = (): GetCurrentPriceOutputSymbol => {
   return {
     symbol: randomSymbol(),
     price: randomNumber().toString(),
@@ -104,6 +115,10 @@ export const buildDefaultGetOrderBookPriceInput = (): GetOrderBookPriceInput => 
 };
 
 export const buildDefaultGetOrderBookPriceOutput = (): GetOrderBookPriceOutput => {
+  return [buildDefaultGetOrderBookPriceOutputSymbol(), buildDefaultGetOrderBookPriceOutputSymbol()];
+};
+
+export const buildDefaultGetOrderBookPriceOutputSymbol = (): GetOrderBookPriceOutputSymbol => {
   return {
     symbol: randomSymbol(),
     bidPrice: randomNumber().toString(),

@@ -68,6 +68,22 @@ export interface GetOrderOutput {
   origQuoteOrderQty: string;
 }
 
+export interface GetOpenOrdersListInput {
+  symbol: string;
+}
+
+export interface GetOpenOrdersListOutput extends Array<GetOrderOutput> {}
+
+export interface GetAllOrdersListInput {
+  symbol: string;
+  orderId?: number;
+  startTime?: number;
+  endTime?: number;
+  limit?: number;
+}
+
+export interface GetAllOrdersListOutput extends Array<GetOrderOutput> {}
+
 export interface CancelOrderInput {
   symbol: string;
   orderId?: number;
@@ -91,11 +107,14 @@ export interface CancelOrderOutput {
   side: OrderSide;
 }
 
+export type OrderCountUsageRateLimitType = 'ORDERS';
+export type OrderCountUsageRateLimitInterval = 'SECOND' | 'DAY';
+
 export interface GetOrderCountUsageOutput extends Array<GetOrderCountUsageOutputInterval> {}
 
 export interface GetOrderCountUsageOutputInterval {
-  rateLimitType: string;
-  interval: string;
+  rateLimitType: OrderCountUsageRateLimitType;
+  interval: OrderCountUsageRateLimitInterval;
   intervalNum: number;
   limit: number;
   count: number;

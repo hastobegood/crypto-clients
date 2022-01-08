@@ -2,6 +2,11 @@ export interface GetServerTimeOutput {
   serverTime: number;
 }
 
+export type ExchangeInfoRateLimitType = 'REQUEST_WEIGHT' | 'ORDERS' | 'RAW_REQUESTS';
+export type ExchangeInfoRateLimitInterval = 'SECOND' | 'MINUTE' | 'DAY';
+export type ExchangeInfoSymbolStatus = 'PRE_TRADING' | 'TRADING' | 'POST_TRADING' | 'END_OF_DAY' | 'HALT' | 'AUCTION_MATCH' | 'BREAK';
+export type ExchangeInfoSymbolPermission = 'SPOT' | 'MARGIN' | 'LEVERAGED' | 'TRD_GRP_002';
+
 export interface GetExchangeInfoInput {
   symbol: string;
 }
@@ -14,15 +19,15 @@ export interface GetExchangeInfoOutput {
 }
 
 export interface GetExchangeInfoOutputRateLimit {
-  rateLimitType: string;
-  interval: string;
+  rateLimitType: ExchangeInfoRateLimitType;
+  interval: ExchangeInfoRateLimitInterval;
   intervalNum: number;
   limit: number;
 }
 
 export interface GetExchangeInfoOutputSymbol {
   symbol: string;
-  status: string;
+  status: ExchangeInfoSymbolStatus;
   baseAsset: string;
   baseAssetPrecision: number;
   quoteAsset: string;
@@ -36,7 +41,7 @@ export interface GetExchangeInfoOutputSymbol {
   isSpotTradingAllowed: boolean;
   isMarginTradingAllowed: boolean;
   filters: GetExchangeInfoOutputSymbolFilter[];
-  permissions: string[];
+  permissions: ExchangeInfoSymbolPermission[];
 }
 
 export interface GetExchangeInfoOutputSymbolFilter {

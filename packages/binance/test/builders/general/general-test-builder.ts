@@ -1,4 +1,4 @@
-import { randomBoolean, randomNumber, randomString, randomSymbol } from '../random-test-builder.js';
+import { randomBoolean, randomFromList, randomNumber, randomString, randomSymbol } from '../random-test-builder.js';
 import { GetExchangeInfoInput, GetExchangeInfoOutput, GetExchangeInfoOutputRateLimit, GetExchangeInfoOutputSymbol, GetExchangeInfoOutputSymbolFilter, GetServerTimeOutput } from '../../../src/general/general.js';
 
 export const buildDefaultGetServerTimeOutput = (): GetServerTimeOutput => {
@@ -24,8 +24,8 @@ export const buildDefaultGetExchangeInfoOutput = (): GetExchangeInfoOutput => {
 
 export const buildDefaultGetExchangeInfoOutputRateLimit = (): GetExchangeInfoOutputRateLimit => {
   return {
-    rateLimitType: randomString(5),
-    interval: randomString(5),
+    rateLimitType: randomFromList(['REQUEST_WEIGHT', 'ORDERS', 'RAW_REQUESTS']),
+    interval: randomFromList(['SECOND', 'MINUTE', 'DAY']),
     intervalNum: randomNumber(1, 60),
     limit: randomNumber(100, 500),
   };
@@ -34,7 +34,7 @@ export const buildDefaultGetExchangeInfoOutputRateLimit = (): GetExchangeInfoOut
 export const buildDefaultGetExchangeInfoOutputSymbol = (): GetExchangeInfoOutputSymbol => {
   return {
     symbol: randomSymbol(),
-    status: randomString(5),
+    status: randomFromList(['PRE_TRADING', 'TRADING', 'POST_TRADING', 'END_OF_DAY', 'HALT', 'AUCTION_MATCH', 'BREAK']),
     baseAsset: randomString(5),
     baseAssetPrecision: randomNumber(8, 10),
     quoteAsset: randomString(5),
@@ -48,7 +48,7 @@ export const buildDefaultGetExchangeInfoOutputSymbol = (): GetExchangeInfoOutput
     isSpotTradingAllowed: randomBoolean(),
     isMarginTradingAllowed: randomBoolean(),
     filters: [buildDefaultGetExchangeInfoOutputSymbolFilter(), buildDefaultGetExchangeInfoOutputSymbolFilter()],
-    permissions: [randomString(5), randomString(5)],
+    permissions: [randomFromList(['SPOT', 'MARGIN']), randomFromList(['LEVERAGED', 'TRD_GRP_002'])],
   };
 };
 

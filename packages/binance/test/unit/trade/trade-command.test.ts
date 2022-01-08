@@ -14,18 +14,18 @@ import {
   GetRecentTradesListCommand,
   GetRecentTradesListCommandOutput,
 } from '../../../src/trade/trade-command.js';
-import {
-  GetAccountTradesListInput,
-  GetAccountTradesListOutput,
-  GetAggregateTradesListInput,
-  GetAggregateTradesListOutput,
-  GetOldTradesListInput,
-  GetOldTradesListOutput,
-  GetRecentTradesListInput,
-  GetRecentTradesListOutput,
-} from '../../../src/trade/trade.js';
+import { GetAccountTradesListInput, GetAggregateTradesListInput, GetOldTradesListInput, GetRecentTradesListInput } from '../../../src/trade/trade.js';
 import { buildDefaultCommandOutput } from '../../builders/common/command-test-builder.js';
-import { buildDefaultGetAccountTradesListInput, buildDefaultGetAggregateTradesListInput, buildDefaultGetOldTradesListInput, buildDefaultGetRecentTradesListInput } from '../../builders/trade/trade-test-builder.js';
+import {
+  buildDefaultGetAccountTradesListInput,
+  buildDefaultGetAccountTradesListOutput,
+  buildDefaultGetAggregateTradesListInput,
+  buildDefaultGetAggregateTradesListOutput,
+  buildDefaultGetOldTradesListInput,
+  buildDefaultGetOldTradesListOutput,
+  buildDefaultGetRecentTradesListInput,
+  buildDefaultGetRecentTradesListOutput,
+} from '../../builders/trade/trade-test-builder.js';
 
 const apiInfoProviderMock = mocked(jest.genMockFromModule<SecuredApiInfoProvider>('../../../src/client.js'), true);
 const axiosInstanceMock = mocked(axiosInstance, true);
@@ -77,8 +77,7 @@ describe('TradeCommand', () => {
       let output: GetAccountTradesListCommandOutput;
 
       beforeEach(() => {
-        // FIXME
-        output = buildDefaultCommandOutput({} as GetAccountTradesListOutput);
+        output = buildDefaultCommandOutput(buildDefaultGetAccountTradesListOutput());
 
         axiosInstanceMock.get.mockResolvedValueOnce(output);
       });
@@ -133,8 +132,7 @@ describe('TradeCommand', () => {
       let output: GetRecentTradesListCommandOutput;
 
       beforeEach(() => {
-        // FIXME
-        output = buildDefaultCommandOutput({} as GetRecentTradesListOutput);
+        output = buildDefaultCommandOutput(buildDefaultGetRecentTradesListOutput());
 
         axiosInstanceMock.get.mockResolvedValueOnce(output);
       });
@@ -189,8 +187,7 @@ describe('TradeCommand', () => {
       let output: GetOldTradesListCommandOutput;
 
       beforeEach(() => {
-        // FIXME
-        output = buildDefaultCommandOutput({} as GetOldTradesListOutput);
+        output = buildDefaultCommandOutput(buildDefaultGetOldTradesListOutput());
 
         axiosInstanceMock.get.mockResolvedValueOnce(output);
       });
@@ -245,8 +242,7 @@ describe('TradeCommand', () => {
       let output: GetAggregateTradesListCommandOutput;
 
       beforeEach(() => {
-        // FIXME
-        output = buildDefaultCommandOutput({} as GetAggregateTradesListOutput);
+        output = buildDefaultCommandOutput(buildDefaultGetAggregateTradesListOutput());
 
         axiosInstanceMock.get.mockResolvedValueOnce(output);
       });

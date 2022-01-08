@@ -23,7 +23,9 @@ export interface GetPriceChangeInput {
   symbol: string;
 }
 
-export interface GetPriceChangeOutput {
+export interface GetPriceChangeOutput extends Array<GetPriceChangeOutputSymbol> {}
+
+export interface GetPriceChangeOutputSymbol {
   symbol: string;
   priceChange: string;
   priceChangePercent: string;
@@ -51,7 +53,9 @@ export interface GetCurrentPriceInput {
   symbol: string;
 }
 
-export interface GetCurrentPriceOutput {
+export interface GetCurrentPriceOutput extends Array<GetCurrentPriceOutputSymbol> {}
+
+export interface GetCurrentPriceOutputSymbol {
   symbol: string;
   price: string;
 }
@@ -60,7 +64,9 @@ export interface GetOrderBookPriceInput {
   symbol: string;
 }
 
-export interface GetOrderBookPriceOutput {
+export interface GetOrderBookPriceOutput extends Array<GetOrderBookPriceOutputSymbol> {}
+
+export interface GetOrderBookPriceOutputSymbol {
   symbol: string;
   bidPrice: string;
   bidQty: string;
