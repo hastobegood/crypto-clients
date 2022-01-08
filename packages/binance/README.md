@@ -5,6 +5,9 @@
 
 ## Client
 
+To build the client you have to pass an object that will provide the API URL, API key and secret key. This allows
+maximum flexibility.
+
 ```typescript
 import { Client } from '@hastobegood/crypto-clients-binance';
 
@@ -13,6 +16,39 @@ const client = new Client({
   getApiKey: async (): Promise<string> => 'binance-api-key',
   getSecretKey: async (): Promise<string> => 'binance-secret-key',
 });
+```
+
+For example, you can build a client using the API testnet URL or a client that will fetch and cache the API key and
+secret.
+
+```typescript
+import { ApiInfoProvider, Client } from '@hastobegood/crypto-clients-binance';
+
+class BinanceSecretsProvider implements ApiInfoProvider {
+  private secrets?: MySecretsWrapper;
+
+  async getApiUrl(): Promise<string> {
+    return (await this.#getSecrets()).apiUrl;
+  }
+
+  async getApiKey(): Promise<string> {
+    return (await this.#getSecrets()).apiKey;
+  }
+
+  async getSecretKey(): Promise<string> {
+    return (await this.#getSecrets()).secretKey;
+  }
+
+  async #getSecrets(): Promise<MySecretsWrapper> {
+    if (!this.secrets) {
+      // fetch your secrets here
+    }
+    return this.secrets;
+  }
+}
+
+const apiInfoProvider = new BinanceSecretsProvider();
+const client = new Client(apiInfoProvider);
 ```
 
 ## Commands
@@ -227,7 +263,6 @@ const input: GetRecentTradesListCommandInput = {
 const output: GetRecentTradesListCommandOutput = await client.send(new GetRecentTradesListCommand(input));
 ```
 
-
 #### Get old trades list
 
 ```typescript
@@ -239,7 +274,6 @@ const input: GetOldTradesListCommandInput = {
 
 const output: GetOldTradesListCommandOutput = await client.send(new GetOldTradesListCommand(input));
 ```
-
 
 #### Get aggregate trades list
 
