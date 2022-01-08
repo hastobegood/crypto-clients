@@ -19,8 +19,11 @@ describe('AccountCommand', () => {
     MockDate.set(date);
 
     apiInfoProviderMock.getApiUrl = jest.fn();
+    apiInfoProviderMock.getApiUrl.mockResolvedValueOnce('api-url');
     apiInfoProviderMock.getApiKey = jest.fn();
+    apiInfoProviderMock.getApiKey.mockResolvedValueOnce('api-key');
     apiInfoProviderMock.getSecretKey = jest.fn();
+    apiInfoProviderMock.getSecretKey.mockResolvedValueOnce('secret-key');
 
     axiosInstanceMock.get = jest.fn();
   });
@@ -31,14 +34,12 @@ describe('AccountCommand', () => {
     beforeEach(() => {
       queryParameters = `${getQueryParameters({}, true)}`;
       queryParameters = `${queryParameters}&${sign(queryParameters, 'secret-key')}`;
-
-      apiInfoProviderMock.getApiUrl.mockResolvedValueOnce('api-url');
-      apiInfoProviderMock.getApiKey.mockResolvedValueOnce('api-key');
-      apiInfoProviderMock.getSecretKey.mockResolvedValueOnce('secret-key');
     });
 
     afterEach(() => {
       expect(apiInfoProviderMock.getApiUrl).toHaveBeenCalledTimes(1);
+      expect(apiInfoProviderMock.getApiKey).toHaveBeenCalledTimes(1);
+      expect(apiInfoProviderMock.getSecretKey).toHaveBeenCalledTimes(1);
 
       expect(axiosInstanceMock.get).toHaveBeenCalledTimes(1);
       const getParams = axiosInstanceMock.get.mock.calls[0];

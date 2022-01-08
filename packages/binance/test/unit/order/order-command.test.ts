@@ -45,8 +45,11 @@ describe('OrderCommand', () => {
     MockDate.set(date);
 
     apiInfoProviderMock.getApiUrl = jest.fn();
+    apiInfoProviderMock.getApiUrl.mockResolvedValueOnce('api-url');
     apiInfoProviderMock.getApiKey = jest.fn();
+    apiInfoProviderMock.getApiKey.mockResolvedValueOnce('api-key');
     apiInfoProviderMock.getSecretKey = jest.fn();
+    apiInfoProviderMock.getSecretKey.mockResolvedValueOnce('secret-key');
 
     axiosInstanceMock.post = jest.fn();
     axiosInstanceMock.get = jest.fn();
@@ -61,10 +64,6 @@ describe('OrderCommand', () => {
       input = buildDefaultSendOrderInput();
       queryParameters = `newOrderRespType=FULL&${getQueryParameters(input, true)}`;
       queryParameters = `${queryParameters}&${sign(queryParameters, 'secret-key')}`;
-
-      apiInfoProviderMock.getApiUrl.mockResolvedValueOnce('api-url');
-      apiInfoProviderMock.getApiKey.mockResolvedValueOnce('api-key');
-      apiInfoProviderMock.getSecretKey.mockResolvedValueOnce('secret-key');
     });
 
     afterEach(() => {
@@ -122,10 +121,6 @@ describe('OrderCommand', () => {
       input = buildDefaultGetOrderInput();
       queryParameters = getQueryParameters(input, true);
       queryParameters = `${queryParameters}&${sign(queryParameters, 'secret-key')}`;
-
-      apiInfoProviderMock.getApiUrl.mockResolvedValueOnce('api-url');
-      apiInfoProviderMock.getApiKey.mockResolvedValueOnce('api-key');
-      apiInfoProviderMock.getSecretKey.mockResolvedValueOnce('secret-key');
     });
 
     afterEach(() => {
@@ -183,10 +178,6 @@ describe('OrderCommand', () => {
       input = buildDefaultGetOpenOrdersListInput();
       queryParameters = getQueryParameters(input, true);
       queryParameters = `${queryParameters}&${sign(queryParameters, 'secret-key')}`;
-
-      apiInfoProviderMock.getApiUrl.mockResolvedValueOnce('api-url');
-      apiInfoProviderMock.getApiKey.mockResolvedValueOnce('api-key');
-      apiInfoProviderMock.getSecretKey.mockResolvedValueOnce('secret-key');
     });
 
     afterEach(() => {
@@ -242,10 +233,6 @@ describe('OrderCommand', () => {
     beforeEach(() => {
       queryParameters = getQueryParameters(null, true);
       queryParameters = `${queryParameters}&${sign(queryParameters, 'secret-key')}`;
-
-      apiInfoProviderMock.getApiUrl.mockResolvedValueOnce('api-url');
-      apiInfoProviderMock.getApiKey.mockResolvedValueOnce('api-key');
-      apiInfoProviderMock.getSecretKey.mockResolvedValueOnce('secret-key');
     });
 
     afterEach(() => {
@@ -303,10 +290,6 @@ describe('OrderCommand', () => {
       input = buildDefaultGetAllOrdersListInput();
       queryParameters = getQueryParameters(input, true);
       queryParameters = `${queryParameters}&${sign(queryParameters, 'secret-key')}`;
-
-      apiInfoProviderMock.getApiUrl.mockResolvedValueOnce('api-url');
-      apiInfoProviderMock.getApiKey.mockResolvedValueOnce('api-key');
-      apiInfoProviderMock.getSecretKey.mockResolvedValueOnce('secret-key');
     });
 
     afterEach(() => {
@@ -364,10 +347,6 @@ describe('OrderCommand', () => {
       input = buildDefaultCancelOrderInput();
       queryParameters = getQueryParameters(input, true);
       queryParameters = `${queryParameters}&${sign(queryParameters, 'secret-key')}`;
-
-      apiInfoProviderMock.getApiUrl.mockResolvedValueOnce('api-url');
-      apiInfoProviderMock.getApiKey.mockResolvedValueOnce('api-key');
-      apiInfoProviderMock.getSecretKey.mockResolvedValueOnce('secret-key');
     });
 
     afterEach(() => {
@@ -423,10 +402,6 @@ describe('OrderCommand', () => {
     beforeEach(() => {
       queryParameters = getQueryParameters(null, true);
       queryParameters = `${queryParameters}&${sign(queryParameters, 'secret-key')}`;
-
-      apiInfoProviderMock.getApiUrl.mockResolvedValueOnce('api-url');
-      apiInfoProviderMock.getApiKey.mockResolvedValueOnce('api-key');
-      apiInfoProviderMock.getSecretKey.mockResolvedValueOnce('secret-key');
     });
 
     afterEach(() => {

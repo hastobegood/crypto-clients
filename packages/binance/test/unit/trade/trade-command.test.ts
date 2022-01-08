@@ -38,8 +38,11 @@ describe('TradeCommand', () => {
     MockDate.set(date);
 
     apiInfoProviderMock.getApiUrl = jest.fn();
+    apiInfoProviderMock.getApiUrl.mockResolvedValueOnce('api-url');
     apiInfoProviderMock.getApiKey = jest.fn();
+    apiInfoProviderMock.getApiKey.mockResolvedValueOnce('api-key');
     apiInfoProviderMock.getSecretKey = jest.fn();
+    apiInfoProviderMock.getSecretKey.mockResolvedValueOnce('secret-key');
 
     axiosInstanceMock.get = jest.fn();
   });
@@ -52,10 +55,6 @@ describe('TradeCommand', () => {
       input = buildDefaultGetAccountTradesListInput();
       queryParameters = getQueryParameters(input, true);
       queryParameters = `${queryParameters}&${sign(queryParameters, 'secret-key')}`;
-
-      apiInfoProviderMock.getApiUrl.mockResolvedValueOnce('api-url');
-      apiInfoProviderMock.getApiKey.mockResolvedValueOnce('api-key');
-      apiInfoProviderMock.getSecretKey.mockResolvedValueOnce('secret-key');
     });
 
     afterEach(() => {
@@ -112,12 +111,12 @@ describe('TradeCommand', () => {
     beforeEach(() => {
       input = buildDefaultGetRecentTradesListInput();
       queryParameters = getQueryParameters(input, false);
-
-      apiInfoProviderMock.getApiUrl.mockResolvedValueOnce('api-url');
     });
 
     afterEach(() => {
       expect(apiInfoProviderMock.getApiUrl).toHaveBeenCalledTimes(1);
+      expect(apiInfoProviderMock.getApiKey).toHaveBeenCalledTimes(0);
+      expect(apiInfoProviderMock.getSecretKey).toHaveBeenCalledTimes(0);
 
       expect(axiosInstanceMock.get).toHaveBeenCalledTimes(1);
       const getParams = axiosInstanceMock.get.mock.calls[0];
@@ -167,12 +166,12 @@ describe('TradeCommand', () => {
     beforeEach(() => {
       input = buildDefaultGetOldTradesListInput();
       queryParameters = getQueryParameters(input, false);
-
-      apiInfoProviderMock.getApiUrl.mockResolvedValueOnce('api-url');
     });
 
     afterEach(() => {
       expect(apiInfoProviderMock.getApiUrl).toHaveBeenCalledTimes(1);
+      expect(apiInfoProviderMock.getApiKey).toHaveBeenCalledTimes(1);
+      expect(apiInfoProviderMock.getSecretKey).toHaveBeenCalledTimes(0);
 
       expect(axiosInstanceMock.get).toHaveBeenCalledTimes(1);
       const getParams = axiosInstanceMock.get.mock.calls[0];
@@ -180,6 +179,7 @@ describe('TradeCommand', () => {
       expect(getParams[0]).toEqual(`/v3/historicalTrades?${queryParameters}`);
       expect(getParams[1]).toEqual({
         baseURL: 'api-url',
+        headers: { 'X-MBX-APIKEY': 'api-key' },
       });
     });
 
@@ -222,12 +222,12 @@ describe('TradeCommand', () => {
     beforeEach(() => {
       input = buildDefaultGetAggregateTradesListInput();
       queryParameters = getQueryParameters(input, false);
-
-      apiInfoProviderMock.getApiUrl.mockResolvedValueOnce('api-url');
     });
 
     afterEach(() => {
       expect(apiInfoProviderMock.getApiUrl).toHaveBeenCalledTimes(1);
+      expect(apiInfoProviderMock.getApiKey).toHaveBeenCalledTimes(0);
+      expect(apiInfoProviderMock.getSecretKey).toHaveBeenCalledTimes(0);
 
       expect(axiosInstanceMock.get).toHaveBeenCalledTimes(1);
       const getParams = axiosInstanceMock.get.mock.calls[0];

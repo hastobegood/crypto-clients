@@ -13,17 +13,20 @@ const axiosInstanceMock = mocked(axiosInstance, true);
 describe('GeneralCommand', () => {
   beforeEach(() => {
     apiInfoProviderMock.getApiUrl = jest.fn();
+    apiInfoProviderMock.getApiUrl.mockResolvedValueOnce('api-url');
+    apiInfoProviderMock.getApiKey = jest.fn();
+    apiInfoProviderMock.getApiKey.mockResolvedValueOnce('api-key');
+    apiInfoProviderMock.getSecretKey = jest.fn();
+    apiInfoProviderMock.getSecretKey.mockResolvedValueOnce('secret-key');
 
     axiosInstanceMock.get = jest.fn();
   });
 
   describe('Given a TestConnectivityCommand to execute', () => {
-    beforeEach(() => {
-      apiInfoProviderMock.getApiUrl.mockResolvedValueOnce('api-url');
-    });
-
     afterEach(() => {
       expect(apiInfoProviderMock.getApiUrl).toHaveBeenCalledTimes(1);
+      expect(apiInfoProviderMock.getApiKey).toHaveBeenCalledTimes(0);
+      expect(apiInfoProviderMock.getSecretKey).toHaveBeenCalledTimes(0);
 
       expect(axiosInstanceMock.get).toHaveBeenCalledTimes(1);
       const getParams = axiosInstanceMock.get.mock.calls[0];
@@ -67,12 +70,10 @@ describe('GeneralCommand', () => {
   });
 
   describe('Given a GetServerTimeCommand to execute', () => {
-    beforeEach(() => {
-      apiInfoProviderMock.getApiUrl.mockResolvedValueOnce('api-url');
-    });
-
     afterEach(() => {
       expect(apiInfoProviderMock.getApiUrl).toHaveBeenCalledTimes(1);
+      expect(apiInfoProviderMock.getApiKey).toHaveBeenCalledTimes(0);
+      expect(apiInfoProviderMock.getSecretKey).toHaveBeenCalledTimes(0);
 
       expect(axiosInstanceMock.get).toHaveBeenCalledTimes(1);
       const getParams = axiosInstanceMock.get.mock.calls[0];
@@ -122,12 +123,12 @@ describe('GeneralCommand', () => {
     beforeEach(() => {
       input = buildDefaultGetExchangeInfoInput();
       queryParameters = getQueryParameters(input, false);
-
-      apiInfoProviderMock.getApiUrl.mockResolvedValueOnce('api-url');
     });
 
     afterEach(() => {
       expect(apiInfoProviderMock.getApiUrl).toHaveBeenCalledTimes(1);
+      expect(apiInfoProviderMock.getApiKey).toHaveBeenCalledTimes(0);
+      expect(apiInfoProviderMock.getSecretKey).toHaveBeenCalledTimes(0);
 
       expect(axiosInstanceMock.get).toHaveBeenCalledTimes(1);
       const getParams = axiosInstanceMock.get.mock.calls[0];

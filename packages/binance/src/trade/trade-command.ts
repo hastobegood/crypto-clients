@@ -47,9 +47,11 @@ export class GetOldTradesListCommand extends Command<GetOldTradesListCommandOutp
   }
 
   async execute(apiInfoProvider: ApiInfoProvider): Promise<GetOldTradesListCommandOutput> {
+    const [apiUrl, apiKey] = await Promise.all([apiInfoProvider.getApiUrl(), apiInfoProvider.getApiKey()]);
+
     const queryParameters = getQueryParameters(this.input, false);
     const queryUrl = `/v3/historicalTrades?${queryParameters}`;
-    const queryConfig = getQueryConfig(await apiInfoProvider.getApiUrl());
+    const queryConfig = getQueryConfig(apiUrl, apiKey);
 
     return this.handle(() => axiosInstance.get<GetOldTradesListOutput>(queryUrl, queryConfig));
   }
