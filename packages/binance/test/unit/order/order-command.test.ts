@@ -73,9 +73,10 @@ describe('OrderCommand', () => {
 
       expect(axiosInstanceMock.post).toHaveBeenCalledTimes(1);
       const postParams = axiosInstanceMock.post.mock.calls[0];
-      expect(postParams.length).toEqual(2);
+      expect(postParams.length).toEqual(3);
       expect(postParams[0]).toEqual(`/v3/order?${queryParameters}`);
-      expect(postParams[1]).toEqual({
+      expect(postParams[1]).toBeNull();
+      expect(postParams[2]).toEqual({
         baseURL: 'api-url',
         headers: { 'X-MBX-APIKEY': 'api-key' },
       });

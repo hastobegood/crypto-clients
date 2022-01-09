@@ -31,7 +31,7 @@ export class SendOrderCommand extends Command<SendOrderCommandOutput> {
     const queryUrl = `/v3/order?${queryParameters}&${querySignature}`;
     const queryConfig = getQueryConfig(apiUrl, apiKey);
 
-    return this.handle(() => axiosInstance.post<SendOrderOutput>(queryUrl, queryConfig));
+    return this.handle(() => axiosInstance.post<SendOrderOutput>(queryUrl, null, queryConfig));
   }
 }
 

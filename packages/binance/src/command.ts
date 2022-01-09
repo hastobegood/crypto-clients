@@ -39,6 +39,7 @@ export class CommandError extends Error {
         headers: cause.response.headers,
         data: cause.response.data,
       };
+      this.message = this.message.concat(` (${JSON.stringify(this.output.data)})`);
     }
   }
 }
