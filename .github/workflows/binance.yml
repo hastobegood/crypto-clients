@@ -37,7 +37,6 @@ jobs:
         with:
           node-version: 14
           registry-url: https://registry.npmjs.org
-          scope: '@hastobegood'
           cache: yarn
       - name: Publish binance version
         if: ${{ startsWith(github.event.release.tag_name, 'binance') }}
