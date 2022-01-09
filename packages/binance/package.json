@@ -2,9 +2,6 @@
   "name": "@hastobegood/crypto-clients-binance",
   "version": "0.1.0",
   "license": "MIT",
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com/"
-  },
   "repository": {
     "type": "git",
     "url": "https://github.com/hastobegood/crypto-clients.git",
