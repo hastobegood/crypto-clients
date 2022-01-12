@@ -44,9 +44,48 @@ export interface GetExchangeInfoOutputSymbol {
   permissions: ExchangeInfoSymbolPermission[];
 }
 
-export interface GetExchangeInfoOutputSymbolFilter {
-  filterType: string;
-  minPrice: string;
-  maxPrice: string;
-  tickSize: string;
-}
+export type GetExchangeInfoOutputSymbolFilter =
+  | {
+      filterType: 'PRICE_FILTER';
+      minPrice: string;
+      maxPrice: string;
+      tickSize: string;
+    }
+  | {
+      filterType: 'PERCENT_PRICE';
+      multiplierUp: string;
+      multiplierDown: string;
+      avgPriceMins: number;
+    }
+  | {
+      filterType: 'LOT_SIZE' | 'MARKET_LOT_SIZE';
+      minQty: string;
+      maxQty: string;
+      stepSize: string;
+    }
+  | {
+      filterType: 'MIN_NOTIONAL';
+      minNotional: string;
+      applyToMarket: boolean;
+      avgPriceMins: string;
+    }
+  | {
+      filterType: 'ICEBERG_PARTS';
+      limit: number;
+    }
+  | {
+      filterType: 'MAX_NUM_ORDERS';
+      maxNumOrders: number;
+    }
+  | {
+      filterType: 'MAX_NUM_ALGO_ORDERS';
+      maxNumAlgoOrders: number;
+    }
+  | {
+      filterType: 'MAX_NUM_ICEBERG_ORDERS';
+      maxNumIcebergOrders: number;
+    }
+  | {
+      filterType: 'MAX_POSITION';
+      maxPosition: string;
+    };
