@@ -7,6 +7,20 @@
     "url": "https://github.com/hastobegood/crypto-clients.git",
     "directory": "packages/binance"
   },
+  "keywords": [
+    "binance",
+    "binance api",
+    "binance spot api",
+    "binance rest api",
+    "binance client",
+    "binance trading",
+    "binance exchange",
+    "crypto",
+    "crypto api",
+    "crypto client",
+    "crypto trading",
+    "crypto exchange"
+  ],
   "engines": {
     "node": "^14"
   },
