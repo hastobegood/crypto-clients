@@ -1,4 +1,5 @@
 import { randomNumber } from '../random-test-builder.js';
+import { AxiosInstance } from 'axios';
 import { ApiInfoProvider } from '../../../src/client.js';
 import { Command, CommandOutput } from '../../../src/command.js';
 
@@ -28,7 +29,7 @@ export const buildDefaultTestCommand = () => {
 };
 
 class TestCommand extends Command<string> {
-  async execute(apiInfoProvider: ApiInfoProvider): Promise<string> {
+  async execute(axiosInstance: AxiosInstance, apiInfoProvider: ApiInfoProvider): Promise<string> {
     return 'output';
   }
 }

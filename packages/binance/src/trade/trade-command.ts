@@ -1,4 +1,5 @@
-import { axiosInstance, getQueryConfig, getQueryParameters } from '../common/axios-instance.js';
+import { AxiosInstance } from 'axios';
+import { getQueryConfig, getQueryParameters } from '../common/http.js';
 import { ApiInfoProvider } from '../client.js';
 import { sign } from '../common/signature.js';
 import { Command, CommandOutput } from '../command.js';
@@ -7,11 +8,11 @@ import { GetAccountTradesListInput, GetAccountTradesListOutput, GetAggregateTrad
 export type GetAccountTradesListCommandOutput = CommandOutput<GetAccountTradesListOutput>;
 
 export class GetAccountTradesListCommand extends Command<GetAccountTradesListCommandOutput> {
-  constructor(readonly input: GetAccountTradesListInput) {
+  constructor(private readonly input: GetAccountTradesListInput) {
     super();
   }
 
-  async execute(apiInfoProvider: ApiInfoProvider): Promise<GetAccountTradesListCommandOutput> {
+  async execute(axiosInstance: AxiosInstance, apiInfoProvider: ApiInfoProvider): Promise<GetAccountTradesListCommandOutput> {
     const [apiUrl, apiKey, secretKey] = await Promise.all([apiInfoProvider.getApiUrl(), apiInfoProvider.getApiKey(), apiInfoProvider.getSecretKey()]);
 
     const queryParameters = getQueryParameters(this.input, true);
@@ -26,11 +27,11 @@ export class GetAccountTradesListCommand extends Command<GetAccountTradesListCom
 export type GetRecentTradesListCommandOutput = CommandOutput<GetRecentTradesListOutput>;
 
 export class GetRecentTradesListCommand extends Command<GetRecentTradesListCommandOutput> {
-  constructor(readonly input: GetRecentTradesListInput) {
+  constructor(private readonly input: GetRecentTradesListInput) {
     super();
   }
 
-  async execute(apiInfoProvider: ApiInfoProvider): Promise<GetRecentTradesListCommandOutput> {
+  async execute(axiosInstance: AxiosInstance, apiInfoProvider: ApiInfoProvider): Promise<GetRecentTradesListCommandOutput> {
     const queryParameters = getQueryParameters(this.input, false);
     const queryUrl = `/v3/trades?${queryParameters}`;
     const queryConfig = getQueryConfig(await apiInfoProvider.getApiUrl());
@@ -42,11 +43,11 @@ export class GetRecentTradesListCommand extends Command<GetRecentTradesListComma
 export type GetOldTradesListCommandOutput = CommandOutput<GetOldTradesListOutput>;
 
 export class GetOldTradesListCommand extends Command<GetOldTradesListCommandOutput> {
-  constructor(readonly input: GetOldTradesListInput) {
+  constructor(private readonly input: GetOldTradesListInput) {
     super();
   }
 
-  async execute(apiInfoProvider: ApiInfoProvider): Promise<GetOldTradesListCommandOutput> {
+  async execute(axiosInstance: AxiosInstance, apiInfoProvider: ApiInfoProvider): Promise<GetOldTradesListCommandOutput> {
     const [apiUrl, apiKey] = await Promise.all([apiInfoProvider.getApiUrl(), apiInfoProvider.getApiKey()]);
 
     const queryParameters = getQueryParameters(this.input, false);
@@ -60,11 +61,11 @@ export class GetOldTradesListCommand extends Command<GetOldTradesListCommandOutp
 export type GetAggregateTradesListCommandOutput = CommandOutput<GetAggregateTradesListOutput>;
 
 export class GetAggregateTradesListCommand extends Command<GetAggregateTradesListCommandOutput> {
-  constructor(readonly input: GetAggregateTradesListInput) {
+  constructor(private readonly input: GetAggregateTradesListInput) {
     super();
   }
 
-  async execute(apiInfoProvider: ApiInfoProvider): Promise<GetAggregateTradesListCommandOutput> {
+  async execute(axiosInstance: AxiosInstance, apiInfoProvider: ApiInfoProvider): Promise<GetAggregateTradesListCommandOutput> {
     const queryParameters = getQueryParameters(this.input, false);
     const queryUrl = `/v3/aggTrades?${queryParameters}`;
     const queryConfig = getQueryConfig(await apiInfoProvider.getApiUrl());

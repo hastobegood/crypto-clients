@@ -1,4 +1,5 @@
-import { axiosInstance, getQueryConfig, getQueryParameters } from '../common/axios-instance.js';
+import { AxiosInstance } from 'axios';
+import { getQueryConfig, getQueryParameters } from '../common/http.js';
 import { ApiInfoProvider } from '../client.js';
 import { Command, CommandOutput } from '../command.js';
 import {
@@ -17,11 +18,11 @@ import {
 export type GetCandlestickDataCommandOutput = CommandOutput<GetCandlestickDataOutput>;
 
 export class GetCandlestickDataCommand extends Command<GetCandlestickDataCommandOutput> {
-  constructor(readonly input: GetCandlestickDataInput) {
+  constructor(private readonly input: GetCandlestickDataInput) {
     super();
   }
 
-  async execute(apiInfoProvider: ApiInfoProvider): Promise<GetCandlestickDataCommandOutput> {
+  async execute(axiosInstance: AxiosInstance, apiInfoProvider: ApiInfoProvider): Promise<GetCandlestickDataCommandOutput> {
     const queryParameters = getQueryParameters(this.input, false);
     const queryUrl = `/v3/klines?${queryParameters}`;
     const queryConfig = getQueryConfig(await apiInfoProvider.getApiUrl());
@@ -33,11 +34,11 @@ export class GetCandlestickDataCommand extends Command<GetCandlestickDataCommand
 export type GetAveragePriceCommandOutput = CommandOutput<GetAveragePriceOutput>;
 
 export class GetAveragePriceCommand extends Command<GetAveragePriceCommandOutput> {
-  constructor(readonly input: GetAveragePriceInput) {
+  constructor(private readonly input: GetAveragePriceInput) {
     super();
   }
 
-  async execute(apiInfoProvider: ApiInfoProvider): Promise<GetAveragePriceCommandOutput> {
+  async execute(axiosInstance: AxiosInstance, apiInfoProvider: ApiInfoProvider): Promise<GetAveragePriceCommandOutput> {
     const queryParameters = getQueryParameters(this.input, false);
     const queryUrl = `/v3/avgPrice?${queryParameters}`;
     const queryConfig = getQueryConfig(await apiInfoProvider.getApiUrl());
@@ -49,11 +50,11 @@ export class GetAveragePriceCommand extends Command<GetAveragePriceCommandOutput
 export type GetPriceChangeCommandOutput = CommandOutput<GetPriceChangeOutput>;
 
 export class GetPriceChangeCommand extends Command<GetPriceChangeCommandOutput> {
-  constructor(readonly input?: GetPriceChangeInput) {
+  constructor(private readonly input?: GetPriceChangeInput) {
     super();
   }
 
-  async execute(apiInfoProvider: ApiInfoProvider): Promise<GetPriceChangeCommandOutput> {
+  async execute(axiosInstance: AxiosInstance, apiInfoProvider: ApiInfoProvider): Promise<GetPriceChangeCommandOutput> {
     const queryParameters = getQueryParameters(this.input, false);
     const queryUrl = queryParameters ? `/v3/ticker/24hr?${queryParameters}` : '/v3/ticker/24hr';
     const queryConfig = getQueryConfig(await apiInfoProvider.getApiUrl());
@@ -65,11 +66,11 @@ export class GetPriceChangeCommand extends Command<GetPriceChangeCommandOutput> 
 export type GetCurrentPriceCommandOutput = CommandOutput<GetCurrentPriceOutput>;
 
 export class GetCurrentPriceCommand extends Command<GetCurrentPriceCommandOutput> {
-  constructor(readonly input?: GetCurrentPriceInput) {
+  constructor(private readonly input?: GetCurrentPriceInput) {
     super();
   }
 
-  async execute(apiInfoProvider: ApiInfoProvider): Promise<GetCurrentPriceCommandOutput> {
+  async execute(axiosInstance: AxiosInstance, apiInfoProvider: ApiInfoProvider): Promise<GetCurrentPriceCommandOutput> {
     const queryParameters = getQueryParameters(this.input, false);
     const queryUrl = queryParameters ? `/v3/ticker/price?${queryParameters}` : '/v3/ticker/price';
     const queryConfig = getQueryConfig(await apiInfoProvider.getApiUrl());
@@ -81,11 +82,11 @@ export class GetCurrentPriceCommand extends Command<GetCurrentPriceCommandOutput
 export type GetOrderBookPriceCommandOutput = CommandOutput<GetOrderBookPriceOutput>;
 
 export class GetOrderBookPriceCommand extends Command<GetOrderBookPriceCommandOutput> {
-  constructor(readonly input?: GetOrderBookPriceInput) {
+  constructor(private readonly input?: GetOrderBookPriceInput) {
     super();
   }
 
-  async execute(apiInfoProvider: ApiInfoProvider): Promise<GetOrderBookPriceCommandOutput> {
+  async execute(axiosInstance: AxiosInstance, apiInfoProvider: ApiInfoProvider): Promise<GetOrderBookPriceCommandOutput> {
     const queryParameters = getQueryParameters(this.input, false);
     const queryUrl = queryParameters ? `/v3/ticker/bookTicker?${queryParameters}` : '/v3/ticker/bookTicker';
     const queryConfig = getQueryConfig(await apiInfoProvider.getApiUrl());

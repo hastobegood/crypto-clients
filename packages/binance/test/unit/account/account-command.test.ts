@@ -1,6 +1,7 @@
 import { mocked } from 'ts-jest/utils';
 import MockDate from 'mockdate';
-import { axiosInstance, getQueryParameters } from '../../../src/common/axios-instance.js';
+import { AxiosInstance } from 'axios';
+import { getQueryParameters } from '../../../src/common/http.js';
 import { sign } from '../../../src/common/signature.js';
 import { ApiInfoProvider } from '../../../src/client.js';
 import { CommandError } from '../../../src/command.js';
@@ -9,7 +10,7 @@ import { buildDefaultCommandOutput } from '../../builders/common/command-test-bu
 import { buildDefaultGetAccountInfoOutput } from '../../builders/account/account-test-builder.js';
 
 const apiInfoProviderMock = mocked(jest.genMockFromModule<ApiInfoProvider>('../../../src/client.js'), true);
-const axiosInstanceMock = mocked(axiosInstance, true);
+const axiosInstanceMock = mocked(jest.genMockFromModule<AxiosInstance>('axios'), true);
 
 describe('AccountCommand', () => {
   let date: Date;
@@ -61,7 +62,7 @@ describe('AccountCommand', () => {
       });
 
       it('Then execution result is returned', async () => {
-        const result = await new GetAccountInfoCommand().execute(apiInfoProviderMock);
+        const result = await new GetAccountInfoCommand().execute(axiosInstanceMock, apiInfoProviderMock);
         expect(result).toEqual(output);
       });
     });
@@ -73,7 +74,7 @@ describe('AccountCommand', () => {
 
       it('Then error is thrown', async () => {
         try {
-          await new GetAccountInfoCommand().execute(apiInfoProviderMock);
+          await new GetAccountInfoCommand().execute(axiosInstanceMock, apiInfoProviderMock);
           fail();
         } catch (error) {
           expect(error).toBeDefined();

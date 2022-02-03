@@ -1,6 +1,6 @@
-import { getQueryParameters } from '../../../src/common/axios-instance.js';
+import { getQueryParameters } from '../../../src/common/http';
 
-describe('AxiosInstance', () => {
+describe('Http', () => {
   describe('Given a query parameters to generate', () => {
     describe('When data is undefined', () => {
       it('Then empty query parameters is returned', async () => {

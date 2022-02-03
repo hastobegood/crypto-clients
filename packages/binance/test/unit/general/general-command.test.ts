@@ -1,5 +1,6 @@
 import { mocked } from 'ts-jest/utils';
-import { axiosInstance, getQueryParameters } from '../../../src/common/axios-instance.js';
+import { AxiosInstance } from 'axios';
+import { getQueryParameters } from '../../../src/common/http.js';
 import { ApiInfoProvider } from '../../../src/client.js';
 import { CommandError, EmptyCommandOutput } from '../../../src/command.js';
 import { GetExchangeInfoCommand, GetExchangeInfoCommandOutput, GetServerTimeCommand, GetServerTimeCommandOutput, TestConnectivityCommand } from '../../../src/general/general-command.js';
@@ -8,7 +9,7 @@ import { buildDefaultCommandOutput, buildEmptyCommandOutput } from '../../builde
 import { buildDefaultGetExchangeInfoInput, buildDefaultGetExchangeInfoOutput, buildDefaultGetServerTimeOutput } from '../../builders/general/general-test-builder.js';
 
 const apiInfoProviderMock = mocked(jest.genMockFromModule<ApiInfoProvider>('../../../src/client.js'), true);
-const axiosInstanceMock = mocked(axiosInstance, true);
+const axiosInstanceMock = mocked(jest.genMockFromModule<AxiosInstance>('axios'), true);
 
 describe('GeneralCommand', () => {
   beforeEach(() => {
@@ -47,7 +48,7 @@ describe('GeneralCommand', () => {
       });
 
       it('Then execution result is returned', async () => {
-        const result = await new TestConnectivityCommand().execute(apiInfoProviderMock);
+        const result = await new TestConnectivityCommand().execute(axiosInstanceMock, apiInfoProviderMock);
         expect(result).toEqual(output);
       });
     });
@@ -59,7 +60,7 @@ describe('GeneralCommand', () => {
 
       it('Then error is thrown', async () => {
         try {
-          await new TestConnectivityCommand().execute(apiInfoProviderMock);
+          await new TestConnectivityCommand().execute(axiosInstanceMock, apiInfoProviderMock);
           fail();
         } catch (error) {
           expect(error).toBeDefined();
@@ -94,7 +95,7 @@ describe('GeneralCommand', () => {
       });
 
       it('Then execution result is returned', async () => {
-        const result = await new GetServerTimeCommand().execute(apiInfoProviderMock);
+        const result = await new GetServerTimeCommand().execute(axiosInstanceMock, apiInfoProviderMock);
         expect(result).toEqual(output);
       });
     });
@@ -106,7 +107,7 @@ describe('GeneralCommand', () => {
 
       it('Then error is thrown', async () => {
         try {
-          await new GetServerTimeCommand().execute(apiInfoProviderMock);
+          await new GetServerTimeCommand().execute(axiosInstanceMock, apiInfoProviderMock);
           fail();
         } catch (error) {
           expect(error).toBeDefined();
@@ -149,7 +150,7 @@ describe('GeneralCommand', () => {
       });
 
       it('Then execution result is returned', async () => {
-        const result = await new GetExchangeInfoCommand(input).execute(apiInfoProviderMock);
+        const result = await new GetExchangeInfoCommand(input).execute(axiosInstanceMock, apiInfoProviderMock);
         expect(result).toEqual(output);
       });
     });
@@ -161,7 +162,7 @@ describe('GeneralCommand', () => {
 
       it('Then error is thrown', async () => {
         try {
-          await new GetExchangeInfoCommand(input).execute(apiInfoProviderMock);
+          await new GetExchangeInfoCommand(input).execute(axiosInstanceMock, apiInfoProviderMock);
           fail();
         } catch (error) {
           expect(error).toBeDefined();

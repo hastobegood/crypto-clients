@@ -1,6 +1,7 @@
 import { mocked } from 'ts-jest/utils';
 import MockDate from 'mockdate';
-import { axiosInstance, getQueryParameters } from '../../../src/common/axios-instance.js';
+import { AxiosInstance } from 'axios';
+import { getQueryParameters } from '../../../src/common/http.js';
 import { sign } from '../../../src/common/signature.js';
 import { ApiInfoProvider } from '../../../src/client.js';
 import { CommandError } from '../../../src/command.js';
@@ -28,7 +29,7 @@ import {
 } from '../../builders/trade/trade-test-builder.js';
 
 const apiInfoProviderMock = mocked(jest.genMockFromModule<ApiInfoProvider>('../../../src/client.js'), true);
-const axiosInstanceMock = mocked(axiosInstance, true);
+const axiosInstanceMock = mocked(jest.genMockFromModule<AxiosInstance>('axios'), true);
 
 describe('TradeCommand', () => {
   let date: Date;
@@ -82,7 +83,7 @@ describe('TradeCommand', () => {
       });
 
       it('Then execution result is returned', async () => {
-        const result = await new GetAccountTradesListCommand(input).execute(apiInfoProviderMock);
+        const result = await new GetAccountTradesListCommand(input).execute(axiosInstanceMock, apiInfoProviderMock);
         expect(result).toEqual(output);
       });
     });
@@ -94,7 +95,7 @@ describe('TradeCommand', () => {
 
       it('Then error is thrown', async () => {
         try {
-          await new GetAccountTradesListCommand(input).execute(apiInfoProviderMock);
+          await new GetAccountTradesListCommand(input).execute(axiosInstanceMock, apiInfoProviderMock);
           fail();
         } catch (error) {
           expect(error).toBeDefined();
@@ -137,7 +138,7 @@ describe('TradeCommand', () => {
       });
 
       it('Then execution result is returned', async () => {
-        const result = await new GetRecentTradesListCommand(input).execute(apiInfoProviderMock);
+        const result = await new GetRecentTradesListCommand(input).execute(axiosInstanceMock, apiInfoProviderMock);
         expect(result).toEqual(output);
       });
     });
@@ -149,7 +150,7 @@ describe('TradeCommand', () => {
 
       it('Then error is thrown', async () => {
         try {
-          await new GetRecentTradesListCommand(input).execute(apiInfoProviderMock);
+          await new GetRecentTradesListCommand(input).execute(axiosInstanceMock, apiInfoProviderMock);
           fail();
         } catch (error) {
           expect(error).toBeDefined();
@@ -193,7 +194,7 @@ describe('TradeCommand', () => {
       });
 
       it('Then execution result is returned', async () => {
-        const result = await new GetOldTradesListCommand(input).execute(apiInfoProviderMock);
+        const result = await new GetOldTradesListCommand(input).execute(axiosInstanceMock, apiInfoProviderMock);
         expect(result).toEqual(output);
       });
     });
@@ -205,7 +206,7 @@ describe('TradeCommand', () => {
 
       it('Then error is thrown', async () => {
         try {
-          await new GetOldTradesListCommand(input).execute(apiInfoProviderMock);
+          await new GetOldTradesListCommand(input).execute(axiosInstanceMock, apiInfoProviderMock);
           fail();
         } catch (error) {
           expect(error).toBeDefined();
@@ -248,7 +249,7 @@ describe('TradeCommand', () => {
       });
 
       it('Then execution result is returned', async () => {
-        const result = await new GetAggregateTradesListCommand(input).execute(apiInfoProviderMock);
+        const result = await new GetAggregateTradesListCommand(input).execute(axiosInstanceMock, apiInfoProviderMock);
         expect(result).toEqual(output);
       });
     });
@@ -260,7 +261,7 @@ describe('TradeCommand', () => {
 
       it('Then error is thrown', async () => {
         try {
-          await new GetAggregateTradesListCommand(input).execute(apiInfoProviderMock);
+          await new GetAggregateTradesListCommand(input).execute(axiosInstanceMock, apiInfoProviderMock);
           fail();
         } catch (error) {
           expect(error).toBeDefined();

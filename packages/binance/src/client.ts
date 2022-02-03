@@ -1,3 +1,6 @@
+import { EventEmitter } from 'events';
+import { AxiosInstance } from 'axios';
+import { axiosInstance, HttpRequest, HttpResponse } from './common/http.js';
 import { Command } from './command.js';
 
 export interface ApiInfoProvider {
@@ -8,10 +11,33 @@ export interface ApiInfoProvider {
   getSecretKey(): Promise<string>;
 }
 
+export interface ClientOptions {
+  apiInfoProvider: ApiInfoProvider;
+  httpOptions?: {
+    timeout?: number;
+  };
+}
+
 export class Client {
-  constructor(private readonly apiInfoProvider: ApiInfoProvider) {}
+  readonly #emitter: EventEmitter;
+  readonly #axiosInstance: AxiosInstance;
+  readonly #apiInfoProvider: ApiInfoProvider;
+
+  constructor(options: ClientOptions) {
+    this.#emitter = new EventEmitter();
+    this.#axiosInstance = axiosInstance({ emitter: this.#emitter, timeout: options.httpOptions?.timeout });
+    this.#apiInfoProvider = options.apiInfoProvider;
+  }
+
+  onHttpRequest(listener: (httpRequest: HttpRequest) => void): void {
+    this.#emitter.on('HttpRequest', listener);
+  }
+
+  onHttpResponse(listener: (httpRequest: HttpRequest, httpResponse?: HttpResponse) => void): void {
+    this.#emitter.on('HttpResponse', listener);
+  }
 
   async send<O>(command: Command<O>): Promise<O> {
-    return command.execute(this.apiInfoProvider);
+    return command.execute(this.#axiosInstance, this.#apiInfoProvider);
   }
 }

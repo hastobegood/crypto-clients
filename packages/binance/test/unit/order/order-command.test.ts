@@ -1,6 +1,7 @@
 import { mocked } from 'ts-jest/utils';
 import MockDate from 'mockdate';
-import { axiosInstance, getQueryParameters } from '../../../src/common/axios-instance.js';
+import { AxiosInstance } from 'axios';
+import { getQueryParameters } from '../../../src/common/http.js';
 import { sign } from '../../../src/common/signature.js';
 import { ApiInfoProvider } from '../../../src/client.js';
 import { CommandError } from '../../../src/command.js';
@@ -35,7 +36,7 @@ import {
 } from '../../builders/order/order-test-builder.js';
 
 const apiInfoProviderMock = mocked(jest.genMockFromModule<ApiInfoProvider>('../../../src/client.js'), true);
-const axiosInstanceMock = mocked(axiosInstance, true);
+const axiosInstanceMock = mocked(jest.genMockFromModule<AxiosInstance>('axios'), true);
 
 describe('OrderCommand', () => {
   let date: Date;
@@ -92,7 +93,7 @@ describe('OrderCommand', () => {
       });
 
       it('Then execution result is returned', async () => {
-        const result = await new SendOrderCommand(input).execute(apiInfoProviderMock);
+        const result = await new SendOrderCommand(input).execute(axiosInstanceMock, apiInfoProviderMock);
         expect(result).toEqual(output);
       });
     });
@@ -104,7 +105,7 @@ describe('OrderCommand', () => {
 
       it('Then error is thrown', async () => {
         try {
-          await new SendOrderCommand(input).execute(apiInfoProviderMock);
+          await new SendOrderCommand(input).execute(axiosInstanceMock, apiInfoProviderMock);
           fail();
         } catch (error) {
           expect(error).toBeDefined();
@@ -149,7 +150,7 @@ describe('OrderCommand', () => {
       });
 
       it('Then execution result is returned', async () => {
-        const result = await new GetOrderCommand(input).execute(apiInfoProviderMock);
+        const result = await new GetOrderCommand(input).execute(axiosInstanceMock, apiInfoProviderMock);
         expect(result).toEqual(output);
       });
     });
@@ -161,7 +162,7 @@ describe('OrderCommand', () => {
 
       it('Then error is thrown', async () => {
         try {
-          await new GetOrderCommand(input).execute(apiInfoProviderMock);
+          await new GetOrderCommand(input).execute(axiosInstanceMock, apiInfoProviderMock);
           fail();
         } catch (error) {
           expect(error).toBeDefined();
@@ -206,7 +207,7 @@ describe('OrderCommand', () => {
       });
 
       it('Then execution result is returned', async () => {
-        const result = await new GetOpenOrdersListCommand(input).execute(apiInfoProviderMock);
+        const result = await new GetOpenOrdersListCommand(input).execute(axiosInstanceMock, apiInfoProviderMock);
         expect(result).toEqual(output);
       });
     });
@@ -218,7 +219,7 @@ describe('OrderCommand', () => {
 
       it('Then error is thrown', async () => {
         try {
-          await new GetOpenOrdersListCommand(input).execute(apiInfoProviderMock);
+          await new GetOpenOrdersListCommand(input).execute(axiosInstanceMock, apiInfoProviderMock);
           fail();
         } catch (error) {
           expect(error).toBeDefined();
@@ -261,7 +262,7 @@ describe('OrderCommand', () => {
       });
 
       it('Then execution result is returned', async () => {
-        const result = await new GetOpenOrdersListCommand().execute(apiInfoProviderMock);
+        const result = await new GetOpenOrdersListCommand().execute(axiosInstanceMock, apiInfoProviderMock);
         expect(result).toEqual(output);
       });
     });
@@ -273,7 +274,7 @@ describe('OrderCommand', () => {
 
       it('Then error is thrown', async () => {
         try {
-          await new GetOpenOrdersListCommand().execute(apiInfoProviderMock);
+          await new GetOpenOrdersListCommand().execute(axiosInstanceMock, apiInfoProviderMock);
           fail();
         } catch (error) {
           expect(error).toBeDefined();
@@ -318,7 +319,7 @@ describe('OrderCommand', () => {
       });
 
       it('Then execution result is returned', async () => {
-        const result = await new GetAllOrdersListCommand(input).execute(apiInfoProviderMock);
+        const result = await new GetAllOrdersListCommand(input).execute(axiosInstanceMock, apiInfoProviderMock);
         expect(result).toEqual(output);
       });
     });
@@ -330,7 +331,7 @@ describe('OrderCommand', () => {
 
       it('Then error is thrown', async () => {
         try {
-          await new GetAllOrdersListCommand(input).execute(apiInfoProviderMock);
+          await new GetAllOrdersListCommand(input).execute(axiosInstanceMock, apiInfoProviderMock);
           fail();
         } catch (error) {
           expect(error).toBeDefined();
@@ -375,7 +376,7 @@ describe('OrderCommand', () => {
       });
 
       it('Then execution result is returned', async () => {
-        const result = await new CancelOrderCommand(input).execute(apiInfoProviderMock);
+        const result = await new CancelOrderCommand(input).execute(axiosInstanceMock, apiInfoProviderMock);
         expect(result).toEqual(output);
       });
     });
@@ -387,7 +388,7 @@ describe('OrderCommand', () => {
 
       it('Then error is thrown', async () => {
         try {
-          await new CancelOrderCommand(input).execute(apiInfoProviderMock);
+          await new CancelOrderCommand(input).execute(axiosInstanceMock, apiInfoProviderMock);
           fail();
         } catch (error) {
           expect(error).toBeDefined();
@@ -430,7 +431,7 @@ describe('OrderCommand', () => {
       });
 
       it('Then execution result is returned', async () => {
-        const result = await new GetOrderCountUsageCommand().execute(apiInfoProviderMock);
+        const result = await new GetOrderCountUsageCommand().execute(axiosInstanceMock, apiInfoProviderMock);
         expect(result).toEqual(output);
       });
     });
@@ -442,7 +443,7 @@ describe('OrderCommand', () => {
 
       it('Then error is thrown', async () => {
         try {
-          await new GetOrderCountUsageCommand().execute(apiInfoProviderMock);
+          await new GetOrderCountUsageCommand().execute(axiosInstanceMock, apiInfoProviderMock);
           fail();
         } catch (error) {
           expect(error).toBeDefined();

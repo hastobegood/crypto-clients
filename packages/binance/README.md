@@ -12,9 +12,11 @@ maximum flexibility.
 import { Client } from '@hastobegood/crypto-clients-binance';
 
 const client = new Client({
-  getApiUrl: async (): Promise<string> => 'binance-api-url',
-  getApiKey: async (): Promise<string> => 'binance-api-key',
-  getSecretKey: async (): Promise<string> => 'binance-secret-key',
+  apiInfoProvider: {
+    getApiUrl: async (): Promise<string> => 'binance-api-url',
+    getApiKey: async (): Promise<string> => 'binance-api-key',
+    getSecretKey: async (): Promise<string> => 'binance-secret-key',
+  },
 });
 ```
 
@@ -49,6 +51,39 @@ class BinanceSecretsProvider implements ApiInfoProvider {
 
 const apiInfoProvider = new BinanceSecretsProvider();
 const client = new Client(apiInfoProvider);
+```
+
+### Additional options
+
+Additional options can be set to the client.
+
+```typescript
+import { Client } from '@hastobegood/crypto-clients-binance';
+
+const client = new Client({
+  apiInfoProvider: { ... },
+  httpOptions: {
+    timeout: 2_000      // timeout for HTTP calls to Binance API
+  },
+});
+```
+
+### Event emitters for HTTP requests/responses
+
+You can subscribe to events linked to the HTTP requests and responses sent to Binance API.
+
+This can be useful if you need for example to log those requests.
+
+```typescript
+import { Client } from '@hastobegood/crypto-clients-binance';
+
+const client = new Client({ ... });
+
+// log HTTP request (api, endpoint, method and params)
+client.onHttpRequest((httpRequest: HttpRequest) => console.log(httpRequest));
+
+// log HTTP response (api, endpoint, method, params and status)
+client.onHttpResponse((httpRequest: HttpRequest, httpResponse?: HttpResponse) => console.log(httpRequest, htppResponse));
 ```
 
 ## Commands
