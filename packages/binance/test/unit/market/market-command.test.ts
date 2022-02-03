@@ -1,5 +1,6 @@
 import { mocked } from 'ts-jest/utils';
-import { axiosInstance, getQueryParameters } from '../../../src/common/axios-instance.js';
+import { AxiosInstance } from 'axios';
+import { getQueryParameters } from '../../../src/common/http.js';
 import { ApiInfoProvider } from '../../../src/client.js';
 import { CommandError } from '../../../src/command.js';
 import {
@@ -30,7 +31,7 @@ import {
 } from '../../builders/market/market-test-builder.js';
 
 const apiInfoProviderMock = mocked(jest.genMockFromModule<ApiInfoProvider>('../../../src/client.js'), true);
-const axiosInstanceMock = mocked(axiosInstance, true);
+const axiosInstanceMock = mocked(jest.genMockFromModule<AxiosInstance>('axios'), true);
 
 describe('MarketCommand', () => {
   beforeEach(() => {
@@ -77,7 +78,7 @@ describe('MarketCommand', () => {
       });
 
       it('Then execution result is returned', async () => {
-        const result = await new GetCandlestickDataCommand(input).execute(apiInfoProviderMock);
+        const result = await new GetCandlestickDataCommand(input).execute(axiosInstanceMock, apiInfoProviderMock);
         expect(result).toEqual(output);
       });
     });
@@ -89,7 +90,7 @@ describe('MarketCommand', () => {
 
       it('Then error is thrown', async () => {
         try {
-          await new GetCandlestickDataCommand(input).execute(apiInfoProviderMock);
+          await new GetCandlestickDataCommand(input).execute(axiosInstanceMock, apiInfoProviderMock);
           fail();
         } catch (error) {
           expect(error).toBeDefined();
@@ -132,7 +133,7 @@ describe('MarketCommand', () => {
       });
 
       it('Then execution result is returned', async () => {
-        const result = await new GetAveragePriceCommand(input).execute(apiInfoProviderMock);
+        const result = await new GetAveragePriceCommand(input).execute(axiosInstanceMock, apiInfoProviderMock);
         expect(result).toEqual(output);
       });
     });
@@ -144,7 +145,7 @@ describe('MarketCommand', () => {
 
       it('Then error is thrown', async () => {
         try {
-          await new GetAveragePriceCommand(input).execute(apiInfoProviderMock);
+          await new GetAveragePriceCommand(input).execute(axiosInstanceMock, apiInfoProviderMock);
           fail();
         } catch (error) {
           expect(error).toBeDefined();
@@ -187,7 +188,7 @@ describe('MarketCommand', () => {
       });
 
       it('Then execution result is returned', async () => {
-        const result = await new GetPriceChangeCommand(input).execute(apiInfoProviderMock);
+        const result = await new GetPriceChangeCommand(input).execute(axiosInstanceMock, apiInfoProviderMock);
         expect(result).toEqual(output);
       });
     });
@@ -199,7 +200,7 @@ describe('MarketCommand', () => {
 
       it('Then error is thrown', async () => {
         try {
-          await new GetPriceChangeCommand(input).execute(apiInfoProviderMock);
+          await new GetPriceChangeCommand(input).execute(axiosInstanceMock, apiInfoProviderMock);
           fail();
         } catch (error) {
           expect(error).toBeDefined();
@@ -234,7 +235,7 @@ describe('MarketCommand', () => {
       });
 
       it('Then execution result is returned', async () => {
-        const result = await new GetPriceChangeCommand().execute(apiInfoProviderMock);
+        const result = await new GetPriceChangeCommand().execute(axiosInstanceMock, apiInfoProviderMock);
         expect(result).toEqual(output);
       });
     });
@@ -246,7 +247,7 @@ describe('MarketCommand', () => {
 
       it('Then error is thrown', async () => {
         try {
-          await new GetPriceChangeCommand().execute(apiInfoProviderMock);
+          await new GetPriceChangeCommand().execute(axiosInstanceMock, apiInfoProviderMock);
           fail();
         } catch (error) {
           expect(error).toBeDefined();
@@ -289,7 +290,7 @@ describe('MarketCommand', () => {
       });
 
       it('Then execution result is returned', async () => {
-        const result = await new GetCurrentPriceCommand(input).execute(apiInfoProviderMock);
+        const result = await new GetCurrentPriceCommand(input).execute(axiosInstanceMock, apiInfoProviderMock);
         expect(result).toEqual(output);
       });
     });
@@ -301,7 +302,7 @@ describe('MarketCommand', () => {
 
       it('Then error is thrown', async () => {
         try {
-          await new GetCurrentPriceCommand(input).execute(apiInfoProviderMock);
+          await new GetCurrentPriceCommand(input).execute(axiosInstanceMock, apiInfoProviderMock);
           fail();
         } catch (error) {
           expect(error).toBeDefined();
@@ -336,7 +337,7 @@ describe('MarketCommand', () => {
       });
 
       it('Then execution result is returned', async () => {
-        const result = await new GetCurrentPriceCommand().execute(apiInfoProviderMock);
+        const result = await new GetCurrentPriceCommand().execute(axiosInstanceMock, apiInfoProviderMock);
         expect(result).toEqual(output);
       });
     });
@@ -348,7 +349,7 @@ describe('MarketCommand', () => {
 
       it('Then error is thrown', async () => {
         try {
-          await new GetCurrentPriceCommand().execute(apiInfoProviderMock);
+          await new GetCurrentPriceCommand().execute(axiosInstanceMock, apiInfoProviderMock);
           fail();
         } catch (error) {
           expect(error).toBeDefined();
@@ -391,7 +392,7 @@ describe('MarketCommand', () => {
       });
 
       it('Then execution result is returned', async () => {
-        const result = await new GetOrderBookPriceCommand(input).execute(apiInfoProviderMock);
+        const result = await new GetOrderBookPriceCommand(input).execute(axiosInstanceMock, apiInfoProviderMock);
         expect(result).toEqual(output);
       });
     });
@@ -403,7 +404,7 @@ describe('MarketCommand', () => {
 
       it('Then error is thrown', async () => {
         try {
-          await new GetOrderBookPriceCommand(input).execute(apiInfoProviderMock);
+          await new GetOrderBookPriceCommand(input).execute(axiosInstanceMock, apiInfoProviderMock);
           fail();
         } catch (error) {
           expect(error).toBeDefined();
@@ -438,7 +439,7 @@ describe('MarketCommand', () => {
       });
 
       it('Then execution result is returned', async () => {
-        const result = await new GetOrderBookPriceCommand().execute(apiInfoProviderMock);
+        const result = await new GetOrderBookPriceCommand().execute(axiosInstanceMock, apiInfoProviderMock);
         expect(result).toEqual(output);
       });
     });
@@ -450,7 +451,7 @@ describe('MarketCommand', () => {
 
       it('Then error is thrown', async () => {
         try {
-          await new GetOrderBookPriceCommand().execute(apiInfoProviderMock);
+          await new GetOrderBookPriceCommand().execute(axiosInstanceMock, apiInfoProviderMock);
           fail();
         } catch (error) {
           expect(error).toBeDefined();

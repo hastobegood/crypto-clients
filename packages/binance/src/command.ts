@@ -1,5 +1,5 @@
-import { AxiosResponse } from 'axios';
-import { isAxiosError } from './common/axios-instance.js';
+import { AxiosInstance, AxiosResponse } from 'axios';
+import { isAxiosError } from './common/http.js';
 import { ApiInfoProvider } from './client.js';
 
 export type EmptyCommandOutput = Omit<CommandOutput<never>, 'data'>;
@@ -11,7 +11,7 @@ export interface CommandOutput<D> {
 }
 
 export abstract class Command<O> {
-  abstract execute(apiInfoProvider: ApiInfoProvider): Promise<O>;
+  abstract execute(axiosInstance: AxiosInstance, apiInfoProvider: ApiInfoProvider): Promise<O>;
 
   protected async handle<D>(request: () => Promise<AxiosResponse<D>>): Promise<CommandOutput<D>> {
     try {

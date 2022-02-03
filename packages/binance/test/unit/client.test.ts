@@ -7,7 +7,12 @@ const apiInfoProviderMock = mocked(jest.genMockFromModule<ApiInfoProvider>('../.
 describe('Client', () => {
   let client: Client;
   beforeEach(() => {
-    client = new Client(apiInfoProviderMock);
+    client = new Client({
+      apiInfoProvider: apiInfoProviderMock,
+      httpOptions: {
+        timeout: 666,
+      },
+    });
   });
 
   describe('Given a command to send', () => {
