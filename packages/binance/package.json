@@ -54,7 +54,7 @@
     "lint:report": "yarn eslint . --ext .ts --format json -o reports/eslint-report.json "
   },
   "dependencies": {
-    "axios": "^0.26.0"
+    "axios": "^0.26.1"
   },
   "files": [
     "lib/cjs/src",
