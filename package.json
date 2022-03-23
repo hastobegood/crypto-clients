@@ -22,6 +22,7 @@
     "lint:report": "yarn workspaces run lint:report",
     "test": "yarn workspaces run test",
     "test:coverage": "yarn workspaces run test:coverage",
+    "version:binance": "yarn workspace @hastobegood/crypto-clients-binance version",
     "publish:binance": "yarn workspace @hastobegood/crypto-clients-binance publish"
   },
   "devDependencies": {
