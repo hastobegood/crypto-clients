@@ -24,7 +24,7 @@ export const buildDefaultCommandOutput = <D>(data: D): CommandOutput<D> => {
   };
 };
 
-export const buildDefaultTestCommand = () => {
+export const buildDefaultTestCommand = (): TestCommand => {
   return new TestCommand();
 };
 
