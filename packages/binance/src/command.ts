@@ -1,6 +1,7 @@
 import { AxiosInstance, AxiosResponse } from 'axios';
-import { isAxiosError } from './common/http.js';
+
 import { ApiInfoProvider } from './client.js';
+import { isAxiosError } from './common/http.js';
 
 export type EmptyCommandOutput = Omit<CommandOutput<never>, 'data'>;
 

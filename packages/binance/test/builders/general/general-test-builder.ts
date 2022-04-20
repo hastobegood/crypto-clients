@@ -1,5 +1,5 @@
-import { randomBoolean, randomFromList, randomNumber, randomString, randomSymbol } from '../random-test-builder.js';
 import { GetExchangeInfoInput, GetExchangeInfoOutput, GetExchangeInfoOutputRateLimit, GetExchangeInfoOutputSymbol, GetExchangeInfoOutputSymbolFilter, GetServerTimeOutput } from '../../../src/general/general.js';
+import { randomBoolean, randomFromList, randomNumber, randomString, randomSymbol } from '../random-test-builder.js';
 
 export const buildDefaultGetServerTimeOutput = (): GetServerTimeOutput => {
   return {

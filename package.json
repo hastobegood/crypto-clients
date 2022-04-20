@@ -8,12 +8,13 @@
     "url": "https://github.com/hastobegood/crypto-clients.git"
   },
   "engines": {
-    "node": "^14"
+    "node": "14"
   },
   "workspaces": [
     "packages/*"
   ],
   "scripts": {
+    "prepare": "yarn husky install",
     "clean": "yarn workspaces run clean",
     "build": "yarn workspaces run build",
     "bundle": "yarn workspaces run bundle",
@@ -27,14 +28,18 @@
   },
   "devDependencies": {
     "@types/jest": "^27.4.1",
-    "@types/lodash": "^4.14.181",
-    "@types/node": "14.x",
+    "@types/lodash": "^4.14.182",
+    "@types/node": "14",
     "@types/randomstring": "^1.1.8",
-    "@typescript-eslint/eslint-plugin": "^5.18.0",
-    "@typescript-eslint/parser": "^5.18.0",
+    "@typescript-eslint/eslint-plugin": "^5.20.0",
+    "@typescript-eslint/parser": "^5.20.0",
     "eslint": "^8.13.0",
     "eslint-config-prettier": "^8.5.0",
+    "eslint-import-resolver-typescript": "^2.7.1",
+    "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-promise": "^6.0.0",
+    "husky": "^7.0.4",
     "jest": "^27.5.1",
     "jest-sonar-reporter": "^2.0.0",
     "lodash": "^4.17.21",

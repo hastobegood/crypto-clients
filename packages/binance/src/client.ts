@@ -1,7 +1,9 @@
 import { EventEmitter } from 'events';
+
 import { AxiosInstance } from 'axios';
-import { axiosInstance, HttpRequest, HttpResponse } from './common/http.js';
+
 import { Command } from './command.js';
+import { axiosInstance, HttpRequest, HttpResponse } from './common/http.js';
 
 export interface ApiInfoProvider {
   getApiUrl(): Promise<string>;
