@@ -1,4 +1,3 @@
-import { randomFromList, randomNumber, randomPercentage, randomSymbol } from '../random-test-builder.js';
 import {
   GetAveragePriceInput,
   GetAveragePriceOutput,
@@ -14,6 +13,7 @@ import {
   GetPriceChangeOutput,
   GetPriceChangeOutputSymbol,
 } from '../../../src/market/market.js';
+import { randomFromList, randomNumber, randomPercentage, randomSymbol } from '../random-test-builder.js';
 
 export const buildDefaultGetCandlestickDataInput = (): GetCandlestickDataInput => {
   return {

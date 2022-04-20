@@ -1,5 +1,5 @@
-import { randomBoolean, randomFromList, randomNumber, randomString } from '../random-test-builder.js';
 import { GetAccountInfoOutput, GetAccountInfoOutputBalance } from '../../../src/account/account.js';
+import { randomBoolean, randomFromList, randomNumber, randomString } from '../random-test-builder.js';
 
 export const buildDefaultGetAccountInfoOutput = (): GetAccountInfoOutput => {
   return {

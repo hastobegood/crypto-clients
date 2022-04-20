@@ -1,8 +1,10 @@
 import { AxiosInstance } from 'axios';
-import { getQueryConfig, getQueryParameters } from '../common/http.js';
+
 import { ApiInfoProvider } from '../client.js';
-import { sign } from '../common/signature.js';
 import { Command, CommandOutput } from '../command.js';
+import { getQueryConfig, getQueryParameters } from '../common/http.js';
+import { sign } from '../common/signature.js';
+
 import { GetAccountInfoOutput } from './account';
 
 export type GetAccountInfoCommandOutput = CommandOutput<GetAccountInfoOutput>;

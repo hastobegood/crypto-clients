@@ -1,8 +1,9 @@
-import { mocked } from 'ts-jest/utils';
 import { AxiosInstance } from 'axios';
-import { getQueryParameters } from '../../../src/common/http.js';
+import { mocked } from 'ts-jest/utils';
+
 import { ApiInfoProvider } from '../../../src/client.js';
 import { CommandError } from '../../../src/command.js';
+import { getQueryParameters } from '../../../src/common/http.js';
 import {
   GetAveragePriceCommand,
   GetAveragePriceCommandOutput,

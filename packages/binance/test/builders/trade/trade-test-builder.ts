@@ -1,4 +1,3 @@
-import { randomBoolean, randomNumber, randomString, randomSymbol } from '../random-test-builder.js';
 import {
   GetAccountTradesListInput,
   GetAccountTradesListOutput,
@@ -13,6 +12,7 @@ import {
   GetRecentTradesListOutput,
   GetRecentTradesListOutputSymbol,
 } from '../../../src/trade/trade.js';
+import { randomBoolean, randomNumber, randomString, randomSymbol } from '../random-test-builder.js';
 
 export const buildDefaultGetAccountTradesListInput = (): GetAccountTradesListInput => {
   return {

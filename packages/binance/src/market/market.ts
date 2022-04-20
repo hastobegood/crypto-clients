@@ -8,7 +8,7 @@ export interface GetCandlestickDataInput {
   limit?: number;
 }
 
-export interface GetCandlestickDataOutput extends Array<[number, string, string, string, string, string, number, string, number, string, string, string]> {}
+export type GetCandlestickDataOutput = Array<[number, string, string, string, string, string, number, string, number, string, string, string]>;
 
 export interface GetAveragePriceInput {
   symbol: string;
@@ -23,7 +23,7 @@ export interface GetPriceChangeInput {
   symbol: string;
 }
 
-export interface GetPriceChangeOutput extends Array<GetPriceChangeOutputSymbol> {}
+export type GetPriceChangeOutput = Array<GetPriceChangeOutputSymbol>;
 
 export interface GetPriceChangeOutputSymbol {
   symbol: string;
@@ -53,7 +53,7 @@ export interface GetCurrentPriceInput {
   symbol: string;
 }
 
-export interface GetCurrentPriceOutput extends Array<GetCurrentPriceOutputSymbol> {}
+export type GetCurrentPriceOutput = Array<GetCurrentPriceOutputSymbol>;
 
 export interface GetCurrentPriceOutputSymbol {
   symbol: string;
@@ -64,7 +64,7 @@ export interface GetOrderBookPriceInput {
   symbol: string;
 }
 
-export interface GetOrderBookPriceOutput extends Array<GetOrderBookPriceOutputSymbol> {}
+export type GetOrderBookPriceOutput = Array<GetOrderBookPriceOutputSymbol>;
 
 export interface GetOrderBookPriceOutputSymbol {
   symbol: string;

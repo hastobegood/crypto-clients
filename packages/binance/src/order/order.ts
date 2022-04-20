@@ -72,7 +72,7 @@ export interface GetOpenOrdersListInput {
   symbol: string;
 }
 
-export interface GetOpenOrdersListOutput extends Array<GetOrderOutput> {}
+export type GetOpenOrdersListOutput = Array<GetOrderOutput>;
 
 export interface GetAllOrdersListInput {
   symbol: string;
@@ -82,7 +82,7 @@ export interface GetAllOrdersListInput {
   limit?: number;
 }
 
-export interface GetAllOrdersListOutput extends Array<GetOrderOutput> {}
+export type GetAllOrdersListOutput = Array<GetOrderOutput>;
 
 export interface CancelOrderInput {
   symbol: string;
@@ -110,7 +110,7 @@ export interface CancelOrderOutput {
 export type OrderCountUsageRateLimitType = 'ORDERS';
 export type OrderCountUsageRateLimitInterval = 'SECOND' | 'DAY';
 
-export interface GetOrderCountUsageOutput extends Array<GetOrderCountUsageOutputInterval> {}
+export type GetOrderCountUsageOutput = Array<GetOrderCountUsageOutputInterval>;
 
 export interface GetOrderCountUsageOutputInterval {
   rateLimitType: OrderCountUsageRateLimitType;

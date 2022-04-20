@@ -1,6 +1,7 @@
-import axios, { AxiosError, AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
-import { URLSearchParams } from 'url';
 import { EventEmitter } from 'events';
+import { URLSearchParams } from 'url';
+
+import axios, { AxiosError, AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
 
 export interface HttpOptions {
   emitter: EventEmitter;

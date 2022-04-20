@@ -1,7 +1,9 @@
 import { AxiosInstance } from 'axios';
-import { getQueryConfig, getQueryParameters } from '../common/http.js';
+
 import { ApiInfoProvider } from '../client.js';
 import { Command, CommandOutput } from '../command.js';
+import { getQueryConfig, getQueryParameters } from '../common/http.js';
+
 import {
   GetAveragePriceInput,
   GetAveragePriceOutput,

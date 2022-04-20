@@ -7,7 +7,7 @@ export interface GetAccountTradesListInput {
   limit?: number;
 }
 
-export interface GetAccountTradesListOutput extends Array<GetAccountTradesListOutputSymbol> {}
+export type GetAccountTradesListOutput = Array<GetAccountTradesListOutputSymbol>;
 
 export interface GetAccountTradesListOutputSymbol {
   symbol: string;
@@ -30,7 +30,7 @@ export interface GetRecentTradesListInput {
   limit?: number;
 }
 
-export interface GetRecentTradesListOutput extends Array<GetRecentTradesListOutputSymbol> {}
+export type GetRecentTradesListOutput = Array<GetRecentTradesListOutputSymbol>;
 
 export interface GetRecentTradesListOutputSymbol {
   id: number;
@@ -48,7 +48,7 @@ export interface GetOldTradesListInput {
   fromId?: number;
 }
 
-export interface GetOldTradesListOutput extends Array<GetOldTradesListOutputSymbol> {}
+export type GetOldTradesListOutput = Array<GetOldTradesListOutputSymbol>;
 
 export interface GetOldTradesListOutputSymbol {
   id: number;
@@ -68,7 +68,7 @@ export interface GetAggregateTradesListInput {
   limit?: number;
 }
 
-export interface GetAggregateTradesListOutput extends Array<GetAggregateTradesListOutputSymbol> {}
+export type GetAggregateTradesListOutput = Array<GetAggregateTradesListOutputSymbol>;
 
 export interface GetAggregateTradesListOutputSymbol {
   a: number;

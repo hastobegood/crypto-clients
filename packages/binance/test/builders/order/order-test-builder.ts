@@ -1,4 +1,3 @@
-import { randomBoolean, randomFromList, randomNumber, randomString, randomSymbol } from '../random-test-builder.js';
 import {
   CancelOrderInput,
   CancelOrderOutput,
@@ -14,6 +13,7 @@ import {
   SendOrderOutput,
   SendOrderOutputFill,
 } from '../../../src/order/order.js';
+import { randomBoolean, randomFromList, randomNumber, randomString, randomSymbol } from '../random-test-builder.js';
 
 export const buildDefaultSendOrderInput = (): SendOrderInput => {
   return {

@@ -1,8 +1,9 @@
-import { mocked } from 'ts-jest/utils';
 import { AxiosInstance } from 'axios';
-import { getQueryParameters } from '../../../src/common/http.js';
+import { mocked } from 'ts-jest/utils';
+
 import { ApiInfoProvider } from '../../../src/client.js';
 import { CommandError, EmptyCommandOutput } from '../../../src/command.js';
+import { getQueryParameters } from '../../../src/common/http.js';
 import { GetExchangeInfoCommand, GetExchangeInfoCommandOutput, GetServerTimeCommand, GetServerTimeCommandOutput, TestConnectivityCommand } from '../../../src/general/general-command.js';
 import { GetExchangeInfoInput } from '../../../src/general/general.js';
 import { buildDefaultCommandOutput, buildEmptyCommandOutput } from '../../builders/common/command-test-builder.js';
