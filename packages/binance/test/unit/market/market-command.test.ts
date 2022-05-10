@@ -1,5 +1,4 @@
 import { AxiosInstance } from 'axios';
-import { mocked } from 'ts-jest/utils';
 
 import { ApiInfoProvider } from '../../../src/client.js';
 import { CommandError } from '../../../src/command.js';
@@ -31,8 +30,8 @@ import {
   buildDefaultGetPriceChangeOutput,
 } from '../../builders/market/market-test-builder.js';
 
-const apiInfoProviderMock = mocked(jest.genMockFromModule<ApiInfoProvider>('../../../src/client.js'), true);
-const axiosInstanceMock = mocked(jest.genMockFromModule<AxiosInstance>('axios'), true);
+const apiInfoProviderMock = jest.mocked(jest.genMockFromModule<ApiInfoProvider>('../../../src/client.js'), true);
+const axiosInstanceMock = jest.mocked(jest.genMockFromModule<AxiosInstance>('axios'), true);
 
 describe('MarketCommand', () => {
   beforeEach(() => {

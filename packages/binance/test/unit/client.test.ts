@@ -1,9 +1,7 @@
-import { mocked } from 'ts-jest/utils';
-
 import { ApiInfoProvider, Client } from '../../src/client.js';
 import { buildDefaultTestCommand } from '../builders/common/command-test-builder.js';
 
-const apiInfoProviderMock = mocked(jest.genMockFromModule<ApiInfoProvider>('../../src/client.js'), true);
+const apiInfoProviderMock = jest.mocked(jest.genMockFromModule<ApiInfoProvider>('../../src/client.js'), true);
 
 describe('Client', () => {
   let client: Client;
