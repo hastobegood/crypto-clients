@@ -1,7 +1,7 @@
 import { EventEmitter } from 'events';
 import { URLSearchParams } from 'url';
 
-import axios, { AxiosError, AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
+import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
 
 export interface HttpOptions {
   emitter: EventEmitter;
@@ -61,8 +61,6 @@ const httpResponse = (response: AxiosResponse): HttpResponse => {
     status: response.status,
   };
 };
-
-export const isAxiosError = (error: any): error is AxiosError => axios.isAxiosError(error);
 
 export const getQueryConfig = (apiUrl: string, apiKey?: string): AxiosRequestConfig => {
   return {

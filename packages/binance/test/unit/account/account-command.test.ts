@@ -1,6 +1,5 @@
 import { AxiosInstance } from 'axios';
 import MockDate from 'mockdate';
-import { mocked } from 'ts-jest/utils';
 
 import { GetAccountInfoCommand, GetAccountInfoCommandOutput } from '../../../src/account/account-command.js';
 import { ApiInfoProvider } from '../../../src/client.js';
@@ -10,8 +9,8 @@ import { sign } from '../../../src/common/signature.js';
 import { buildDefaultGetAccountInfoOutput } from '../../builders/account/account-test-builder.js';
 import { buildDefaultCommandOutput } from '../../builders/common/command-test-builder.js';
 
-const apiInfoProviderMock = mocked(jest.genMockFromModule<ApiInfoProvider>('../../../src/client.js'), true);
-const axiosInstanceMock = mocked(jest.genMockFromModule<AxiosInstance>('axios'), true);
+const apiInfoProviderMock = jest.mocked(jest.genMockFromModule<ApiInfoProvider>('../../../src/client.js'), true);
+const axiosInstanceMock = jest.mocked(jest.genMockFromModule<AxiosInstance>('axios'), true);
 
 describe('AccountCommand', () => {
   let date: Date;

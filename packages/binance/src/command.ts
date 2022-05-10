@@ -1,7 +1,6 @@
-import { AxiosInstance, AxiosResponse } from 'axios';
+import { AxiosError, AxiosInstance, AxiosResponse } from 'axios';
 
 import { ApiInfoProvider } from './client.js';
-import { isAxiosError } from './common/http.js';
 
 export type EmptyCommandOutput = Omit<CommandOutput<never>, 'data'>;
 
@@ -31,16 +30,16 @@ export abstract class Command<O> {
 export class CommandError extends Error {
   private output?: CommandOutput<{ code: number; msg: string }>;
 
-  constructor(private cause: unknown) {
+  constructor(cause: unknown) {
     super(`Unable to execute command: ${cause}`);
 
-    if (isAxiosError(cause) && cause.response) {
+    if (cause instanceof AxiosError && cause.response) {
       this.output = {
         status: cause.response.status,
         headers: cause.response.headers,
         data: cause.response.data,
       };
-      this.message = this.message.concat(` (${JSON.stringify(this.output.data)})`);
+      this.message = this.message.concat(` (${JSON.stringify(this.output?.data)})`);
     }
   }
 }

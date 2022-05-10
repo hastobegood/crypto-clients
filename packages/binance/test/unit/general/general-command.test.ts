@@ -1,5 +1,4 @@
 import { AxiosInstance } from 'axios';
-import { mocked } from 'ts-jest/utils';
 
 import { ApiInfoProvider } from '../../../src/client.js';
 import { CommandError, EmptyCommandOutput } from '../../../src/command.js';
@@ -9,8 +8,8 @@ import { GetExchangeInfoInput } from '../../../src/general/general.js';
 import { buildDefaultCommandOutput, buildEmptyCommandOutput } from '../../builders/common/command-test-builder.js';
 import { buildDefaultGetExchangeInfoInput, buildDefaultGetExchangeInfoOutput, buildDefaultGetServerTimeOutput } from '../../builders/general/general-test-builder.js';
 
-const apiInfoProviderMock = mocked(jest.genMockFromModule<ApiInfoProvider>('../../../src/client.js'), true);
-const axiosInstanceMock = mocked(jest.genMockFromModule<AxiosInstance>('axios'), true);
+const apiInfoProviderMock = jest.mocked(jest.genMockFromModule<ApiInfoProvider>('../../../src/client.js'), true);
+const axiosInstanceMock = jest.mocked(jest.genMockFromModule<AxiosInstance>('axios'), true);
 
 describe('GeneralCommand', () => {
   beforeEach(() => {
