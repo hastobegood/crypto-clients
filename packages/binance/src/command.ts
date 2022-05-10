@@ -30,7 +30,7 @@ export abstract class Command<O> {
 export class CommandError extends Error {
   private output?: CommandOutput<{ code: number; msg: string }>;
 
-  constructor(private cause: unknown) {
+  constructor(cause: unknown) {
     super(`Unable to execute command: ${cause}`);
 
     if (cause instanceof AxiosError && cause.response) {
