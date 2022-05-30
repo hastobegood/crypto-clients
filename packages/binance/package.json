@@ -22,7 +22,7 @@
     "crypto exchange"
   ],
   "engines": {
-    "node": "14"
+    "node": ">=14"
   },
   "type": "module",
   "main": "lib/cjs/src/index.js",

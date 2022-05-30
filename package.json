@@ -8,7 +8,7 @@
     "url": "https://github.com/hastobegood/crypto-clients.git"
   },
   "engines": {
-    "node": "14"
+    "node": ">=14"
   },
   "workspaces": [
     "packages/*"
