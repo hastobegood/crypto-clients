@@ -13,6 +13,7 @@ export interface SendOrderInput {
   price?: number;
   newClientOrderId?: string;
   stopPrice?: number;
+  trailingDelta?: number;
   icebergQty?: number;
 }
 

@@ -26,6 +26,7 @@ export const buildDefaultSendOrderInput = (): SendOrderInput => {
     price: randomNumber(0.01, 1_000),
     newClientOrderId: randomString(),
     stopPrice: randomNumber(0.01, 1_000),
+    trailingDelta: randomNumber(10, 2_000),
     icebergQty: randomNumber(1, 100_000),
   };
 };

@@ -38,6 +38,7 @@ export interface GetExchangeInfoOutputSymbol {
   icebergAllowed: boolean;
   ocoAllowed: boolean;
   quoteOrderQtyMarketAllowed: boolean;
+  allowTrailingStop: boolean;
   isSpotTradingAllowed: boolean;
   isMarginTradingAllowed: boolean;
   filters: GetExchangeInfoOutputSymbolFilter[];
@@ -55,6 +56,14 @@ export type GetExchangeInfoOutputSymbolFilter =
       filterType: 'PERCENT_PRICE';
       multiplierUp: string;
       multiplierDown: string;
+      avgPriceMins: number;
+    }
+  | {
+      filterType: 'PERCENT_PRICE_BY_SIDE';
+      bidMultiplierUp: string;
+      bidMultiplierDown: string;
+      askMultiplierUp: string;
+      askMultiplierDown: string;
       avgPriceMins: number;
     }
   | {
@@ -88,4 +97,11 @@ export type GetExchangeInfoOutputSymbolFilter =
   | {
       filterType: 'MAX_POSITION';
       maxPosition: string;
+    }
+  | {
+      filterType: 'TRAILING_DELTA';
+      minTrailingAboveDelta: number;
+      maxTrailingAboveDelta: number;
+      minTrailingBelowDelta: number;
+      maxTrailingBelowDelta: number;
     };
