@@ -27,7 +27,7 @@
     "publish:binance": "yarn workspace @hastobegood/crypto-clients-binance publish"
   },
   "devDependencies": {
-    "@types/jest": "^27.5.2",
+    "@types/jest": "^28.1.0",
     "@types/lodash": "^4.14.182",
     "@types/node": "14",
     "@types/randomstring": "^1.1.8",
